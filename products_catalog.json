@@ -1,0 +1,3528 @@
+{
+  "Отборные орехи": {
+    "count": 31,
+    "products": [
+      {
+        "name": "Арахис сырой",
+        "sku": "G02752",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild6438-6133-4566-b461-356230616363/3.jpeg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "270"
+          },
+          {
+            "option": "1 кг",
+            "price": "350"
+          },
+          {
+            "option": "5 кг (-10% за кг 315)",
+            "price": "1575"
+          },
+          {
+            "option": "50 кг (-30% за кг 245)",
+            "price": "12250"
+          }
+        ]
+      },
+      {
+        "name": "Арахис очищенный, жареный",
+        "sku": "G00008",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/stor3066-6137-4537-b663-313863373962/59935595.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "270"
+          },
+          {
+            "option": "1 кг",
+            "price": "399"
+          },
+          {
+            "option": "5 кг (-15% за кг 339)",
+            "price": "1695"
+          },
+          {
+            "option": "50 кг (-30% за кг 280)",
+            "price": "14000"
+          }
+        ]
+      },
+      {
+        "name": "Арахис очищенный, жареный, соленый",
+        "sku": "G00009",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild3032-3366-4332-b937-653738663165/8OGmVOfYloc.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "350"
+          },
+          {
+            "option": "1 кг",
+            "price": "450"
+          },
+          {
+            "option": "5 кг (-15% за кг 383р)",
+            "price": "1915"
+          },
+          {
+            "option": "30 кг (25% за кг 337р)",
+            "price": "10110"
+          }
+        ]
+      },
+      {
+        "name": "Грецкий орех, очищенный, Отборный",
+        "sku": "G00004",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild6463-3134-4338-a233-633532316566/_MG_7591.JPG",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "990"
+          },
+          {
+            "option": "5 кг (-15% за кг 842р)",
+            "price": "4210"
+          },
+          {
+            "option": "50 кг (-25% за кг 743р)",
+            "price": "37150"
+          }
+        ]
+      },
+      {
+        "name": "Миндаль сырой, очищенный, отборный",
+        "sku": "G00020",
+        "description_short": "Чили",
+        "image_url": "https://static.tildacdn.com/stor6137-6466-4031-b338-383037346666/58773939.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "790"
+          },
+          {
+            "option": "1 кг",
+            "price": "1250"
+          },
+          {
+            "option": "5 кг (-10% за кг 1063р)",
+            "price": "5315"
+          },
+          {
+            "option": "50 кг (-25% за кг 938р)",
+            "price": "46900"
+          }
+        ]
+      },
+      {
+        "name": "Миндаль жареный, очищенный, отборный",
+        "sku": "G00019",
+        "description_short": "Чили",
+        "image_url": "https://static.tildacdn.com/stor6563-6435-4536-a432-643037386263/75831921.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1250"
+          },
+          {
+            "option": "5 кг (-10% за кг 1063р)",
+            "price": "5315"
+          },
+          {
+            "option": "50 кг (-25% за кг 938р)",
+            "price": "46900"
+          }
+        ]
+      },
+      {
+        "name": "Кешью очищенный, сырой Высший сорт",
+        "sku": "G00014",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/stor6530-3632-4361-b439-383066383532/48696010.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "790"
+          },
+          {
+            "option": "1 кг",
+            "price": "1250"
+          },
+          {
+            "option": "5 кг (-10% за кг 1063р)",
+            "price": "5315"
+          },
+          {
+            "option": "50 кг (-25% за кг 938р)",
+            "price": "46900"
+          }
+        ]
+      },
+      {
+        "name": "Кешью очищенный жареный Высший сорт",
+        "sku": "G00015",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/stor3666-3364-4633-a564-656462343132/30184147.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "650"
+          },
+          {
+            "option": "1 кг",
+            "price": "1250"
+          },
+          {
+            "option": "5 кг (-10% за кг 1063р)",
+            "price": "5315"
+          },
+          {
+            "option": "50 кг (-25% за кг 938р)",
+            "price": "46900"
+          }
+        ]
+      },
+      {
+        "name": "Фундук очищенный, сырой",
+        "sku": "G00034",
+        "description_short": "Абхазия",
+        "image_url": "https://static.tildacdn.com/stor3032-3362-4161-a630-373738613735/89150464.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "850"
+          },
+          {
+            "option": "1 кг",
+            "price": "1490"
+          },
+          {
+            "option": "5 кг (-10% за кг 1341р)",
+            "price": "6705"
+          },
+          {
+            "option": "30 кг (-20% за кг 1267р)",
+            "price": "38010"
+          }
+        ]
+      },
+      {
+        "name": "Фундук очищенный, жареный",
+        "sku": "G00033",
+        "description_short": "Абхазия",
+        "image_url": "https://static.tildacdn.com/tild6433-6234-4062-a637-376162626635/_MG_7579.JPG",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "890"
+          },
+          {
+            "option": "1 кг",
+            "price": "1550"
+          },
+          {
+            "option": "5 кг (-15% за кг 1318)",
+            "price": "6590"
+          },
+          {
+            "option": "50 кг (-25% за кг 1163р)",
+            "price": "58150"
+          }
+        ]
+      },
+      {
+        "name": "Фисташки соленые крупные США",
+        "sku": "G00031",
+        "description_short": "Калифорния",
+        "image_url": "https://static.tildacdn.com/stor3330-3138-4665-b739-656230343139/33833205.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "890"
+          },
+          {
+            "option": "1 кг",
+            "price": "1550"
+          },
+          {
+            "option": "5 кг (-15% за кг 1318)",
+            "price": "6590"
+          },
+          {
+            "option": "50 кг (-25% за кг 1163р)",
+            "price": "58150"
+          }
+        ]
+      },
+      {
+        "name": "Фисташки соленые, сорт Акбари",
+        "sku": "G00142",
+        "description_short": "Иран",
+        "image_url": "https://static.tildacdn.com/tild3537-3739-4334-b034-653566323239/_mg_7605_optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "650"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          },
+          {
+            "option": "5 кг(-10% за кг 1161р)",
+            "price": "5805"
+          },
+          {
+            "option": "20 кг (-15% за кг 1096)",
+            "price": "21920"
+          }
+        ]
+      },
+      {
+        "name": "Пекан очищенный",
+        "sku": "G00024",
+        "description_short": "Мексика",
+        "image_url": "https://static.tildacdn.com/tild6636-3162-4437-a663-343736376632/G00024.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "1150"
+          },
+          {
+            "option": "1 кг",
+            "price": "2250"
+          },
+          {
+            "option": "5 кг (-15% за кг 1913р)",
+            "price": "9565"
+          },
+          {
+            "option": "30 кг (-20% за кг 1799р)",
+            "price": "53970"
+          }
+        ]
+      },
+      {
+        "name": "Фисташки, очищенные Premium",
+        "sku": "G00030",
+        "description_short": "Иран",
+        "image_url": "https://static.tildacdn.com/tild3263-6463-4464-b131-316339343331/fistashki02_optimize.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "1550"
+          },
+          {
+            "option": "1 кг",
+            "price": "2590"
+          },
+          {
+            "option": "5 кг (-15% за кг 2202р)",
+            "price": "11010"
+          },
+          {
+            "option": "30 кг (-20% за кг 2072р)",
+            "price": "62160"
+          }
+        ]
+      },
+      {
+        "name": "Кедровый орех, очищенный, сырой",
+        "sku": "G00011",
+        "description_short": "Россия (Сибирь)",
+        "image_url": "https://static.tildacdn.com/tild6462-3966-4866-b536-383033336238/_mg_7537_optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "1690"
+          },
+          {
+            "option": "1 кг",
+            "price": "2890"
+          }
+        ]
+      },
+      {
+        "name": "Макадамия в скорлупе крупная",
+        "sku": "G00016",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild6634-3162-4466-a636-393938323539/yvOsWL2RRIo.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "450"
+          },
+          {
+            "option": "1 кг",
+            "price": "790"
+          },
+          {
+            "option": "5 кг (-15% за кг 671р)",
+            "price": "3550"
+          },
+          {
+            "option": "30 кг (-20% за кг 632р)",
+            "price": "18960"
+          }
+        ]
+      },
+      {
+        "name": "Миндаль со специями",
+        "sku": "G02753",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3839-3037-4632-b865-363433396262/_mg_2863_optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "650"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          },
+          {
+            "option": "3 кг (-10% за кг 1160р)",
+            "price": "3480"
+          },
+          {
+            "option": "30 кг (-15% за кг 1096р)",
+            "price": "32880"
+          }
+        ]
+      },
+      {
+        "name": "Кешью со специями",
+        "sku": "G00180",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild6238-3134-4338-a165-633936666364/_mg_7585_optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "760"
+          },
+          {
+            "option": "1 кг",
+            "price": "1390"
+          },
+          {
+            "option": "2,5 кг(-10% за кг 1250р)",
+            "price": "3750"
+          },
+          {
+            "option": "25 кг (-15% за кг 1182р)",
+            "price": "35490"
+          }
+        ]
+      },
+      {
+        "name": "Арахис со специями",
+        "sku": "G02751",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild3839-3163-4739-b731-396138613135/_mg_2841_optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "350"
+          },
+          {
+            "option": "1 кг",
+            "price": "490"
+          },
+          {
+            "option": "3 кг (10% за кг 440р)",
+            "price": "1320"
+          },
+          {
+            "option": "30 кг (-15% за кг 416р)",
+            "price": "12480"
+          }
+        ]
+      },
+      {
+        "name": "Миндаль в кунжуте",
+        "sku": "G02536",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3436-6662-4837-b162-343233663132/3-4_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "999"
+          },
+          {
+            "option": "3 кг (-15% за кг 850р)",
+            "price": "2550"
+          },
+          {
+            "option": "30 кг (-25% за кг 750р)",
+            "price": "22500"
+          }
+        ]
+      },
+      {
+        "name": "Кешью в кунжуте",
+        "sku": "G02534",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3530-3131-4465-a338-613134333533/1-6_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "999"
+          },
+          {
+            "option": "3 кг (-15% за кг 850р)",
+            "price": "2550"
+          },
+          {
+            "option": "30 кг (-25% за кг 750р)",
+            "price": "22500"
+          }
+        ]
+      },
+      {
+        "name": "Ореховая смесь пряная",
+        "sku": "G02631",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor6265-6531-4662-a432-366239386536/73604891.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "650"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          },
+          {
+            "option": "5 кг (-10% за кг 1161)",
+            "price": "5805"
+          },
+          {
+            "option": "20 кг (-15% за кг 1096р)",
+            "price": "21920"
+          }
+        ]
+      },
+      {
+        "name": "Миндаль «Фруктовое ассорти»",
+        "sku": "G02460",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3336-3961-4364-b063-656139343236/_mg_7616_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1290"
+          },
+          {
+            "option": "3 кг (-10% за кг 1160р)",
+            "price": "3480"
+          },
+          {
+            "option": "30 кг (-15% за кг 1096р)",
+            "price": "32880"
+          }
+        ]
+      },
+      {
+        "name": "Миндаль в глазури ''Праздничный''",
+        "sku": "G02419",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3034-3730-4130-b262-643337623465/_mg_7582_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1290"
+          },
+          {
+            "option": "3 кг (-10% за кг 1160р)",
+            "price": "3480"
+          },
+          {
+            "option": "30 кг (-15% за кг 1096р)",
+            "price": "32880"
+          }
+        ]
+      },
+      {
+        "name": "Кешью в белом шоколаде",
+        "sku": "G02526",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6561-3934-4131-a466-316334663538/26-2_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1190"
+          },
+          {
+            "option": "3 кг (-10% за кг1070р)",
+            "price": "3210"
+          },
+          {
+            "option": "30 кг (-15% за кг1011р)",
+            "price": "30330"
+          }
+        ]
+      },
+      {
+        "name": "Кешью в шоколадной глазури",
+        "sku": "G00013",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild6335-6562-4136-b533-623636653365/1632434759_3-mykalei.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1290"
+          },
+          {
+            "option": "3 кг (-10% за кг 1160р)",
+            "price": "3480"
+          },
+          {
+            "option": "30 кг (-15% за кг 1096р)",
+            "price": "32880"
+          }
+        ]
+      },
+      {
+        "name": "Арахис в йогуртовой глазури",
+        "sku": "G00006",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3765-3038-4161-b534-343831353066/____optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "350"
+          },
+          {
+            "option": "1 кг",
+            "price": "790"
+          }
+        ]
+      },
+      {
+        "name": "Макадамия очищенная",
+        "sku": "G00017",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild6564-3634-4463-a433-623530346361/_mg_7553_optimized.jpg",
+        "price": "3950.0000",
+        "variants": [
+          {
+            "option": "500г",
+            "price": "1990"
+          },
+          {
+            "option": "1кг",
+            "price": "3950"
+          }
+        ]
+      },
+      {
+        "name": "Бразильский орех, очищенный",
+        "sku": "G00010",
+        "description_short": "Бразилия",
+        "image_url": "https://static.tildacdn.com/tild3138-3736-4636-b637-393735353562/--2020-09-17--13_opt.png",
+        "price": "3790.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "2250"
+          },
+          {
+            "option": "1 кг",
+            "price": "2950"
+          }
+        ]
+      },
+      {
+        "name": "Грецкий орех, очищенный, королевский ''Чилийский''",
+        "sku": "G00002",
+        "description_short": "Чили",
+        "image_url": "https://static.tildacdn.com/tild6136-6263-4264-b261-643738376434/G00002.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "890"
+          },
+          {
+            "option": "1 кг",
+            "price": "1550"
+          },
+          {
+            "option": "5 кг (-15% за кг 1318)",
+            "price": "6590"
+          }
+        ]
+      },
+      {
+        "name": "Ядра абрикосовых косточек",
+        "sku": "G00035",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6536-3431-4939-b034-373532326634/-1_optimized.jpg",
+        "price": "450.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "250"
+          },
+          {
+            "option": "1 кг",
+            "price": "450"
+          }
+        ]
+      }
+    ]
+  },
+  "Сухофрукты": {
+    "count": 30,
+    "products": [
+      {
+        "name": "Манго сушеное KONG",
+        "sku": "G00058",
+        "description_short": "Вьетнам",
+        "image_url": "https://static.tildacdn.com/tild6362-3231-4139-a639-623532383931/3_optimized.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "460"
+          },
+          {
+            "option": "1 кг",
+            "price": "780"
+          },
+          {
+            "option": "10 кг (-15% за кг 663р)",
+            "price": "6630"
+          },
+          {
+            "option": "50 кг (-30% за кг 546р)",
+            "price": "27300"
+          }
+        ]
+      },
+      {
+        "name": "Финики Королевские",
+        "sku": "G00064",
+        "description_short": "Израиль",
+        "image_url": "https://static.tildacdn.com/tild6139-3332-4563-b437-333837636439/1.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "790"
+          },
+          {
+            "option": "1 кг",
+            "price": "1350"
+          },
+          {
+            "option": "5 кг (-10% за кг 1216р)",
+            "price": "6085"
+          },
+          {
+            "option": "50 кг (-20% за кг 1080р)",
+            "price": "54000"
+          }
+        ]
+      },
+      {
+        "name": "Курага королевская Экстра",
+        "sku": "G02755",
+        "description_short": "Таджикистан",
+        "image_url": "https://static.tildacdn.com/stor3161-3236-4438-a364-623439663039/68976921.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "550"
+          },
+          {
+            "option": "5 кг (-10% за кг 495р)",
+            "price": "2475"
+          },
+          {
+            "option": "50 кг (-15% за кг 467р)",
+            "price": "14010"
+          }
+        ]
+      },
+      {
+        "name": "Изюм королевский \"Гибрид\"",
+        "sku": "G00047",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/stor6162-6231-4331-b930-393262663566/79271075.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "790"
+          },
+          {
+            "option": "5 кг (-15% за кг 672р)",
+            "price": "3360"
+          },
+          {
+            "option": "50 кг (-20% за кг 592р)",
+            "price": "29600"
+          }
+        ]
+      },
+      {
+        "name": "Изюм сушеный \"Jumbo\"",
+        "sku": "G00046",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/stor6161-3834-4862-b334-326637303663/86118020.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "790"
+          },
+          {
+            "option": "5 кг (-15% за кг 672р)",
+            "price": "3360"
+          },
+          {
+            "option": "50 кг (-20% за кг 592р)",
+            "price": "29600"
+          }
+        ]
+      },
+      {
+        "name": "Изюм Малаяр",
+        "sku": "G0276912",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild3136-6239-4864-b963-396437373533/1-7_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "450"
+          },
+          {
+            "option": "10 кг (-15% за кг 383р)",
+            "price": "3830"
+          },
+          {
+            "option": "50 кг (-25% за кг 338р)",
+            "price": "16900"
+          }
+        ]
+      },
+      {
+        "name": "Чернослив ''Баллончик''",
+        "sku": "G027690",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild3535-3736-4936-b931-393165373633/1-6_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "390"
+          },
+          {
+            "option": "10 кг (-10% за кг 351р)",
+            "price": "3510"
+          },
+          {
+            "option": "100 кг (-15% за кг 332р)",
+            "price": "33200"
+          }
+        ]
+      },
+      {
+        "name": "Чернослив королевский без косточки",
+        "sku": "G00069",
+        "description_short": "Молдова",
+        "image_url": "https://static.tildacdn.com/tild6539-3531-4637-a566-313263363838/94098541-1700-4e25-8.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "650"
+          },
+          {
+            "option": "8 кг (-10% за кг 585р)",
+            "price": "4680"
+          }
+        ]
+      },
+      {
+        "name": "Финики матовые Иран",
+        "sku": "G00063",
+        "description_short": "Иран",
+        "image_url": "https://static.tildacdn.com/tild3537-3736-4163-a234-663038303131/19_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "550"
+          },
+          {
+            "option": "6 кг (-15% за кг 468р)",
+            "price": "2808"
+          },
+          {
+            "option": "30 кг (-20% за кг 412р)",
+            "price": "12360"
+          }
+        ]
+      },
+      {
+        "name": "Клюква вяленая",
+        "sku": "G00051",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/stor3264-3037-4737-b264-636235643465/83574763.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "450"
+          },
+          {
+            "option": "1 кг",
+            "price": "850"
+          },
+          {
+            "option": "11,34 кг (-10% за кг 765р)",
+            "price": "8675"
+          },
+          {
+            "option": "56,7 кг (-20% за кг 595р)",
+            "price": "33737"
+          }
+        ]
+      },
+      {
+        "name": "Шиповник сушеный, натуральный",
+        "sku": "G00117",
+        "description_short": "Таджикистан",
+        "image_url": "https://static.tildacdn.com/tild6633-3638-4661-a336-353436373135/108_optimized750x0.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "390"
+          },
+          {
+            "option": "10 кг (-10% за кг 351р)",
+            "price": "3510"
+          },
+          {
+            "option": "100 кг (-15% за кг 332р)",
+            "price": "33200"
+          }
+        ]
+      },
+      {
+        "name": "Имбирь в сахаре",
+        "sku": "G00048",
+        "description_short": "Вьетнам",
+        "image_url": "https://static.tildacdn.com/stor6431-3032-4564-a639-333939373961/93555187.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "350"
+          },
+          {
+            "option": "1 кг",
+            "price": "690"
+          },
+          {
+            "option": "5 кг (-15% за кг 587р)",
+            "price": "2935"
+          },
+          {
+            "option": "30 кг (-20% за кг 552р)",
+            "price": "16560"
+          }
+        ]
+      },
+      {
+        "name": "Кумкват сушенный",
+        "sku": "G00053",
+        "description_short": "Вьетнам",
+        "image_url": "https://static.tildacdn.com/tild3265-3734-4132-a563-646135323134/2021-11-06_09-31-04_.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "350"
+          },
+          {
+            "option": "1 кг",
+            "price": "690"
+          },
+          {
+            "option": "5 кг (-15% за кг 587р)",
+            "price": "2935"
+          },
+          {
+            "option": "30 кг (-20% за кг 552р)",
+            "price": "16560"
+          }
+        ]
+      },
+      {
+        "name": "Помело сушеный",
+        "sku": "G00414",
+        "description_short": "Таиланд",
+        "image_url": "https://static.tildacdn.com/tild3164-3037-4538-b632-313032626361/n5EqHXKsX0U.jpg",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "350"
+          },
+          {
+            "option": "1 кг",
+            "price": "690"
+          },
+          {
+            "option": "5 кг (-15% за кг 587р)",
+            "price": "2935"
+          },
+          {
+            "option": "30 кг (-20% за кг 552р)",
+            "price": "16560"
+          }
+        ]
+      },
+      {
+        "name": "Вишня вяленая без сахара",
+        "sku": "G00043",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3131-6130-4362-a530-636565323435/-3_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1390"
+          },
+          {
+            "option": "5 кг (-10% за кг 1251р)",
+            "price": "6255"
+          },
+          {
+            "option": "50 кг (-15% за кг 1182р)",
+            "price": "59100"
+          }
+        ]
+      },
+      {
+        "name": "Хурма Армянская сушеная",
+        "sku": "G00224",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3439-6561-4436-b635-323664386161/-1_optimized.jpg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1350"
+          },
+          {
+            "option": "5 кг (-10% за кг 1215р)",
+            "price": "5625"
+          },
+          {
+            "option": "30 кг (-15% за кг 1148р)",
+            "price": "34440"
+          }
+        ]
+      },
+      {
+        "name": "Персик сушеный без сахара",
+        "sku": "G00059",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3034-3736-4333-b137-303961356361/2022-04-27-01-47-17-.jpeg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1350"
+          },
+          {
+            "option": "5 кг (-10% за кг 1215р)",
+            "price": "6075"
+          },
+          {
+            "option": "30 кг (-20% за кг 1080р)",
+            "price": "32400"
+          }
+        ]
+      },
+      {
+        "name": "Яблоки вяленые ''Зефирки''",
+        "sku": "G00070",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3637-3334-4266-b162-373464323636/whatsapp-image-2022-.jpeg",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "1050"
+          },
+          {
+            "option": "5 кг (-10% за кг 945р)",
+            "price": "4725"
+          },
+          {
+            "option": "30 кг (-15% за кг 892р)",
+            "price": "26760"
+          }
+        ]
+      },
+      {
+        "name": "Инжир королевский",
+        "sku": "G00049",
+        "description_short": "Турция",
+        "image_url": "https://static.tildacdn.com/stor3730-3235-4835-b836-316130353134/46438491.jpg",
+        "price": "1250.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "750"
+          },
+          {
+            "option": "1 кг",
+            "price": "1250"
+          }
+        ]
+      },
+      {
+        "name": "Курага Джамбо (Лимонная)",
+        "sku": "G00054",
+        "description_short": "Турция",
+        "image_url": "https://static.tildacdn.com/tild6665-3066-4061-b539-356662313862/--Lyw8zAIGQ.jpg",
+        "price": "1790.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "990"
+          },
+          {
+            "option": "1 кг",
+            "price": "1790"
+          }
+        ]
+      },
+      {
+        "name": "Урюк Сахарный",
+        "sku": "G00037",
+        "description_short": "Таджикистан",
+        "image_url": "https://static.tildacdn.com/tild3363-3333-4332-b663-363238363431/photo.jpg",
+        "price": "650.0000",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "650"
+          }
+        ]
+      },
+      {
+        "name": "Хурма нарезанная лепестками",
+        "sku": "G00066",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3939-3133-4666-a663-343430636264/jqaWudKafnA.jpg",
+        "price": "999.0000",
+        "variants": [
+          {
+            "option": "500г",
+            "price": "550"
+          },
+          {
+            "option": "1кг",
+            "price": "999"
+          }
+        ]
+      },
+      {
+        "name": "Урюк Королевский крупный",
+        "sku": "G00036",
+        "description_short": "Таджикистан",
+        "image_url": "https://static.tildacdn.com/tild6561-3837-4664-b963-316631346633/uryuk_abrikos.jpg",
+        "price": "850.0000",
+        "variants": [
+          {
+            "option": "1 кг",
+            "price": "850"
+          }
+        ]
+      },
+      {
+        "name": "Клубника сушеная слайсы",
+        "sku": "G00402",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3763-3137-4630-b962-326466666663/9b5c461a-d2e0-4081-8.jpeg",
+        "price": "247.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "247"
+          },
+          {
+            "option": "140 г",
+            "price": "475"
+          },
+          {
+            "option": "210 г",
+            "price": "712"
+          },
+          {
+            "option": "280 г",
+            "price": "949"
+          },
+          {
+            "option": "350 г",
+            "price": "1197"
+          }
+        ]
+      },
+      {
+        "name": "Груша сушеная слайсы",
+        "sku": "G02413",
+        "description_short": "Иран",
+        "image_url": "https://static.tildacdn.com/tild3530-3163-4961-b336-363733653562/G02413.jpg",
+        "price": "550.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "150"
+          },
+          {
+            "option": "140 г",
+            "price": "230"
+          },
+          {
+            "option": "210 г",
+            "price": "330"
+          },
+          {
+            "option": "280 г",
+            "price": "420"
+          },
+          {
+            "option": "350 г",
+            "price": "550"
+          }
+        ]
+      },
+      {
+        "name": "Апельсины сушеные без сахара",
+        "sku": "G00265",
+        "description_short": "Иран",
+        "image_url": "https://static.tildacdn.com/tild3161-3631-4261-b933-653165353830/_optimized.jpg",
+        "price": "99.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "99"
+          },
+          {
+            "option": "140 г",
+            "price": "170"
+          },
+          {
+            "option": "210 г",
+            "price": "250"
+          },
+          {
+            "option": "280 г",
+            "price": "340"
+          },
+          {
+            "option": "350 г",
+            "price": "420"
+          }
+        ]
+      },
+      {
+        "name": "Киви сушеные слайсы",
+        "sku": "G00152",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3937-3262-4131-a431-303535346134/whatsapp-image-2022-.jpeg",
+        "price": "190.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "190"
+          },
+          {
+            "option": "140 г",
+            "price": "380"
+          },
+          {
+            "option": "210 г",
+            "price": "570"
+          },
+          {
+            "option": "280 г",
+            "price": "760"
+          },
+          {
+            "option": "350 г",
+            "price": "950"
+          },
+          {
+            "option": "1 кг",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Слива сушеная слайсы",
+        "sku": "G00307",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3533-3836-4238-b537-323931623638/250dd7a6-756f-4e47-a.jpg",
+        "price": "150.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "150"
+          },
+          {
+            "option": "140 г",
+            "price": "280"
+          },
+          {
+            "option": "210 г",
+            "price": "399"
+          },
+          {
+            "option": "280 г",
+            "price": "550"
+          },
+          {
+            "option": "350 г",
+            "price": "670"
+          },
+          {
+            "option": "1 кг",
+            "price": "1900"
+          }
+        ]
+      },
+      {
+        "name": "Яблочные слайсы",
+        "sku": "G00266",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild6365-3134-4134-a634-356435396662/9ab72429-ff77-48c3-8.jpg",
+        "price": "150.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "150"
+          },
+          {
+            "option": "140 г",
+            "price": "300"
+          },
+          {
+            "option": "210 г",
+            "price": "450"
+          },
+          {
+            "option": "280 г",
+            "price": "600"
+          },
+          {
+            "option": "350 г",
+            "price": "750"
+          },
+          {
+            "option": "1 кг",
+            "price": "2250"
+          }
+        ]
+      },
+      {
+        "name": "Сушеный инжир (слайсы)",
+        "sku": "G02357",
+        "description_short": "Иран",
+        "image_url": "https://static.tildacdn.com/tild3431-3039-4732-b461-353633303832/60443711-a20f-4f5d-a.jpg",
+        "price": "161.0000",
+        "variants": [
+          {
+            "option": "70 г",
+            "price": "150"
+          },
+          {
+            "option": "120г",
+            "price": "295"
+          },
+          {
+            "option": "250г",
+            "price": "525"
+          },
+          {
+            "option": "500г",
+            "price": "1317"
+          }
+        ]
+      }
+    ]
+  },
+  "Полезные десерты": {
+    "count": 13,
+    "products": [
+      {
+        "name": "Халва подсолнечная, без сахара",
+        "sku": "G027691",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3839-3164-4730-a235-393236633738/2-1_optimized.jpg",
+        "price": "420.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "270"
+          },
+          {
+            "option": "1 кг",
+            "price": "420"
+          }
+        ]
+      },
+      {
+        "name": "Чурчхела с грецким орехом и гранатом",
+        "sku": "G00370",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3037-6664-4162-b665-353864623763/2-5_optimized.jpg",
+        "price": "290.0000",
+        "variants": [
+          {
+            "option": "1 шт",
+            "price": "290"
+          },
+          {
+            "option": "2 шт",
+            "price": "580"
+          },
+          {
+            "option": "3 шт",
+            "price": "870"
+          },
+          {
+            "option": "4 шт",
+            "price": "1160"
+          },
+          {
+            "option": "5 шт",
+            "price": "1450"
+          },
+          {
+            "option": "6 шт",
+            "price": "1740"
+          },
+          {
+            "option": "7 шт",
+            "price": "2030"
+          },
+          {
+            "option": "8 шт",
+            "price": "2320"
+          },
+          {
+            "option": "9 шт",
+            "price": "2610"
+          },
+          {
+            "option": "10 шт",
+            "price": "2900"
+          }
+        ]
+      },
+      {
+        "name": "Вишня в шоколаде (Ассорти)",
+        "sku": "G02548",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3664-6430-4262-b962-386465383165/32-1_optimized.jpg",
+        "price": "1150.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "590"
+          },
+          {
+            "option": "1 кг",
+            "price": "1150"
+          }
+        ]
+      },
+      {
+        "name": "Воздушные рисовые шарики в шоколаде ''Ассорти''",
+        "sku": "G02754",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6361-3365-4737-a564-383930336266/_mg_2925_optimized.jpg",
+        "price": "1130.0000",
+        "variants": [
+          {
+            "option": "120 г",
+            "price": "190"
+          },
+          {
+            "option": "250 г",
+            "price": "325"
+          },
+          {
+            "option": "500 г",
+            "price": "600"
+          },
+          {
+            "option": "1 кг",
+            "price": "1130"
+          },
+          {
+            "option": "5 кг(мини опт)",
+            "price": "5100"
+          }
+        ]
+      },
+      {
+        "name": "Шоколадные камушки в молочном шоколаде",
+        "sku": "G02543",
+        "description_short": "Турция",
+        "image_url": "https://static.tildacdn.com/tild6532-6338-4134-b536-666565643665/23-1_optimized.jpg",
+        "price": "699.0000",
+        "variants": [
+          {
+            "option": "500г",
+            "price": "370"
+          },
+          {
+            "option": "1кг",
+            "price": "699"
+          }
+        ]
+      },
+      {
+        "name": "Семечки \"В глазури\"",
+        "sku": "G0276930746223",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor3062-3130-4133-a437-323038383935/35480029.jpg",
+        "price": "550.0000",
+        "variants": [
+          {
+            "option": "500г",
+            "price": "299"
+          },
+          {
+            "option": "1кг",
+            "price": "550"
+          }
+        ]
+      },
+      {
+        "name": "Арахис драже",
+        "sku": "G0276930746222",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor3434-3631-4332-b066-393433336665/60078165.jpg",
+        "price": "990.0000",
+        "variants": [
+          {
+            "option": "120г",
+            "price": "175"
+          },
+          {
+            "option": "250г",
+            "price": "290"
+          },
+          {
+            "option": "500г",
+            "price": "525"
+          },
+          {
+            "option": "1кг",
+            "price": "990"
+          }
+        ]
+      },
+      {
+        "name": "Драже \"Сердечки\"",
+        "sku": "G0276930746224",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor3464-6364-4163-b235-616630653337/12260605.jpg",
+        "price": "550.0000",
+        "variants": [
+          {
+            "option": "120 г",
+            "price": "99"
+          },
+          {
+            "option": "250 г",
+            "price": "170"
+          },
+          {
+            "option": "500 г",
+            "price": "290"
+          },
+          {
+            "option": "1 кг",
+            "price": "550"
+          },
+          {
+            "option": "5 кг(мини опт)",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Черешня с миндалём",
+        "sku": "G02474",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild6530-3833-4436-a534-643662643834/9-1_optimized.jpg",
+        "price": "1990.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "1050"
+          },
+          {
+            "option": "1 кг",
+            "price": "1990"
+          }
+        ]
+      },
+      {
+        "name": "Чурчхела из винограда с грецким орехом",
+        "sku": "G00371",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild6237-3537-4464-b037-353064333462/2-4_optimized.jpg",
+        "price": "290.0000",
+        "variants": [
+          {
+            "option": "1 шт",
+            "price": "290"
+          },
+          {
+            "option": "2 шт",
+            "price": "580"
+          },
+          {
+            "option": "3 шт",
+            "price": "870"
+          },
+          {
+            "option": "4 шт",
+            "price": "1160"
+          },
+          {
+            "option": "5 шт",
+            "price": "1450"
+          },
+          {
+            "option": "6 шт",
+            "price": "1740"
+          },
+          {
+            "option": "7 шт",
+            "price": "2030"
+          },
+          {
+            "option": "8 шт",
+            "price": "2320"
+          },
+          {
+            "option": "9 шт",
+            "price": "2610"
+          },
+          {
+            "option": "10 шт",
+            "price": "2900"
+          }
+        ]
+      },
+      {
+        "name": "Чурчхела с абрикосовым соком и грецким орехом",
+        "sku": "G00372",
+        "description_short": "Армения",
+        "image_url": "https://static.tildacdn.com/tild3530-6361-4063-b262-613866326137/yal3n_vcmw0_optimize.jpg",
+        "price": "290.0000",
+        "variants": [
+          {
+            "option": "1 шт",
+            "price": "290"
+          },
+          {
+            "option": "2 шт",
+            "price": "580"
+          },
+          {
+            "option": "3 шт",
+            "price": "870"
+          },
+          {
+            "option": "4 шт",
+            "price": "1160"
+          },
+          {
+            "option": "5 шт",
+            "price": "1450"
+          },
+          {
+            "option": "6 шт",
+            "price": "1740"
+          },
+          {
+            "option": "7 шт",
+            "price": "2030"
+          },
+          {
+            "option": "8 шт",
+            "price": "2320"
+          },
+          {
+            "option": "9 шт",
+            "price": "2610"
+          },
+          {
+            "option": "10 шт",
+            "price": "2900"
+          }
+        ]
+      },
+      {
+        "name": "Цукаты кубики микс (Светофор)",
+        "sku": "G02547",
+        "description_short": "Таиланд",
+        "image_url": "https://static.tildacdn.com/tild6665-3036-4433-a364-623566306466/33_optimized.jpg",
+        "price": "450.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "450"
+          }
+        ]
+      },
+      {
+        "name": "Набор пахлава \"Ассорти\"",
+        "sku": "G02805",
+        "description_short": "Сирийская Арабская Республика",
+        "image_url": "https://static.tildacdn.com/tild3735-6335-4131-a333-623863656666/0e2aa57a-8892-4f70-a.jpg",
+        "price": "3500.0000",
+        "variants": [
+          {
+            "option": "1 шт",
+            "price": "3500"
+          },
+          {
+            "option": "2 шт",
+            "price": "7000"
+          },
+          {
+            "option": "3 шт",
+            "price": "10500"
+          },
+          {
+            "option": "4 шт",
+            "price": "14000"
+          },
+          {
+            "option": "5 шт",
+            "price": "17500"
+          }
+        ]
+      }
+    ]
+  },
+  "Мармелад": {
+    "count": 8,
+    "products": [
+      {
+        "name": "Мармеладные \"Динозаврики\"",
+        "sku": "G02993",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3637-3338-4165-b461-666532353439/Screenshot_1.jpg",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармеладные \"Мишки\"",
+        "sku": "G02991",
+        "description_short": "Россиия",
+        "image_url": "https://static.tildacdn.com/tild3835-6231-4333-b738-623635613962/1629646232_21-kartin.jpg",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармелад \"Coca-Cola\"",
+        "sku": "G02997",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3836-3234-4061-a135-613139303761/3e697e15a94354664e45.jpg",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармеладные \"Червячки\"",
+        "sku": "G02990",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3164-6566-4238-a539-303661346636/40393063-1.jpg",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармеладные кубики \"Манго\"",
+        "sku": "G0276930746173",
+        "description_short": "Вьетнам",
+        "image_url": "https://static.tildacdn.com/stor3038-6439-4830-b165-386236616664/73222041.png",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармелад \"Сердечки\"",
+        "sku": "G02992",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6632-3233-4939-a262-313630353766/12567549-1.jpg",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармелад \"Соска-пустышка\"",
+        "sku": "G02996",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3234-3132-4230-a238-303434373964/0y2Rdjxqfmarm_sos.jpg",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      },
+      {
+        "name": "Мармелад \"Пазлы\"",
+        "sku": "G0276930746095",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3230-3830-4839-a662-636339336164/_180822_103717.png",
+        "price": "490.0000",
+        "variants": [
+          {
+            "option": "1кг",
+            "price": "490"
+          }
+        ]
+      }
+    ]
+  },
+  "Чай": {
+    "count": 15,
+    "products": [
+      {
+        "name": "Чай \"Молочный улун\" (уп. 100 г)",
+        "sku": "G00390",
+        "description_short": "Тайвань (Китай)",
+        "image_url": "https://static.tildacdn.com/tild6634-3531-4235-b338-353536313839/e2409c10a50b114ade04.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай черный \"Таежный сбор\" Премиум (уп. 100 г)",
+        "sku": "G00395",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild6466-6163-4666-a237-346436336163/23914b7b64ae4c4ea485.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай Граф Монте-Кристо (уп. 100г)",
+        "sku": "G00391",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3935-3532-4132-b736-316666613933/fbf36c18834a2c5de440.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай черный, крупнолистовой, Южная Индия",
+        "sku": "A10",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/stor3734-3338-4365-b134-623961623737/45242199.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Брызги шампанского\" (уп. 100 г)",
+        "sku": "G00396",
+        "description_short": "Коста-Рика",
+        "image_url": "https://static.tildacdn.com/tild6161-3436-4566-a231-336531393231/818577bcd3198d2cf172.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Цейлонский черный чай крупный лист",
+        "sku": "A09",
+        "description_short": "Шри-Ланка",
+        "image_url": "https://static.tildacdn.com/stor3034-6139-4231-a666-663062633637/73040587.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "1990"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Манго-Маракуйя\" (уп. 100 г)",
+        "sku": "G02316",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild3538-3335-4665-a361-663930313461/cbjtgfazaszdjiapqm_n.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай ''Наглый Фрукт'' (уп. 100 г)",
+        "sku": "G02455",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild3731-3437-4131-a335-326335373061/2b5ac51124da2fae06a2.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Огненная вишня\" (уп. 100 г)",
+        "sku": "G02314",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild3838-3233-4266-a165-653231656131/ognennaya-vishnya_op.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Черный чай с травами \"Сосновый бор\" (100 г)",
+        "sku": "G027690303",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3866-6265-4132-b332-613666363166/cligp99pqt4wo8w8oc44.jpeg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Земляника со сливками\" (уп. 100 г)",
+        "sku": "G00398",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild6139-6138-4035-b730-306531343231/e5d188756977cfef21fa.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чёрный чай «Клубника со сливками» (уп. 100 г)",
+        "sku": "G00389",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild6635-3564-4631-a163-323863616363/678a3ca0_3f21_11e5_9.jpeg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Жемчужина дракона\" (уп. 100 г)",
+        "sku": "G00404",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild3466-3062-4239-a536-363935333462/3c6b877a01134d720a09.jpeg",
+        "price": "875.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "875"
+          },
+          {
+            "option": "2 уп",
+            "price": "1750"
+          },
+          {
+            "option": "3 уп",
+            "price": "2625"
+          },
+          {
+            "option": "4 уп",
+            "price": "3500"
+          },
+          {
+            "option": "5 уп",
+            "price": "4375"
+          },
+          {
+            "option": "10 уп",
+            "price": "8750"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Айва с персиком\" (уп. 100 г)",
+        "sku": "G02311",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild3465-3862-4732-b432-653561643962/8680c96fd14da3c0da9a.jpg",
+        "price": "250.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "250"
+          },
+          {
+            "option": "2 уп",
+            "price": "500"
+          },
+          {
+            "option": "3 уп",
+            "price": "750"
+          },
+          {
+            "option": "4 уп",
+            "price": "1000"
+          },
+          {
+            "option": "5 уп",
+            "price": "1250"
+          },
+          {
+            "option": "6 уп",
+            "price": "1500"
+          },
+          {
+            "option": "7 уп",
+            "price": "1750"
+          },
+          {
+            "option": "8 уп",
+            "price": "2000"
+          },
+          {
+            "option": "9 уп",
+            "price": "2250"
+          },
+          {
+            "option": "10 уп",
+            "price": "2500"
+          }
+        ]
+      },
+      {
+        "name": "Чай \"Женьшень улун\" (уп. 100 г)",
+        "sku": "G00405",
+        "description_short": "Китай",
+        "image_url": "https://static.tildacdn.com/tild3037-6530-4463-b238-316534663431/296_optimized.jpg",
+        "price": "999.0000",
+        "variants": [
+          {
+            "option": "1 уп",
+            "price": "999"
+          },
+          {
+            "option": "2 уп",
+            "price": "1998"
+          },
+          {
+            "option": "3 уп",
+            "price": "2997"
+          },
+          {
+            "option": "4 уп",
+            "price": "3996"
+          },
+          {
+            "option": "5 уп",
+            "price": "4995"
+          },
+          {
+            "option": "10 уп",
+            "price": "9990"
+          }
+        ]
+      }
+    ]
+  },
+  "Специи": {
+    "count": 25,
+    "products": [
+      {
+        "name": "Паприка",
+        "sku": "G00092",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6461-6164-4238-b761-326635373632/qoqlhtbqqbs_optimize.jpg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Перец черный молотый",
+        "sku": "G00097",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3435-3631-4566-a531-633731356362/818110-1562828413_op.jpg",
+        "price": "1390.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "139"
+          },
+          {
+            "option": "200 г",
+            "price": "278"
+          },
+          {
+            "option": "300 г",
+            "price": "417"
+          },
+          {
+            "option": "400 г",
+            "price": "556"
+          },
+          {
+            "option": "500 г",
+            "price": "695"
+          },
+          {
+            "option": "600 г",
+            "price": "834"
+          },
+          {
+            "option": "700 г",
+            "price": "973"
+          },
+          {
+            "option": "800 г",
+            "price": "1112"
+          },
+          {
+            "option": "900 г",
+            "price": "1251"
+          },
+          {
+            "option": "1 кг",
+            "price": "1390"
+          }
+        ]
+      },
+      {
+        "name": "Куркума",
+        "sku": "G00087",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3537-3933-4933-a638-336139353566/znjiaqa4pw8_optimize.jpg",
+        "price": "1390.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "139"
+          },
+          {
+            "option": "200 г",
+            "price": "278"
+          },
+          {
+            "option": "300 г",
+            "price": "417"
+          },
+          {
+            "option": "400 г",
+            "price": "556"
+          },
+          {
+            "option": "500 г",
+            "price": "695"
+          },
+          {
+            "option": "600 г",
+            "price": "834"
+          },
+          {
+            "option": "700 г",
+            "price": "973"
+          },
+          {
+            "option": "800 г",
+            "price": "1112"
+          },
+          {
+            "option": "900 г",
+            "price": "1251"
+          },
+          {
+            "option": "1 кг",
+            "price": "1390"
+          }
+        ]
+      },
+      {
+        "name": "Смесь для мяса",
+        "sku": "G00103",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6531-6237-4864-b238-346663643836/___c09k-gt_optimized.jpg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Хмели-сунели",
+        "sku": "G00106",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3930-6264-4062-b734-616632303932/1560189712_585983982.jpg",
+        "price": "1390.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "139"
+          },
+          {
+            "option": "200 г",
+            "price": "278"
+          },
+          {
+            "option": "300 г",
+            "price": "417"
+          },
+          {
+            "option": "400 г",
+            "price": "556"
+          },
+          {
+            "option": "500 г",
+            "price": "695"
+          },
+          {
+            "option": "600 г",
+            "price": "834"
+          },
+          {
+            "option": "700 г",
+            "price": "973"
+          },
+          {
+            "option": "800 г",
+            "price": "1112"
+          },
+          {
+            "option": "900 г",
+            "price": "1251"
+          },
+          {
+            "option": "1 кг",
+            "price": "1390"
+          }
+        ]
+      },
+      {
+        "name": "Смесь для Рыбы",
+        "sku": "G027692994",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6330-3731-4365-b465-343066393262/nabor-specij-dlja-sh.jpeg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Карри нежный",
+        "sku": "G00083",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3034-3864-4633-b139-663662663861/G00083.jpg",
+        "price": "1390.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "139"
+          },
+          {
+            "option": "200 г",
+            "price": "278"
+          },
+          {
+            "option": "300 г",
+            "price": "417"
+          },
+          {
+            "option": "400 г",
+            "price": "556"
+          },
+          {
+            "option": "500 г",
+            "price": "695"
+          },
+          {
+            "option": "600 г",
+            "price": "834"
+          },
+          {
+            "option": "700 г",
+            "price": "973"
+          },
+          {
+            "option": "800 г",
+            "price": "1112"
+          },
+          {
+            "option": "900 г",
+            "price": "1251"
+          },
+          {
+            "option": "1 кг",
+            "price": "1390"
+          }
+        ]
+      },
+      {
+        "name": "Смесь для Шашлыка",
+        "sku": "G027692992",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6565-3334-4539-b430-323339343934/nabor-specij-dlja-sh.jpeg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Смесь для Плова",
+        "sku": "G027692991",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3139-3532-4634-b063-623963366437/nabor-specij-dlja-pl.jpeg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Смесь для первых блюд",
+        "sku": "G027692993",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3761-3339-4530-a461-383635656632/orig.jpeg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Приправа для курицы",
+        "sku": "A22",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor3738-6236-4961-a465-383436306565/16838797.png",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Приправа для фарша",
+        "sku": "A25",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor3939-3930-4265-a133-316230383632/42386505.jpg",
+        "price": "1290.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "129"
+          },
+          {
+            "option": "200 г",
+            "price": "258"
+          },
+          {
+            "option": "300 г",
+            "price": "387"
+          },
+          {
+            "option": "400 г",
+            "price": "516"
+          },
+          {
+            "option": "500 г",
+            "price": "645"
+          },
+          {
+            "option": "600 г",
+            "price": "774"
+          },
+          {
+            "option": "700 г",
+            "price": "903"
+          },
+          {
+            "option": "800 г",
+            "price": "1032"
+          },
+          {
+            "option": "900 г",
+            "price": "1161"
+          },
+          {
+            "option": "1 кг",
+            "price": "1290"
+          }
+        ]
+      },
+      {
+        "name": "Приправа Аджика",
+        "sku": "A23",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/stor3631-6161-4262-a265-666535353835/66085161.png",
+        "price": "1390.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "139"
+          },
+          {
+            "option": "200 г",
+            "price": "278"
+          },
+          {
+            "option": "300 г",
+            "price": "417"
+          },
+          {
+            "option": "400 г",
+            "price": "556"
+          },
+          {
+            "option": "500 г",
+            "price": "695"
+          },
+          {
+            "option": "600 г",
+            "price": "834"
+          },
+          {
+            "option": "700 г",
+            "price": "973"
+          },
+          {
+            "option": "800 г",
+            "price": "1112"
+          },
+          {
+            "option": "900 г",
+            "price": "1251"
+          },
+          {
+            "option": "1 кг",
+            "price": "1390"
+          }
+        ]
+      },
+      {
+        "name": "Кунжут черный",
+        "sku": "G00225",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6234-3431-4334-b837-656362323433/12584538_optimized_1.jpg",
+        "price": "990.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "99"
+          },
+          {
+            "option": "200 г",
+            "price": "198"
+          },
+          {
+            "option": "300 г",
+            "price": "297"
+          },
+          {
+            "option": "400 г",
+            "price": "396"
+          },
+          {
+            "option": "500 г",
+            "price": "495"
+          },
+          {
+            "option": "1 кг",
+            "price": "990"
+          }
+        ]
+      },
+      {
+        "name": "Зира Крупная",
+        "sku": "G00079",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3237-6231-4331-b431-313531383231/scale_1200.jpeg",
+        "price": "1790.0000"
+      },
+      {
+        "name": "Перец молотый Чили",
+        "sku": "G027692995",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3835-3835-4861-a563-356534643061/19861_b_0_optimized.jpeg",
+        "price": "1590.0000"
+      },
+      {
+        "name": "Барбарис сушеный",
+        "sku": "G00042",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6565-6233-4934-a664-393337323330/G00042.jpg",
+        "price": "2100.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "220"
+          },
+          {
+            "option": "200 г",
+            "price": "440"
+          },
+          {
+            "option": "300 г",
+            "price": "660"
+          },
+          {
+            "option": "400 г",
+            "price": "880"
+          },
+          {
+            "option": "500 г",
+            "price": "1100"
+          },
+          {
+            "option": "1 кг",
+            "price": "2200"
+          }
+        ]
+      },
+      {
+        "name": "Гвоздика целая",
+        "sku": "G00076",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild6464-3062-4535-a362-376365623732/gvozdika-celaja-100-.jpg",
+        "price": "3100.0000",
+        "variants": [
+          {
+            "option": "50 г",
+            "price": "165"
+          },
+          {
+            "option": "100 г",
+            "price": "310"
+          },
+          {
+            "option": "200 г",
+            "price": "620"
+          },
+          {
+            "option": "300 г",
+            "price": "930"
+          },
+          {
+            "option": "400 г",
+            "price": "1240"
+          },
+          {
+            "option": "500 г",
+            "price": "1550"
+          },
+          {
+            "option": "1 кг",
+            "price": "3100"
+          }
+        ]
+      },
+      {
+        "name": "Корица цельная (Кассия)",
+        "sku": "G00086",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild3235-6466-4932-a331-613436386336/G00086.jpg",
+        "price": "1190.0000",
+        "variants": [
+          {
+            "option": "500 г",
+            "price": "750"
+          },
+          {
+            "option": "1 кг",
+            "price": "1190"
+          }
+        ]
+      },
+      {
+        "name": "Кунжут белый",
+        "sku": "G00165",
+        "description_short": "Узбекистан",
+        "image_url": "https://static.tildacdn.com/tild3766-6633-4538-b039-316161313937/ufc945c90d94e473f814.jpg",
+        "price": "890.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "89"
+          },
+          {
+            "option": "200 г",
+            "price": "178"
+          },
+          {
+            "option": "300 г",
+            "price": "267"
+          },
+          {
+            "option": "400 г",
+            "price": "356"
+          },
+          {
+            "option": "500 г",
+            "price": "445"
+          },
+          {
+            "option": "1 кг",
+            "price": "890"
+          }
+        ]
+      },
+      {
+        "name": "Бадьян",
+        "sku": "G00072",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild6536-3631-4562-a666-653832613263/6b2c34e567336a6223c5.jpg",
+        "price": "2750.0000",
+        "variants": [
+          {
+            "option": "50 г",
+            "price": "147"
+          },
+          {
+            "option": "100 г",
+            "price": "275"
+          },
+          {
+            "option": "200 г",
+            "price": "550"
+          },
+          {
+            "option": "300 г",
+            "price": "825"
+          },
+          {
+            "option": "400 г",
+            "price": "1100"
+          },
+          {
+            "option": "500 г",
+            "price": "1375"
+          },
+          {
+            "option": "1 кг",
+            "price": "2750"
+          }
+        ]
+      },
+      {
+        "name": "Мускатный орех цельный",
+        "sku": "G00090",
+        "description_short": "Индия",
+        "image_url": "https://static.tildacdn.com/tild6535-6563-4362-b764-636164393262/1262_optimized.jpg",
+        "price": "4900.0000",
+        "variants": [
+          {
+            "option": "50 г",
+            "price": "255"
+          },
+          {
+            "option": "100 г",
+            "price": "490"
+          },
+          {
+            "option": "200 г",
+            "price": "980"
+          },
+          {
+            "option": "300 г",
+            "price": "1470"
+          },
+          {
+            "option": "400 г",
+            "price": "1960"
+          },
+          {
+            "option": "500 г",
+            "price": "2450"
+          },
+          {
+            "option": "1 кг",
+            "price": "4900"
+          }
+        ]
+      },
+      {
+        "name": "Перец черный горошек",
+        "sku": "G00096",
+        "description_short": "Россия",
+        "image_url": "https://static.tildacdn.com/tild3561-3862-4132-a134-353534343764/1922_optimized.jpg",
+        "price": "2590.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "259"
+          },
+          {
+            "option": "200 г",
+            "price": "518"
+          },
+          {
+            "option": "300 г",
+            "price": "777"
+          },
+          {
+            "option": "400 г",
+            "price": "1036"
+          },
+          {
+            "option": "500 г",
+            "price": "1295"
+          },
+          {
+            "option": "600 г",
+            "price": "1554"
+          },
+          {
+            "option": "700 г",
+            "price": "1813"
+          },
+          {
+            "option": "800 г",
+            "price": "2072"
+          },
+          {
+            "option": "900 г",
+            "price": "2331"
+          },
+          {
+            "option": "1 кг",
+            "price": "2590"
+          }
+        ]
+      },
+      {
+        "name": "Тмин черный",
+        "sku": "G00104",
+        "description_short": "Таджикистан",
+        "image_url": "https://static.tildacdn.com/tild6436-3332-4061-a233-326562383863/G00104.jpg",
+        "price": "990.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "99"
+          },
+          {
+            "option": "200 г",
+            "price": "198"
+          },
+          {
+            "option": "300 г",
+            "price": "297"
+          },
+          {
+            "option": "400 г",
+            "price": "396"
+          },
+          {
+            "option": "500 г",
+            "price": "495"
+          },
+          {
+            "option": "1 кг",
+            "price": "990"
+          }
+        ]
+      },
+      {
+        "name": "Ягоды Годжи",
+        "sku": "G00143",
+        "description_short": "Вьетнам",
+        "image_url": "https://static.tildacdn.com/tild6261-3931-4165-b461-346563663038/40_optimized.jpg",
+        "price": "1890.0000",
+        "variants": [
+          {
+            "option": "100 г",
+            "price": "189"
+          },
+          {
+            "option": "200 г",
+            "price": "378"
+          },
+          {
+            "option": "300 г",
+            "price": "567"
+          },
+          {
+            "option": "400 г",
+            "price": "756"
+          },
+          {
+            "option": "500 г",
+            "price": "945"
+          },
+          {
+            "option": "1 кг",
+            "price": "1890"
+          }
+        ]
+      }
+    ]
+  }
+}

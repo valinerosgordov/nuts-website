@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Доставка и оплата — Ореховый Сад</title>
+  <meta name="description" content="Доставка по Москве, МО и всей России. Удобные способы оплаты. Система скидок для постоянных клиентов.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .info-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 3rem;
+    }
+    .info-section__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .info-section__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    .info-section__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .delivery-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .delivery-card {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      padding: 2.5rem 2rem;
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    .delivery-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .delivery-card:hover {
+      border-color: var(--gold-dark);
+      transform: translateY(-4px);
+    }
+    .delivery-card:hover::before {
+      opacity: 1;
+    }
+    .delivery-card__icon {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .delivery-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .delivery-card__text {
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+    }
+    .delivery-card__price {
+      display: inline-block;
+      color: var(--gold);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .payment-card {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    .payment-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .payment-card:hover {
+      border-color: var(--gold-dark);
+      transform: translateY(-4px);
+    }
+    .payment-card:hover::before {
+      opacity: 1;
+    }
+    .payment-card__icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .payment-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .payment-card__text {
+      font-size: 0.85rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+    }
+
+    .discounts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .discount-item {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      transition: all 0.4s var(--ease-out);
+    }
+    .discount-item:hover {
+      border-color: var(--gold-dark);
+    }
+    .discount-item__amount {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .discount-item__threshold {
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .discount-item__desc {
+      font-size: 0.85rem;
+      color: var(--white-dim);
+    }
+    .discount-bonus {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(139, 105, 20, 0.1), rgba(201, 168, 76, 0.05));
+      border: 1px solid var(--gold-dark);
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: var(--gold-light);
+    }
+
+    .golden-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark) 30%, var(--gold) 50%, var(--gold-dark) 70%, transparent);
+      opacity: 0.3;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .info-section {
+        padding: 3rem 1.5rem;
+      }
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+      .delivery-cards {
+        grid-template-columns: 1fr;
+      }
+      .payment-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .discounts-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .payment-grid {
+        grid-template-columns: 1fr;
+      }
+      .discounts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <section class="page-hero">
+    <div class="page-hero__label reveal">Информация</div>
+    <h1 class="page-hero__title reveal">Доставка и <em>оплата</em></h1>
+  </section>
+
+  <hr class="golden-divider">
+
+  <!-- Доставка -->
+  <section class="info-section">
+    <div class="info-section__header reveal">
+      <h2 class="info-section__title"><em>Доставка</em></h2>
+    </div>
+    <div class="delivery-cards">
+      <div class="delivery-card glow-card reveal">
+        <div class="delivery-card__icon">🚗</div>
+        <h3 class="delivery-card__title">По Москве</h3>
+        <p class="delivery-card__text">
+          Доставка в день заказа или на следующий день. Курьер привезёт заказ прямо к двери.
+        </p>
+        <span class="delivery-card__price">Бесплатно от 3 000 &#8381;</span>
+        <p class="delivery-card__text">При заказе до 3 000 &#8381; — 300 &#8381;</p>
+      </div>
+      <div class="delivery-card glow-card reveal">
+        <div class="delivery-card__icon">🚐</div>
+        <h3 class="delivery-card__title">По Московской области</h3>
+        <p class="delivery-card__text">
+          Доставка в течение 1-2 дней. Стоимость зависит от удалённости от МКАД.
+        </p>
+        <span class="delivery-card__price">От 350 &#8381;</span>
+        <p class="delivery-card__text">Точную стоимость уточняйте у менеджера</p>
+      </div>
+      <div class="delivery-card glow-card reveal">
+        <div class="delivery-card__icon">📦</div>
+        <h3 class="delivery-card__title">По России</h3>
+        <p class="delivery-card__text">
+          Отправка через СДЭК или Почту России. Срок доставки — от 2 до 5 рабочих дней.
+        </p>
+        <span class="delivery-card__price">По тарифам перевозчика</span>
+        <p class="delivery-card__text">Надёжная упаковка для дальних расстояний</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="golden-divider">
+
+  <!-- Оплата -->
+  <section class="info-section">
+    <div class="info-section__header reveal">
+      <h2 class="info-section__title"><em>Оплата</em></h2>
+    </div>
+    <div class="payment-grid">
+      <div class="payment-card glow-card reveal">
+        <div class="payment-card__icon">💵</div>
+        <h3 class="payment-card__title">Наличные</h3>
+        <p class="payment-card__text">Оплата наличными курьеру при получении заказа</p>
+      </div>
+      <div class="payment-card glow-card reveal">
+        <div class="payment-card__icon">💳</div>
+        <h3 class="payment-card__title">Банковская карта</h3>
+        <p class="payment-card__text">Онлайн-оплата картой Visa, MasterCard, МИР</p>
+      </div>
+      <div class="payment-card glow-card reveal">
+        <div class="payment-card__icon">🏢</div>
+        <h3 class="payment-card__title">Безналичный расчёт</h3>
+        <p class="payment-card__text">Для юридических лиц с полным пакетом документов</p>
+      </div>
+      <div class="payment-card glow-card reveal">
+        <div class="payment-card__icon">📱</div>
+        <h3 class="payment-card__title">СБП</h3>
+        <p class="payment-card__text">Быстрая оплата по QR-коду через систему быстрых платежей</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="golden-divider">
+
+  <!-- Система скидок -->
+  <section class="info-section" id="discounts">
+    <div class="info-section__header reveal">
+      <h2 class="info-section__title">Система <em>скидок</em></h2>
+    </div>
+    <div class="discounts-grid">
+      <div class="discount-item reveal">
+        <div class="discount-item__amount">5%</div>
+        <div class="discount-item__threshold">От 5 000 &#8381;</div>
+        <div class="discount-item__desc">на весь заказ</div>
+      </div>
+      <div class="discount-item reveal">
+        <div class="discount-item__amount">10%</div>
+        <div class="discount-item__threshold">От 10 000 &#8381;</div>
+        <div class="discount-item__desc">на весь заказ</div>
+      </div>
+      <div class="discount-item reveal">
+        <div class="discount-item__amount">15%</div>
+        <div class="discount-item__threshold">От 20 000 &#8381;</div>
+        <div class="discount-item__desc">на весь заказ</div>
+      </div>
+      <div class="discount-item reveal">
+        <div class="discount-item__amount">20%</div>
+        <div class="discount-item__threshold">Накопительная</div>
+        <div class="discount-item__desc">для постоянных клиентов</div>
+      </div>
+    </div>
+    <div class="discount-bonus reveal">
+      Постоянным клиентам — накопительная скидка до 20%. Подробности у менеджера.
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+</body>
+</html>

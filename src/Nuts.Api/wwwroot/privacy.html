@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Политика конфиденциальности — Ореховый Сад</title>
+  <meta name="description" content="Политика конфиденциальности интернет-магазина Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .privacy-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 3rem 6rem;
+    }
+    .privacy-content h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .privacy-content h2:first-child {
+      margin-top: 0;
+    }
+    .privacy-content p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--white-dim);
+      margin-bottom: 1rem;
+    }
+    .privacy-content ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+    .privacy-content ul li {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--white-dim);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .privacy-content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      width: 6px;
+      height: 6px;
+      background: var(--gold-dark);
+      border-radius: 50%;
+    }
+    .privacy-content a {
+      color: var(--gold);
+      transition: color 0.3s;
+    }
+    .privacy-content a:hover {
+      color: var(--gold-light);
+    }
+
+    .golden-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark) 30%, var(--gold) 50%, var(--gold-dark) 70%, transparent);
+      opacity: 0.3;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .privacy-content {
+        padding: 2rem 1.5rem 5rem;
+      }
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <section class="page-hero">
+    <h1 class="page-hero__title reveal">Политика <em>конфиденциальности</em></h1>
+  </section>
+
+  <hr class="golden-divider">
+
+  <div class="privacy-content">
+    <h2>1. Сбор информации</h2>
+    <p>
+      Мы собираем информацию, которую вы предоставляете нам напрямую при оформлении заказа,
+      заполнении форм обратной связи или обращении в службу поддержки. Это может включать:
+    </p>
+    <ul>
+      <li>Имя и фамилию</li>
+      <li>Номер телефона</li>
+      <li>Адрес электронной почты</li>
+      <li>Адрес доставки</li>
+      <li>Историю заказов</li>
+    </ul>
+
+    <h2>2. Использование информации</h2>
+    <p>Собранная информация используется для следующих целей:</p>
+    <ul>
+      <li>Обработка и доставка ваших заказов</li>
+      <li>Связь с вами по вопросам заказов</li>
+      <li>Улучшение качества обслуживания</li>
+      <li>Информирование об акциях и специальных предложениях (с вашего согласия)</li>
+      <li>Выполнение требований законодательства</li>
+    </ul>
+
+    <h2>3. Файлы cookies</h2>
+    <p>
+      Наш сайт может использовать файлы cookies для обеспечения корректной работы,
+      анализа трафика и улучшения пользовательского опыта. Вы можете настроить параметры
+      cookies в вашем браузере. Отключение cookies может повлиять на функциональность сайта.
+    </p>
+
+    <h2>4. Передача данных третьим лицам</h2>
+    <p>
+      Мы не продаём, не обмениваем и не передаём ваши персональные данные третьим лицам
+      без вашего согласия, за исключением следующих случаев:
+    </p>
+    <ul>
+      <li>Службы доставки — для выполнения вашего заказа</li>
+      <li>Платёжные системы — для обработки оплаты</li>
+      <li>По требованию законодательства РФ</li>
+    </ul>
+
+    <h2>5. Защита данных</h2>
+    <p>
+      Мы принимаем разумные меры для защиты ваших персональных данных от несанкционированного
+      доступа, изменения, раскрытия или уничтожения. Данные хранятся на защищённых серверах
+      с ограниченным доступом.
+    </p>
+
+    <h2>6. Ваши права</h2>
+    <p>Вы имеете право:</p>
+    <ul>
+      <li>Запросить информацию о хранящихся у нас данных</li>
+      <li>Потребовать исправления неточных данных</li>
+      <li>Потребовать удаления ваших персональных данных</li>
+      <li>Отозвать согласие на обработку данных</li>
+      <li>Отказаться от получения маркетинговых сообщений</li>
+    </ul>
+
+    <h2>7. Контактная информация</h2>
+    <p>
+      По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться
+      к нам через страницу <a href="/contacts.html">Контакты</a> или написать на электронную почту.
+    </p>
+    <p>
+      Настоящая политика конфиденциальности может быть обновлена. Актуальная версия
+      всегда доступна на данной странице. Дата последнего обновления: 22 марта 2026 г.
+    </p>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+</body>
+</html>

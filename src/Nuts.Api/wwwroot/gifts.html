@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Подарочные наборы — Ореховый Сад</title>
+  <meta name="description" content="Подарочные наборы премиум орехов и сухофруктов. Идеальный подарок для ценителей от Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Page Hero */
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .page-hero__subtitle {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      letter-spacing: 0.04em;
+      max-width: 500px;
+    }
+
+    /* Gift sets grid */
+    .gifts {
+      padding: 6rem 0;
+      background: var(--black-light);
+      position: relative;
+    }
+
+    .gifts::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .gifts__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .gifts__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    /* Gift item price */
+    .catalog__item-price {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-top: 0.5rem;
+    }
+
+    .catalog__item-weight {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--gold-dark);
+      letter-spacing: 0.04em;
+      margin-top: 0.3rem;
+    }
+
+    /* Custom order */
+    .custom-order {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .custom-order::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .custom-order__container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      text-align: center;
+    }
+
+    .custom-order__text {
+      font-size: 1.05rem;
+      color: var(--white-dim);
+      line-height: 1.8;
+      margin-top: 1.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* CTA Form */
+    .gifts-cta {
+      padding: 8rem 0;
+      background: var(--black-light);
+      position: relative;
+    }
+
+    .gifts-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .gifts-cta__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .gifts-cta__text {
+      font-size: 1rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+      margin-top: 1.5rem;
+    }
+
+    .contact__field textarea {
+      width: 100%;
+      padding: 1.1rem 1.5rem;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact__field textarea::placeholder {
+      color: var(--gray);
+    }
+
+    .contact__field textarea:focus {
+      border-color: var(--gold-dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .gifts-cta__container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .gifts__container,
+      .custom-order__container,
+      .gifts-cta__container {
+        padding: 0 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <span class="page-hero__label reveal">Коллекция</span>
+    <h1 class="page-hero__title reveal">Подарочные<br><em>наборы</em></h1>
+    <p class="page-hero__subtitle reveal">Идеальный подарок для ценителей</p>
+  </section>
+
+  <!-- Gift Sets Grid -->
+  <section class="gifts">
+    <div class="gifts__container">
+      <div class="gifts__header reveal">
+        <span class="catalog__label">Наборы</span>
+        <h2 class="catalog__title">Выберите<br><em>подарок</em></h2>
+      </div>
+
+      <div class="catalog__grid">
+        <div class="catalog__item glow-card reveal">
+          <div class="catalog__item-image">
+            <div class="catalog__item-placeholder catalog__item-icon">🎁</div>
+          </div>
+          <div class="catalog__item-info">
+            <h3>Набор «Классический»</h3>
+            <p>4 вида отборных орехов в элегантной упаковке</p>
+            <span class="catalog__item-weight">500 г</span>
+            <span class="catalog__item-price">от 1 500 ₽</span>
+          </div>
+        </div>
+
+        <div class="catalog__item glow-card reveal">
+          <div class="catalog__item-image">
+            <div class="catalog__item-placeholder catalog__item-icon">✨</div>
+          </div>
+          <div class="catalog__item-info">
+            <h3>Набор «Премиум»</h3>
+            <p>6 видов орехов + сухофрукты в подарочной коробке</p>
+            <span class="catalog__item-weight">800 г</span>
+            <span class="catalog__item-price">от 2 500 ₽</span>
+          </div>
+        </div>
+
+        <div class="catalog__item glow-card reveal">
+          <div class="catalog__item-image">
+            <div class="catalog__item-placeholder catalog__item-icon">👑</div>
+          </div>
+          <div class="catalog__item-info">
+            <h3>Набор «Люкс»</h3>
+            <p>8 видов орехов + десерты + чай в роскошном оформлении</p>
+            <span class="catalog__item-weight">1.2 кг</span>
+            <span class="catalog__item-price">от 4 000 ₽</span>
+          </div>
+        </div>
+
+        <div class="catalog__item glow-card reveal">
+          <div class="catalog__item-image">
+            <div class="catalog__item-placeholder catalog__item-icon">🌳</div>
+          </div>
+          <div class="catalog__item-info">
+            <h3>Набор «Ореховый Сад»</h3>
+            <p>Фирменный набор: орехи + мёд + сухофрукты</p>
+            <span class="catalog__item-weight">1 кг</span>
+            <span class="catalog__item-price">от 3 000 ₽</span>
+          </div>
+        </div>
+
+        <div class="catalog__item glow-card reveal">
+          <div class="catalog__item-image">
+            <div class="catalog__item-placeholder catalog__item-icon">🏢</div>
+          </div>
+          <div class="catalog__item-info">
+            <h3>Корпоративный набор</h3>
+            <p>Индивидуальная сборка с вашим брендингом, от 10 шт</p>
+            <span class="catalog__item-weight">по запросу</span>
+            <span class="catalog__item-price">от 2 000 ₽/шт</span>
+          </div>
+        </div>
+
+        <div class="catalog__item glow-card reveal">
+          <div class="catalog__item-image">
+            <div class="catalog__item-placeholder catalog__item-icon">🎫</div>
+          </div>
+          <div class="catalog__item-info">
+            <h3>Подарочный сертификат</h3>
+            <p>Дарите выбор — сертификат на любую сумму</p>
+            <span class="catalog__item-weight">электронный или печатный</span>
+            <span class="catalog__item-price">на любую сумму</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Order -->
+  <section class="custom-order">
+    <div class="custom-order__container">
+      <div class="reveal">
+        <span class="philosophy__label">Индивидуально</span>
+        <h2 class="philosophy__title">Индивидуальный<br><em>заказ</em></h2>
+      </div>
+      <p class="custom-order__text reveal">
+        Мы создаём уникальные подарочные наборы под ваши пожелания. Выберите состав, объём и оформление —
+        мы воплотим любую идею. Для корпоративных клиентов доступно нанесение логотипа,
+        индивидуальный дизайн упаковки и вложение персонального послания.
+        Каждый набор собирается вручную с заботой о деталях.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Form -->
+  <section class="gifts-cta" id="giftsForm">
+    <div class="gifts-cta__container">
+      <div class="reveal">
+        <span class="contact__label">Заказать</span>
+        <h2 class="contact__title">Оформить<br><em>заказ</em></h2>
+        <p class="gifts-cta__text">Расскажите, что вам нужно, и мы подберём идеальный набор или создадим уникальный вариант специально для вас.</p>
+      </div>
+      <div class="reveal">
+        <form class="contact__form" id="contactForm">
+          <div class="contact__field">
+            <input type="text" name="name" placeholder="Имя" required autocomplete="name">
+          </div>
+          <div class="contact__field">
+            <input type="tel" name="phone" placeholder="Телефон" required autocomplete="tel">
+          </div>
+          <div class="contact__field">
+            <input type="email" name="email" placeholder="E-mail" autocomplete="email">
+          </div>
+          <div class="contact__field">
+            <textarea name="message" placeholder="Опишите желаемый набор, количество, повод для подарка"></textarea>
+          </div>
+          <button type="submit" class="contact__submit">
+            <span>Отправить заявку</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+</body>
+</html>

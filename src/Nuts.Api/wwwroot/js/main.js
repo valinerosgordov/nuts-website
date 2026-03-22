@@ -258,37 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // =========================================
-  // Custom cursor dot (desktop only)
-  // =========================================
-  if (window.matchMedia('(pointer: fine)').matches) {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-
-    let cursorX = 0, cursorY = 0;
-    let dotX = 0, dotY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      cursorX = e.clientX;
-      cursorY = e.clientY;
-    });
-
-    const moveCursor = () => {
-      dotX += (cursorX - dotX) * 0.15;
-      dotY += (cursorY - dotY) * 0.15;
-      cursor.style.transform = `translate(${dotX - 6}px, ${dotY - 6}px)`;
-      requestAnimationFrame(moveCursor);
-    };
-    moveCursor();
-
-    // Grow on interactive elements
-    const interactives = document.querySelectorAll('a, button, .catalog__item, .philosophy__card, .media__card');
-    interactives.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('custom-cursor--active'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('custom-cursor--active'));
-    });
-  }
+  // Custom cursor removed for better UX
 
   // =========================================
   // Contact form

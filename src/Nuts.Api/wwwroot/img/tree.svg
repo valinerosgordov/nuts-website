@@ -1,0 +1,468 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+  <defs>
+    <!-- Trunk gradients -->
+    <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3d2b1f"/>
+      <stop offset="30%" stop-color="#6b4c3b"/>
+      <stop offset="50%" stop-color="#7a5a45"/>
+      <stop offset="70%" stop-color="#6b4c3b"/>
+      <stop offset="100%" stop-color="#3d2b1f"/>
+    </linearGradient>
+    <linearGradient id="trunkGrad2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a3f2d"/>
+      <stop offset="50%" stop-color="#8b6b55"/>
+      <stop offset="100%" stop-color="#5a3f2d"/>
+    </linearGradient>
+    <linearGradient id="rootGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#5a3f2d"/>
+      <stop offset="100%" stop-color="#1a0f0a" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Crown background glow -->
+    <radialGradient id="crownGlow" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0%" stop-color="#5a8d4f" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#3a6b2f" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#2a4f22" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crownHaze" cx="0.5" cy="0.4" r="0.55">
+      <stop offset="0%" stop-color="#8ab878" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#2d5a27" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Leaf gradients -->
+    <radialGradient id="leafDark" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#3a6b2f"/>
+      <stop offset="100%" stop-color="#1e3d18"/>
+    </radialGradient>
+    <radialGradient id="leafMid" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#4a7c3f"/>
+      <stop offset="100%" stop-color="#2d5a27"/>
+    </radialGradient>
+    <radialGradient id="leafLight" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#6ba35f"/>
+      <stop offset="100%" stop-color="#4a7c3f"/>
+    </radialGradient>
+    <radialGradient id="leafHighlight" cx="0.25" cy="0.25" r="0.75">
+      <stop offset="0%" stop-color="#7fbf6f"/>
+      <stop offset="100%" stop-color="#5a8d4f"/>
+    </radialGradient>
+
+    <!-- Nut gradients -->
+    <radialGradient id="nutGrad1" cx="0.35" cy="0.3" r="0.65">
+      <stop offset="0%" stop-color="#e8cf7a"/>
+      <stop offset="40%" stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </radialGradient>
+    <radialGradient id="nutGrad2" cx="0.3" cy="0.25" r="0.7">
+      <stop offset="0%" stop-color="#f0dda0"/>
+      <stop offset="30%" stop-color="#d4b86a"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </radialGradient>
+    <radialGradient id="nutHighlight" cx="0.3" cy="0.25" r="0.4">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#fff8e0" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Shadow gradient -->
+    <radialGradient id="groundShadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#0a0a0a" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Bark texture pattern -->
+    <pattern id="barkTexture" x="0" y="0" width="20" height="30" patternUnits="userSpaceOnUse">
+      <line x1="2" y1="0" x2="4" y2="30" stroke="#2a1a10" stroke-width="0.5" opacity="0.3"/>
+      <line x1="8" y1="0" x2="7" y2="30" stroke="#2a1a10" stroke-width="0.4" opacity="0.25"/>
+      <line x1="14" y1="0" x2="15" y2="30" stroke="#2a1a10" stroke-width="0.5" opacity="0.3"/>
+      <line x1="18" y1="5" x2="19" y2="25" stroke="#2a1a10" stroke-width="0.3" opacity="0.2"/>
+      <ellipse cx="5" cy="10" rx="2" ry="4" fill="none" stroke="#2a1a10" stroke-width="0.3" opacity="0.15"/>
+      <ellipse cx="12" cy="22" rx="2.5" ry="3" fill="none" stroke="#2a1a10" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+
+    <!-- Crown shadow filter -->
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur"/>
+      <feOffset dx="0" dy="4" result="offsetBlur"/>
+      <feFlood flood-color="#1a1a0a" flood-opacity="0.25" result="color"/>
+      <feComposite in="color" in2="offsetBlur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Nut glow filter -->
+    <filter id="nutGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feFlood flood-color="#d4b86a" flood-opacity="0.3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Atmospheric haze filter -->
+    <filter id="haze">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+
+    <!-- Leaf cluster clip - not needed, using opacity -->
+  </defs>
+
+  <!-- ==================== GROUND SHADOW ==================== -->
+  <ellipse cx="300" cy="760" rx="200" ry="30" fill="url(#groundShadow)"/>
+
+  <!-- ==================== ROOTS ==================== -->
+  <g opacity="0.85">
+    <!-- Main root left -->
+    <path d="M270,700 Q240,720 200,740 Q180,750 160,770 Q150,780 140,800"
+          stroke="url(#rootGrad)" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M260,710 Q230,730 210,755 Q200,770 190,800"
+          stroke="url(#rootGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M250,715 Q220,740 195,770 Q185,785 175,800"
+          stroke="url(#rootGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- Main root right -->
+    <path d="M330,700 Q360,720 400,740 Q420,750 440,770 Q450,780 460,800"
+          stroke="url(#rootGrad)" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M340,710 Q370,730 390,755 Q400,770 410,800"
+          stroke="url(#rootGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M345,718 Q380,742 405,768 Q415,785 425,800"
+          stroke="url(#rootGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- Center roots -->
+    <path d="M290,720 Q285,745 280,775 Q278,790 275,800"
+          stroke="url(#rootGrad)" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M310,720 Q315,745 320,775 Q322,790 325,800"
+          stroke="url(#rootGrad)" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <!-- Small root tendrils -->
+    <path d="M200,740 Q185,755 170,775" stroke="url(#rootGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M400,740 Q415,755 430,775" stroke="url(#rootGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ==================== TRUNK ==================== -->
+  <g class="tree-trunk">
+    <!-- Main trunk shape -->
+    <path d="M265,700 Q255,650 250,600 Q245,550 248,500 Q250,450 260,410
+             Q268,380 278,360 L282,355 L318,355
+             Q330,375 338,400 Q348,440 350,480
+             Q353,530 350,580 Q347,630 340,680 Q338,695 335,700 Z"
+          fill="url(#trunkGrad)"/>
+
+    <!-- Trunk highlight (left-center) -->
+    <path d="M275,700 Q268,650 265,600 Q262,550 264,500 Q266,455 274,415
+             Q280,390 288,370 L300,365
+             Q295,390 290,420 Q284,460 282,500
+             Q280,550 282,600 Q284,650 288,700 Z"
+          fill="url(#trunkGrad2)" opacity="0.5"/>
+
+    <!-- Bark texture overlay -->
+    <path d="M265,700 Q255,650 250,600 Q245,550 248,500 Q250,450 260,410
+             Q268,380 278,360 L282,355 L318,355
+             Q330,375 338,400 Q348,440 350,480
+             Q353,530 350,580 Q347,630 340,680 Q338,695 335,700 Z"
+          fill="url(#barkTexture)" opacity="0.6"/>
+
+    <!-- Bark detail lines -->
+    <path d="M272,690 Q268,640 270,590" stroke="#2a1a10" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <path d="M280,695 Q275,620 278,550 Q280,500 285,460" stroke="#2a1a10" stroke-width="0.6" fill="none" opacity="0.25"/>
+    <path d="M295,690 Q292,630 293,570 Q295,510 298,450 Q300,410 305,380" stroke="#2a1a10" stroke-width="0.7" fill="none" opacity="0.3"/>
+    <path d="M310,695 Q308,640 310,580 Q312,530 315,480 Q318,440 322,400" stroke="#2a1a10" stroke-width="0.6" fill="none" opacity="0.25"/>
+    <path d="M325,690 Q324,650 326,600 Q328,560 332,520" stroke="#2a1a10" stroke-width="0.8" fill="none" opacity="0.3"/>
+
+    <!-- Bark knots -->
+    <ellipse cx="285" cy="550" rx="6" ry="10" fill="none" stroke="#2a1a10" stroke-width="1" opacity="0.3"/>
+    <ellipse cx="310" cy="470" rx="5" ry="8" fill="none" stroke="#2a1a10" stroke-width="0.8" opacity="0.25"/>
+    <ellipse cx="295" cy="640" rx="7" ry="5" fill="none" stroke="#2a1a10" stroke-width="0.8" opacity="0.2"/>
+
+    <!-- Trunk edge shadow left -->
+    <path d="M265,700 Q255,650 250,600 Q245,550 248,500 Q250,450 260,410 Q268,380 278,360"
+          stroke="#1a0f0a" stroke-width="2" fill="none" opacity="0.4"/>
+    <!-- Trunk edge shadow right -->
+    <path d="M335,700 Q340,680 347,630 Q350,580 353,530 Q355,480 348,440 Q338,400 330,375 Q322,358 318,355"
+          stroke="#1a0f0a" stroke-width="2" fill="none" opacity="0.3"/>
+  </g>
+
+  <!-- ==================== MAIN BRANCHES ==================== -->
+  <!-- Branch 1 - left major -->
+  <g class="tree-branch--1">
+    <path d="M270,420 Q240,390 200,360 Q170,340 140,330"
+          stroke="#5a3f2d" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M270,420 Q240,390 200,360 Q170,340 140,330"
+          stroke="#6b4c3b" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.5"/>
+    <!-- Sub-branches -->
+    <path d="M210,365 Q190,340 170,310" stroke="#5a3f2d" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M180,345 Q160,325 135,305" stroke="#5a3f2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M230,380 Q210,350 195,320" stroke="#5a3f2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Branch 2 - right major -->
+  <g class="tree-branch--2">
+    <path d="M330,420 Q360,385 400,360 Q430,345 460,335"
+          stroke="#5a3f2d" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M330,420 Q360,385 400,360 Q430,345 460,335"
+          stroke="#6b4c3b" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.5"/>
+    <path d="M390,365 Q410,340 430,310" stroke="#5a3f2d" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M420,350 Q440,328 460,305" stroke="#5a3f2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M370,375 Q390,350 410,320" stroke="#5a3f2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Branch 3 - upper left -->
+  <g class="tree-branch--3">
+    <path d="M278,380 Q250,340 220,300 Q200,275 175,260"
+          stroke="#5a3f2d" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M240,320 Q220,295 195,270" stroke="#5a3f2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M260,340 Q240,310 220,280" stroke="#5a3f2d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Branch 4 - upper right -->
+  <g class="tree-branch--4">
+    <path d="M322,380 Q350,340 380,300 Q400,275 425,260"
+          stroke="#5a3f2d" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M360,320 Q380,295 405,270" stroke="#5a3f2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M340,340 Q360,310 380,280" stroke="#5a3f2d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Branch 5 - top left -->
+  <g class="tree-branch--5">
+    <path d="M285,370 Q270,320 255,270 Q245,240 230,210"
+          stroke="#5a3f2d" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M265,290 Q250,265 235,240" stroke="#5a3f2d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M275,310 Q258,280 245,250" stroke="#5a3f2d" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Branch 6 - top right -->
+  <g class="tree-branch--6">
+    <path d="M315,370 Q330,320 345,270 Q355,240 370,210"
+          stroke="#5a3f2d" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M335,290 Q350,265 365,240" stroke="#5a3f2d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M325,310 Q342,280 355,250" stroke="#5a3f2d" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Tiny decorative branches -->
+  <path d="M155,335 Q140,310 125,295" stroke="#5a3f2d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M445,340 Q460,315 475,300" stroke="#5a3f2d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M185,265 Q170,245 155,235" stroke="#5a3f2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M415,265 Q430,245 445,235" stroke="#5a3f2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M240,215 Q225,195 215,180" stroke="#5a3f2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M360,215 Q375,195 385,180" stroke="#5a3f2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M290,360 Q295,320 300,280 Q302,250 300,220 Q298,195 295,175" stroke="#5a3f2d" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- ==================== ATMOSPHERIC GLOW (behind foliage) ==================== -->
+  <ellipse cx="300" cy="300" rx="250" ry="200" fill="url(#crownGlow)" filter="url(#haze)"/>
+  <ellipse cx="300" cy="280" rx="230" ry="180" fill="url(#crownHaze)" filter="url(#haze)"/>
+
+  <!-- ==================== CROWN SHADOW (under foliage) ==================== -->
+  <ellipse cx="300" cy="380" rx="210" ry="50" fill="#0a1a0a" opacity="0.15" filter="url(#haze)"/>
+
+  <!-- ==================== BACK FOLIAGE LAYER (darkest) ==================== -->
+  <g opacity="0.9">
+    <!-- Large dark background leaf masses -->
+    <ellipse cx="180" cy="320" rx="55" ry="35" fill="#1e3d18" transform="rotate(-15,180,320)"/>
+    <ellipse cx="420" cy="320" rx="55" ry="35" fill="#1e3d18" transform="rotate(15,420,320)"/>
+    <ellipse cx="240" cy="260" rx="50" ry="30" fill="#1e3d18" transform="rotate(-10,240,260)"/>
+    <ellipse cx="360" cy="260" rx="50" ry="30" fill="#1e3d18" transform="rotate(10,360,260)"/>
+    <ellipse cx="300" cy="220" rx="55" ry="32" fill="#1e3d18" transform="rotate(5,300,220)"/>
+    <ellipse cx="200" cy="280" rx="45" ry="28" fill="#1e3d18" transform="rotate(-20,200,280)"/>
+    <ellipse cx="400" cy="280" rx="45" ry="28" fill="#1e3d18" transform="rotate(20,400,280)"/>
+    <ellipse cx="300" cy="350" rx="60" ry="30" fill="#1e3d18"/>
+    <ellipse cx="150" cy="310" rx="40" ry="25" fill="#1a3515" transform="rotate(-25,150,310)"/>
+    <ellipse cx="450" cy="310" rx="40" ry="25" fill="#1a3515" transform="rotate(25,450,310)"/>
+    <ellipse cx="260" cy="200" rx="40" ry="25" fill="#1a3515" transform="rotate(-5,260,200)"/>
+    <ellipse cx="340" cy="200" rx="40" ry="25" fill="#1a3515" transform="rotate(5,340,200)"/>
+  </g>
+
+  <!-- ==================== MID-BACK FOLIAGE LAYER ==================== -->
+  <g opacity="0.95" class="tree-leaf--1">
+    <ellipse cx="170" cy="310" rx="38" ry="18" fill="url(#leafDark)" transform="rotate(-30,170,310)"/>
+    <ellipse cx="210" cy="290" rx="35" ry="16" fill="url(#leafDark)" transform="rotate(-15,210,290)"/>
+    <ellipse cx="250" cy="270" rx="32" ry="15" fill="url(#leafDark)" transform="rotate(-5,250,270)"/>
+    <ellipse cx="350" cy="270" rx="32" ry="15" fill="url(#leafDark)" transform="rotate(5,350,270)"/>
+    <ellipse cx="390" cy="290" rx="35" ry="16" fill="url(#leafDark)" transform="rotate(15,390,290)"/>
+    <ellipse cx="430" cy="310" rx="38" ry="18" fill="url(#leafDark)" transform="rotate(30,430,310)"/>
+  </g>
+
+  <g opacity="0.95" class="tree-leaf--2">
+    <ellipse cx="230" cy="240" rx="30" ry="14" fill="url(#leafDark)" transform="rotate(-20,230,240)"/>
+    <ellipse cx="300" cy="230" rx="35" ry="16" fill="url(#leafDark)" transform="rotate(0,300,230)"/>
+    <ellipse cx="370" cy="240" rx="30" ry="14" fill="url(#leafDark)" transform="rotate(20,370,240)"/>
+    <ellipse cx="190" cy="340" rx="34" ry="16" fill="url(#leafDark)" transform="rotate(-25,190,340)"/>
+    <ellipse cx="410" cy="340" rx="34" ry="16" fill="url(#leafDark)" transform="rotate(25,410,340)"/>
+    <ellipse cx="270" cy="210" rx="28" ry="13" fill="url(#leafDark)" transform="rotate(-8,270,210)"/>
+    <ellipse cx="330" cy="210" rx="28" ry="13" fill="url(#leafDark)" transform="rotate(8,330,210)"/>
+  </g>
+
+  <!-- ==================== MIDDLE FOLIAGE LAYER ==================== -->
+  <g class="tree-leaf--3">
+    <ellipse cx="160" cy="305" rx="30" ry="14" fill="url(#leafMid)" transform="rotate(-35,160,305)"/>
+    <ellipse cx="195" cy="285" rx="28" ry="13" fill="url(#leafMid)" transform="rotate(-20,195,285)"/>
+    <ellipse cx="230" cy="265" rx="30" ry="14" fill="url(#leafMid)" transform="rotate(-10,230,265)"/>
+    <ellipse cx="270" cy="250" rx="28" ry="13" fill="url(#leafMid)" transform="rotate(-3,270,250)"/>
+    <ellipse cx="330" cy="250" rx="28" ry="13" fill="url(#leafMid)" transform="rotate(3,330,250)"/>
+    <ellipse cx="370" cy="265" rx="30" ry="14" fill="url(#leafMid)" transform="rotate(10,370,265)"/>
+    <ellipse cx="405" cy="285" rx="28" ry="13" fill="url(#leafMid)" transform="rotate(20,405,285)"/>
+    <ellipse cx="440" cy="305" rx="30" ry="14" fill="url(#leafMid)" transform="rotate(35,440,305)"/>
+  </g>
+
+  <g class="tree-leaf--4">
+    <ellipse cx="220" cy="230" rx="26" ry="12" fill="url(#leafMid)" transform="rotate(-18,220,230)"/>
+    <ellipse cx="300" cy="210" rx="30" ry="14" fill="url(#leafMid)" transform="rotate(5,300,210)"/>
+    <ellipse cx="380" cy="230" rx="26" ry="12" fill="url(#leafMid)" transform="rotate(18,380,230)"/>
+    <ellipse cx="180" cy="325" rx="28" ry="13" fill="url(#leafMid)" transform="rotate(-28,180,325)"/>
+    <ellipse cx="300" cy="340" rx="32" ry="14" fill="url(#leafMid)" transform="rotate(2,300,340)"/>
+    <ellipse cx="420" cy="325" rx="28" ry="13" fill="url(#leafMid)" transform="rotate(28,420,325)"/>
+    <ellipse cx="250" cy="195" rx="24" ry="11" fill="url(#leafMid)" transform="rotate(-12,250,195)"/>
+    <ellipse cx="350" cy="195" rx="24" ry="11" fill="url(#leafMid)" transform="rotate(12,350,195)"/>
+  </g>
+
+  <!-- ==================== FRONT-MIDDLE FOLIAGE ==================== -->
+  <g class="tree-leaf--5">
+    <ellipse cx="155" cy="298" rx="25" ry="12" fill="#3a6b2f" transform="rotate(-40,155,298)"/>
+    <ellipse cx="185" cy="275" rx="24" ry="11" fill="#3a6b2f" transform="rotate(-22,185,275)"/>
+    <ellipse cx="220" cy="255" rx="26" ry="12" fill="#3a6b2f" transform="rotate(-12,220,255)"/>
+    <ellipse cx="260" cy="240" rx="24" ry="11" fill="#3a6b2f" transform="rotate(-5,260,240)"/>
+    <ellipse cx="300" cy="235" rx="26" ry="12" fill="#3a6b2f" transform="rotate(0,300,235)"/>
+    <ellipse cx="340" cy="240" rx="24" ry="11" fill="#3a6b2f" transform="rotate(5,340,240)"/>
+    <ellipse cx="380" cy="255" rx="26" ry="12" fill="#3a6b2f" transform="rotate(12,380,255)"/>
+    <ellipse cx="415" cy="275" rx="24" ry="11" fill="#3a6b2f" transform="rotate(22,415,275)"/>
+    <ellipse cx="445" cy="298" rx="25" ry="12" fill="#3a6b2f" transform="rotate(40,445,298)"/>
+  </g>
+
+  <g class="tree-leaf--6">
+    <ellipse cx="210" cy="220" rx="22" ry="10" fill="#4a7c3f" transform="rotate(-15,210,220)"/>
+    <ellipse cx="280" cy="200" rx="24" ry="11" fill="#4a7c3f" transform="rotate(-5,280,200)"/>
+    <ellipse cx="320" cy="200" rx="24" ry="11" fill="#4a7c3f" transform="rotate(5,320,200)"/>
+    <ellipse cx="390" cy="220" rx="22" ry="10" fill="#4a7c3f" transform="rotate(15,390,220)"/>
+    <ellipse cx="240" cy="320" rx="26" ry="12" fill="#4a7c3f" transform="rotate(-18,240,320)"/>
+    <ellipse cx="360" cy="320" rx="26" ry="12" fill="#4a7c3f" transform="rotate(18,360,320)"/>
+    <ellipse cx="300" cy="185" rx="22" ry="10" fill="#4a7c3f" transform="rotate(3,300,185)"/>
+  </g>
+
+  <!-- ==================== FRONT FOLIAGE LAYER (lightest) ==================== -->
+  <g class="tree-leaf--7">
+    <ellipse cx="175" cy="295" rx="20" ry="10" fill="url(#leafLight)" transform="rotate(-32,175,295)"/>
+    <ellipse cx="205" cy="270" rx="22" ry="10" fill="url(#leafLight)" transform="rotate(-18,205,270)"/>
+    <ellipse cx="245" cy="250" rx="20" ry="10" fill="url(#leafLight)" transform="rotate(-8,245,250)"/>
+    <ellipse cx="285" cy="240" rx="22" ry="10" fill="url(#leafLight)" transform="rotate(-2,285,240)"/>
+    <ellipse cx="315" cy="240" rx="22" ry="10" fill="url(#leafLight)" transform="rotate(2,315,240)"/>
+    <ellipse cx="355" cy="250" rx="20" ry="10" fill="url(#leafLight)" transform="rotate(8,355,250)"/>
+    <ellipse cx="395" cy="270" rx="22" ry="10" fill="url(#leafLight)" transform="rotate(18,395,270)"/>
+    <ellipse cx="425" cy="295" rx="20" ry="10" fill="url(#leafLight)" transform="rotate(32,425,295)"/>
+  </g>
+
+  <g class="tree-leaf--8">
+    <!-- Top highlight leaves -->
+    <ellipse cx="260" cy="195" rx="18" ry="9" fill="url(#leafHighlight)" transform="rotate(-10,260,195)"/>
+    <ellipse cx="300" cy="180" rx="20" ry="9" fill="url(#leafHighlight)" transform="rotate(0,300,180)"/>
+    <ellipse cx="340" cy="195" rx="18" ry="9" fill="url(#leafHighlight)" transform="rotate(10,340,195)"/>
+    <!-- Scattered highlight leaves -->
+    <ellipse cx="230" cy="280" rx="16" ry="8" fill="url(#leafHighlight)" transform="rotate(-15,230,280)"/>
+    <ellipse cx="370" cy="280" rx="16" ry="8" fill="url(#leafHighlight)" transform="rotate(15,370,280)"/>
+    <ellipse cx="300" cy="260" rx="18" ry="8" fill="url(#leafHighlight)" transform="rotate(3,300,260)"/>
+    <ellipse cx="200" cy="310" rx="16" ry="8" fill="url(#leafHighlight)" transform="rotate(-25,200,310)"/>
+    <ellipse cx="400" cy="310" rx="16" ry="8" fill="url(#leafHighlight)" transform="rotate(25,400,310)"/>
+    <!-- Very top leaves -->
+    <ellipse cx="285" cy="175" rx="14" ry="7" fill="#7fbf6f" transform="rotate(-8,285,175)"/>
+    <ellipse cx="315" cy="175" rx="14" ry="7" fill="#7fbf6f" transform="rotate(8,315,175)"/>
+    <ellipse cx="300" cy="168" rx="12" ry="6" fill="#8acc7a" transform="rotate(0,300,168)" opacity="0.8"/>
+  </g>
+
+  <!-- ==================== LEAF VEIN DETAILS (subtle) ==================== -->
+  <g opacity="0.15" stroke="#1a3010" stroke-width="0.5" fill="none">
+    <line x1="165" y1="305" x2="190" y2="290"/>
+    <line x1="200" y1="280" x2="220" y2="260"/>
+    <line x1="240" y1="255" x2="255" y2="240"/>
+    <line x1="350" y1="255" x2="365" y2="240"/>
+    <line x1="400" y1="280" x2="380" y2="260"/>
+    <line x1="435" y1="305" x2="410" y2="290"/>
+    <line x1="290" y1="245" x2="300" y2="230"/>
+    <line x1="310" y1="245" x2="300" y2="230"/>
+  </g>
+
+  <!-- ==================== NUTS ==================== -->
+  <!-- Nut 1 - upper left -->
+  <g class="tree-nut--1" filter="url(#nutGlow)">
+    <ellipse cx="195" cy="295" rx="9" ry="10" fill="url(#nutGrad1)" transform="rotate(-10,195,295)"/>
+    <ellipse cx="193" cy="292" rx="4" ry="3" fill="url(#nutHighlight)"/>
+    <line x1="195" y1="285" x2="195" y2="295" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 2 - left mid -->
+  <g class="tree-nut--2" filter="url(#nutGlow)">
+    <ellipse cx="175" cy="320" rx="8" ry="9" fill="url(#nutGrad2)" transform="rotate(5,175,320)"/>
+    <ellipse cx="173" cy="317" rx="3.5" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="175" y1="311" x2="175" y2="320" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 3 - upper center-left -->
+  <g class="tree-nut--3" filter="url(#nutGlow)">
+    <ellipse cx="250" cy="250" rx="8" ry="9" fill="url(#nutGrad1)" transform="rotate(-5,250,250)"/>
+    <ellipse cx="248" cy="247" rx="3.5" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="250" y1="241" x2="250" y2="250" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 4 - center top -->
+  <g class="tree-nut--4" filter="url(#nutGlow)">
+    <ellipse cx="300" cy="220" rx="9" ry="10" fill="url(#nutGrad2)" transform="rotate(0,300,220)"/>
+    <ellipse cx="297" cy="217" rx="4" ry="3" fill="url(#nutHighlight)"/>
+    <line x1="300" y1="210" x2="300" y2="220" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 5 - upper center-right -->
+  <g class="tree-nut--5" filter="url(#nutGlow)">
+    <ellipse cx="350" cy="250" rx="8" ry="9" fill="url(#nutGrad1)" transform="rotate(5,350,250)"/>
+    <ellipse cx="348" cy="247" rx="3.5" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="350" y1="241" x2="350" y2="250" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 6 - right mid -->
+  <g class="tree-nut--6" filter="url(#nutGlow)">
+    <ellipse cx="425" cy="295" rx="9" ry="10" fill="url(#nutGrad2)" transform="rotate(10,425,295)"/>
+    <ellipse cx="423" cy="292" rx="4" ry="3" fill="url(#nutHighlight)"/>
+    <line x1="425" y1="285" x2="425" y2="295" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 7 - right lower -->
+  <g class="tree-nut--7" filter="url(#nutGlow)">
+    <ellipse cx="405" cy="320" rx="8" ry="9" fill="url(#nutGrad1)" transform="rotate(-5,405,320)"/>
+    <ellipse cx="403" cy="317" rx="3.5" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="405" y1="311" x2="405" y2="320" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 8 - center -->
+  <g class="tree-nut--8" filter="url(#nutGlow)">
+    <ellipse cx="300" cy="280" rx="9" ry="10" fill="url(#nutGrad2)" transform="rotate(3,300,280)"/>
+    <ellipse cx="298" cy="277" rx="4" ry="3" fill="url(#nutHighlight)"/>
+    <line x1="300" y1="270" x2="300" y2="280" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 9 - lower left -->
+  <g class="tree-nut--9" filter="url(#nutGlow)">
+    <ellipse cx="220" cy="330" rx="8" ry="9" fill="url(#nutGrad1)" transform="rotate(-8,220,330)"/>
+    <ellipse cx="218" cy="327" rx="3.5" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="220" y1="321" x2="220" y2="330" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 10 - lower right -->
+  <g class="tree-nut--10" filter="url(#nutGlow)">
+    <ellipse cx="380" cy="330" rx="8" ry="9" fill="url(#nutGrad2)" transform="rotate(8,380,330)"/>
+    <ellipse cx="378" cy="327" rx="3.5" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="380" y1="321" x2="380" y2="330" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 11 - left upper area -->
+  <g class="tree-nut--11" filter="url(#nutGlow)">
+    <ellipse cx="230" cy="270" rx="7" ry="8" fill="url(#nutGrad1)" transform="rotate(-12,230,270)"/>
+    <ellipse cx="228" cy="267" rx="3" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="230" y1="262" x2="230" y2="270" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Nut 12 - right upper area -->
+  <g class="tree-nut--12" filter="url(#nutGlow)">
+    <ellipse cx="370" cy="270" rx="7" ry="8" fill="url(#nutGrad2)" transform="rotate(12,370,270)"/>
+    <ellipse cx="368" cy="267" rx="3" ry="2.5" fill="url(#nutHighlight)"/>
+    <line x1="370" y1="262" x2="370" y2="270" stroke="#6b4c3b" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- ==================== TOP ATMOSPHERIC OVERLAY ==================== -->
+  <ellipse cx="300" cy="280" rx="200" ry="140" fill="none" stroke="#8ab878" stroke-width="0.5" opacity="0.08" filter="url(#haze)"/>
+</svg>

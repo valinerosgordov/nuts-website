@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оптовые продажи — Ореховый Сад</title>
+  <meta name="description" content="Оптовые продажи орехов и сухофруктов. Специальные условия для бизнеса от Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Page Hero */
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .page-hero__subtitle {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      letter-spacing: 0.04em;
+      max-width: 500px;
+    }
+
+    /* Advantages */
+    .advantages {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .advantages::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .advantages__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .advantages__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .advantages__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .advantages__card {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      padding: 2.5rem 2rem;
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .advantages__card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .advantages__card:hover {
+      border-color: var(--gold-dark);
+      transform: translateY(-4px);
+    }
+
+    .advantages__card:hover::before {
+      opacity: 1;
+    }
+
+    .advantages__card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .advantages__card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .advantages__card p {
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+    }
+
+    /* Conditions */
+    .conditions {
+      padding: 6rem 0;
+      background: var(--black-light);
+      position: relative;
+    }
+
+    .conditions::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .conditions__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .conditions__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .conditions__list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .conditions__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 2rem;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      transition: border-color 0.3s;
+    }
+
+    .conditions__item:hover {
+      border-color: var(--gold-dark);
+    }
+
+    .conditions__item-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gold-dark);
+      border-radius: 50%;
+    }
+
+    .conditions__item-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .conditions__item h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .conditions__item p {
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      line-height: 1.5;
+    }
+
+    /* Audience */
+    .audience {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .audience::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .audience__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .audience__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .audience__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .audience__item {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      transition: all 0.4s var(--ease-out);
+    }
+
+    .audience__item:hover {
+      border-color: var(--gold-dark);
+      transform: translateY(-4px);
+    }
+
+    .audience__item-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .audience__item h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .audience__item p {
+      font-size: 0.85rem;
+      color: var(--white-dim);
+      line-height: 1.5;
+    }
+
+    /* Wholesale CTA / Form */
+    .wholesale-cta {
+      padding: 8rem 0;
+      background: var(--black-light);
+      position: relative;
+    }
+
+    .wholesale-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .wholesale-cta__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .wholesale-cta__text {
+      font-size: 1rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+      margin-top: 1.5rem;
+    }
+
+    .contact__field textarea {
+      width: 100%;
+      padding: 1.1rem 1.5rem;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact__field textarea::placeholder {
+      color: var(--gray);
+    }
+
+    .contact__field textarea:focus {
+      border-color: var(--gold-dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .advantages__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .wholesale-cta__container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .advantages__container,
+      .conditions__container,
+      .audience__container,
+      .wholesale-cta__container {
+        padding: 0 1.5rem;
+      }
+
+      .advantages__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .conditions__list {
+        grid-template-columns: 1fr;
+      }
+
+      .audience__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <span class="page-hero__label reveal">Для бизнеса</span>
+    <h1 class="page-hero__title reveal">Оптовые<br><em>продажи</em></h1>
+    <p class="page-hero__subtitle reveal">Специальные условия для бизнеса</p>
+  </section>
+
+  <!-- Advantages -->
+  <section class="advantages">
+    <div class="advantages__container">
+      <div class="advantages__header reveal">
+        <span class="philosophy__label">Выгода</span>
+        <h2 class="philosophy__title">Преимущества<br><em>опта</em></h2>
+      </div>
+      <div class="advantages__grid">
+        <div class="advantages__card glow-card reveal">
+          <span class="advantages__card-icon">💰</span>
+          <h3>Цены ниже на 15-30%</h3>
+          <p>Оптовые цены значительно ниже розничных. Чем больше объём, тем выгоднее условия.</p>
+        </div>
+        <div class="advantages__card glow-card reveal">
+          <span class="advantages__card-icon">👤</span>
+          <h3>Персональный менеджер</h3>
+          <p>За каждым клиентом закреплён менеджер, который решает все вопросы оперативно.</p>
+        </div>
+        <div class="advantages__card glow-card reveal">
+          <span class="advantages__card-icon">🚚</span>
+          <h3>Доставка по всей России</h3>
+          <p>Собственная логистика и партнёрство с ведущими транспортными компаниями.</p>
+        </div>
+        <div class="advantages__card glow-card reveal">
+          <span class="advantages__card-icon">📋</span>
+          <h3>Полный пакет документов</h3>
+          <p>Все сертификаты, декларации соответствия и сопроводительные документы.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conditions -->
+  <section class="conditions">
+    <div class="conditions__container">
+      <div class="conditions__header reveal">
+        <span class="philosophy__label">Детали</span>
+        <h2 class="philosophy__title">Условия<br><em>сотрудничества</em></h2>
+      </div>
+      <div class="conditions__list">
+        <div class="conditions__item reveal">
+          <div class="conditions__item-icon">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Минимальный заказ от 5 кг</h3>
+            <p>Низкий порог входа для малого и среднего бизнеса.</p>
+          </div>
+        </div>
+        <div class="conditions__item reveal">
+          <div class="conditions__item-icon">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Система скидок от объёма</h3>
+            <p>Прогрессивная шкала скидок — чем больше заказ, тем лучше цена.</p>
+          </div>
+        </div>
+        <div class="conditions__item reveal">
+          <div class="conditions__item-icon">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Отсрочка платежа</h3>
+            <p>Для постоянных клиентов предоставляем отсрочку платежа до 14 дней.</p>
+          </div>
+        </div>
+        <div class="conditions__item reveal">
+          <div class="conditions__item-icon">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Бесплатные образцы</h3>
+            <p>Отправим образцы продукции для дегустации перед первым заказом.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audience -->
+  <section class="audience">
+    <div class="audience__container">
+      <div class="audience__header reveal">
+        <span class="philosophy__label">Клиенты</span>
+        <h2 class="philosophy__title">Кому<br><em>подходит</em></h2>
+      </div>
+      <div class="audience__grid">
+        <div class="audience__item glow-card reveal">
+          <span class="audience__item-icon">🍽️</span>
+          <h3>Рестораны</h3>
+          <p>Премиальные орехи для изысканных блюд и десертов.</p>
+        </div>
+        <div class="audience__item glow-card reveal">
+          <span class="audience__item-icon">☕</span>
+          <h3>Кафе</h3>
+          <p>Идеальные топинги и ингредиенты для напитков и выпечки.</p>
+        </div>
+        <div class="audience__item glow-card reveal">
+          <span class="audience__item-icon">🥐</span>
+          <h3>Пекарни и кондитерские</h3>
+          <p>Отборные орехи для профессиональной выпечки и десертов.</p>
+        </div>
+        <div class="audience__item glow-card reveal">
+          <span class="audience__item-icon">🏢</span>
+          <h3>Офисы</h3>
+          <p>Полезные перекусы для сотрудников. Регулярные поставки.</p>
+        </div>
+        <div class="audience__item glow-card reveal">
+          <span class="audience__item-icon">🎉</span>
+          <h3>Ивент-компании</h3>
+          <p>Орехи и наборы для мероприятий, фуршетов и корпоративов.</p>
+        </div>
+        <div class="audience__item glow-card reveal">
+          <span class="audience__item-icon">🛒</span>
+          <h3>Розничные магазины</h3>
+          <p>Поставки для полок магазинов здорового питания и деликатесов.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Form -->
+  <section class="wholesale-cta" id="wholesaleForm">
+    <div class="wholesale-cta__container">
+      <div class="reveal">
+        <span class="contact__label">Сотрудничество</span>
+        <h2 class="contact__title">Получить<br><em>прайс-лист</em></h2>
+        <p class="wholesale-cta__text">Заполните форму, и мы отправим актуальный прайс-лист с оптовыми ценами. Персональный менеджер свяжется с вами в течение часа.</p>
+      </div>
+      <div class="reveal">
+        <form class="contact__form" id="contactForm">
+          <div class="contact__field">
+            <input type="text" name="company" placeholder="Название компании" required autocomplete="organization">
+          </div>
+          <div class="contact__field">
+            <input type="text" name="name" placeholder="Контактное лицо" required autocomplete="name">
+          </div>
+          <div class="contact__field">
+            <input type="tel" name="phone" placeholder="Телефон" required autocomplete="tel">
+          </div>
+          <div class="contact__field">
+            <input type="email" name="email" placeholder="E-mail" required autocomplete="email">
+          </div>
+          <div class="contact__field">
+            <textarea name="message" placeholder="Сообщение (какая продукция интересует, примерные объёмы)"></textarea>
+          </div>
+          <button type="submit" class="contact__submit">
+            <span>Отправить заявку</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+</body>
+</html>

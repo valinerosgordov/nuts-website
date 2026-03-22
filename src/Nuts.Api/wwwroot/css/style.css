@@ -467,7 +467,7 @@ img {
 .hero__tree {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 0 40px rgba(139, 105, 20, 0.15));
+  filter: drop-shadow(0 0 50px rgba(139, 105, 20, 0.15));
 }
 
 .hero__tree-glow {
@@ -1247,16 +1247,24 @@ img {
 
   .hero {
     padding: 6rem 1.5rem 3rem;
+    min-height: auto;
   }
 
   .hero__content {
     flex-direction: column;
     text-align: center;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .hero__left {
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__subtitle {
+    margin-bottom: 1rem;
   }
 
   .hero__cta {
@@ -1264,7 +1272,21 @@ img {
   }
 
   .hero__right {
-    max-width: 300px;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .hero__tree-glow {
+    width: 200px;
+    height: 200px;
+  }
+
+  .philosophy {
+    padding: 1rem 0 4rem;
+  }
+
+  .philosophy__branch {
+    height: 100px;
   }
 
   .philosophy__container,
@@ -1273,20 +1295,39 @@ img {
     padding: 0 1.5rem;
   }
 
-  .media__header {
-    padding: 0 1.5rem;
+  .philosophy__header {
+    margin-bottom: 2.5rem;
+  }
+
+  .philosophy__content {
+    gap: 2.5rem;
   }
 
   .philosophy__cards {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .philosophy__card {
+    padding: 2rem 1.5rem;
+  }
+
+  .media__header {
+    padding: 0 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .media__card {
+    width: 280px;
+    padding: 2rem;
   }
 
   .catalog__grid {
     grid-template-columns: 1fr;
   }
 
-  .media__card {
-    width: 300px;
+  .contact__container {
+    gap: 2rem;
   }
 
   .footer__container {
@@ -1301,40 +1342,48 @@ img {
 
   .footer__links {
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem 1.5rem;
+  }
+
+  /* Hide scroll indicator on mobile */
+  .hero__scroll {
+    display: none;
+  }
+
+  /* Decorative leaves smaller on mobile */
+  .leaf-decor { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .hero__label {
+    font-size: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .philosophy__quote {
+    font-size: 1.05rem;
+    padding: 0;
+  }
+
+  .philosophy__quote::before {
+    display: none;
+  }
+
+  .media__card {
+    width: 260px;
+    padding: 1.5rem;
+  }
+
+  .media__card-logo {
+    font-size: 1.4rem;
   }
 }
 
-/* ============================================
-   Custom Cursor
-   ============================================ */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1.5px solid var(--gold);
-  pointer-events: none;
-  z-index: 10000;
-  transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
-  mix-blend-mode: difference;
-}
-
-.custom-cursor--active {
-  width: 40px;
-  height: 40px;
-  border-color: var(--gold-light);
-  background: rgba(201, 168, 76, 0.08);
-  transform-origin: center;
-}
-
-/* Hide default cursor when custom is active */
-@media (pointer: fine) {
-  body { cursor: none; }
-  a, button, input, textarea, select, .catalog__item, .philosophy__card, .media__card { cursor: none; }
-}
+/* Custom cursor removed for better UX */
 
 @media (max-width: 480px) {
   .hero__title-line {

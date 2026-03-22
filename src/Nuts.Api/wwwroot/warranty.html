@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гарантия качества — Ореховый Сад</title>
+  <meta name="description" content="Гарантия качества Ореховый Сад. Свежесть, возврат, обмен и сертификация продукции.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .info-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 3rem;
+    }
+    .info-section__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .info-section__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    .info-section__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .warranty-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .warranty-card {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      padding: 2.5rem 2rem;
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    .warranty-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .warranty-card:hover {
+      border-color: var(--gold-dark);
+      transform: translateY(-4px);
+    }
+    .warranty-card:hover::before {
+      opacity: 1;
+    }
+    .warranty-card__icon {
+      margin-bottom: 1.5rem;
+    }
+    .warranty-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .warranty-card__text {
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+    }
+
+    .quality-section {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .quality-section__text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--white-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .golden-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark) 30%, var(--gold) 50%, var(--gold-dark) 70%, transparent);
+      opacity: 0.3;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .info-section {
+        padding: 3rem 1.5rem;
+      }
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+      .warranty-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .warranty-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <section class="page-hero">
+    <div class="page-hero__label reveal">Надёжность</div>
+    <h1 class="page-hero__title reveal">Гарантия <em>качества</em></h1>
+  </section>
+
+  <hr class="golden-divider">
+
+  <section class="info-section">
+    <div class="info-section__header reveal">
+      <h2 class="info-section__title">Наши <em>гарантии</em></h2>
+    </div>
+    <div class="warranty-grid">
+      <div class="warranty-card glow-card reveal">
+        <div class="warranty-card__icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M20 12V20L25 25" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="warranty-card__title">Свежесть</h3>
+        <p class="warranty-card__text">
+          Все продукты хранятся в специально оборудованных помещениях с контролем температуры и влажности.
+          Минимальное время от сбора до вашего стола.
+        </p>
+      </div>
+      <div class="warranty-card glow-card reveal">
+        <div class="warranty-card__icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M12 20L17 25L28 14" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="warranty-card__title">Возврат</h3>
+        <p class="warranty-card__text">
+          Полный возврат средств в течение 14 дней, если качество продукции вас не устроило.
+          Без лишних вопросов и бюрократии.
+        </p>
+      </div>
+      <div class="warranty-card glow-card reveal">
+        <div class="warranty-card__icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M15 20H25M15 20L19 16M15 20L19 24" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="warranty-card__title">Обмен</h3>
+        <p class="warranty-card__text">
+          Бесплатная замена товара при обнаружении брака. Мы ценим ваше доверие и несём полную
+          ответственность за качество.
+        </p>
+      </div>
+      <div class="warranty-card glow-card reveal">
+        <div class="warranty-card__icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M16 14H24V26H16V14Z" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 18H22M18 21H22" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="warranty-card__title">Сертификация</h3>
+        <p class="warranty-card__text">
+          Все товары имеют необходимые сертификаты соответствия и декларации качества.
+          Документы предоставляются по запросу.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="golden-divider">
+
+  <section class="info-section quality-section">
+    <div class="info-section__header reveal">
+      <h2 class="info-section__title">Как мы следим за <em>качеством</em></h2>
+    </div>
+    <p class="quality-section__text reveal">
+      Контроль качества — основа нашей работы. Каждая партия орехов проходит через несколько
+      этапов проверки: входной контроль при приёмке от поставщика, органолептическая оценка
+      (вкус, запах, внешний вид), проверка на соответствие заявленным характеристикам.
+    </p>
+    <p class="quality-section__text reveal">
+      Мы работаем только с проверенными поставщиками, с которыми сотрудничаем годами.
+      Каждый фермер и каждая плантация проходят нашу внутреннюю аккредитацию. Мы знаем
+      историю каждой партии — от момента сбора до момента упаковки.
+    </p>
+    <p class="quality-section__text reveal">
+      Хранение осуществляется в специализированных помещениях с контролируемой температурой
+      и влажностью. Упаковка защищает продукт от воздействия света и воздуха, сохраняя
+      максимум вкуса и пользы.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+</body>
+</html>

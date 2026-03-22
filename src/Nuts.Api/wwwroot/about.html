@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О компании — Ореховый Сад</title>
+  <meta name="description" content="Ореховый Сад — наша история, ценности и команда. Узнайте, как мы делаем премиум доступным.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .page-hero__subtitle {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .about-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 3rem;
+    }
+    .about-section__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .about-section__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    .about-section__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .about-story {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-story .philosophy__quote {
+      margin-bottom: 2rem;
+    }
+    .about-story__text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--white-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-values .philosophy__cards {
+      margin-top: 2rem;
+    }
+
+    .about-team {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-team__text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--white-dim);
+    }
+
+    .about-cta {
+      text-align: center;
+      padding: 5rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .about-cta__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .about-cta__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .about-cta__text {
+      color: var(--white-dim);
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+    .about-cta__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2.5rem;
+      border: 1px solid var(--gold-dark);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-cta__link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold-dark);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease-out);
+      z-index: -1;
+    }
+    .about-cta__link:hover {
+      color: var(--black);
+      border-color: var(--gold);
+    }
+    .about-cta__link:hover::before {
+      transform: scaleX(1);
+    }
+
+    .golden-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark) 30%, var(--gold) 50%, var(--gold-dark) 70%, transparent);
+      opacity: 0.3;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .about-section {
+        padding: 3rem 1.5rem;
+      }
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+      .philosophy__cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .philosophy__cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <section class="page-hero">
+    <div class="page-hero__label reveal">О компании</div>
+    <h1 class="page-hero__title reveal">О <em>компании</em></h1>
+    <p class="page-hero__subtitle reveal">Узнайте нашу историю</p>
+  </section>
+
+  <hr class="golden-divider">
+
+  <section class="about-section about-story">
+    <div class="about-section__header reveal">
+      <h2 class="about-section__title">Наша <em>история</em></h2>
+    </div>
+    <div class="philosophy__text reveal">
+      <p class="philosophy__quote">
+        Мы начали с простой идеи: качественные орехи не должны быть роскошью.
+        Премиум — это не про цену, а про отношение к продукту.
+      </p>
+    </div>
+    <p class="about-story__text reveal">
+      Ореховый Сад был основан в 2019 году небольшой командой энтузиастов, которые верили,
+      что настоящий вкус природы может быть доступен каждому. Начав с маленького склада и
+      нескольких поставщиков, мы постепенно выстроили сеть прямых партнёрств с фермерами
+      из более чем 12 стран мира.
+    </p>
+    <p class="about-story__text reveal">
+      Сегодня Ореховый Сад — это признанный премиум-бренд с каталогом из более чем 50 позиций,
+      тысячами постоянных клиентов и репутацией, которой мы дорожим. Каждый орех проходит
+      ручной отбор, каждая поставка контролируется на всех этапах — от сбора на плантации
+      до доставки к вашему столу.
+    </p>
+    <p class="about-story__text reveal">
+      Наша миссия неизменна: мы делаем премиум доступным. Без посредников, без компромиссов
+      по качеству, без лишних наценок.
+    </p>
+  </section>
+
+  <hr class="golden-divider">
+
+  <section class="about-section about-values">
+    <div class="about-section__header reveal">
+      <h2 class="about-section__title">Наши <em>ценности</em></h2>
+    </div>
+    <div class="philosophy__cards">
+      <div class="philosophy__card glow-card reveal">
+        <div class="philosophy__card-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M14 20L18 24L26 16" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Качество</h3>
+        <p>Только отборные орехи, прошедшие многоступенчатый контроль. Мы не допускаем компромиссов.</p>
+      </div>
+      <div class="philosophy__card glow-card reveal">
+        <div class="philosophy__card-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M20 12V28M14 18L20 12L26 18" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Честность</h3>
+        <p>Прозрачные цены, честный вес, реальные сроки годности. Никаких скрытых условий.</p>
+      </div>
+      <div class="philosophy__card glow-card reveal">
+        <div class="philosophy__card-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M20 14C20 14 13 18 13 23C13 26.866 16.134 30 20 30C23.866 30 27 26.866 27 23C27 18 20 14 20 14Z" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Забота</h3>
+        <p>Индивидуальный подход к каждому клиенту. Мы помогаем выбрать, упаковать и доставить с любовью.</p>
+      </div>
+      <div class="philosophy__card glow-card reveal">
+        <div class="philosophy__card-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+            <path d="M15 25L20 15L25 25" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17 22H23" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Доступность</h3>
+        <p>Прямые поставки без посредников позволяют предлагать лучшие цены на рынке премиум-продуктов.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="golden-divider">
+
+  <section class="about-section about-team">
+    <div class="about-section__header reveal">
+      <h2 class="about-section__title">Наша <em>команда</em></h2>
+    </div>
+    <p class="about-team__text reveal">
+      За Ореховым Садом стоит команда профессионалов, объединённых общей страстью к качеству.
+      Наши технологи контролируют каждую партию, логисты обеспечивают правильное хранение
+      и быструю доставку, а менеджеры всегда на связи, чтобы помочь вам с выбором.
+      Мы — небольшая, но слаженная команда, где каждый отвечает за результат.
+    </p>
+  </section>
+
+  <section class="about-cta reveal">
+    <h2 class="about-cta__title">Хотите стать <em>партнёром?</em></h2>
+    <p class="about-cta__text">Мы открыты к сотрудничеству и рады новым партнёрам</p>
+    <a href="/contacts.html" class="about-cta__link">
+      <span>Связаться с нами</span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+</body>
+</html>

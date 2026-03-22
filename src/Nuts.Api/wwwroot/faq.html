@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Ореховый Сад</title>
+  <meta name="description" content="Часто задаваемые вопросы о заказе, доставке, оплате и продукции Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .faq-section {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--black-border);
+      transition: border-color 0.3s;
+    }
+    .faq-item:first-child {
+      border-top: 1px solid var(--black-border);
+    }
+    .faq-item.active {
+      border-color: var(--gold-dark);
+    }
+    .faq-item.active + .faq-item {
+      border-top-color: var(--gold-dark);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      color: var(--white);
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.4;
+      transition: color 0.3s;
+      gap: 1rem;
+    }
+    .faq-question:hover {
+      color: var(--gold);
+    }
+    .faq-item.active .faq-question {
+      color: var(--gold);
+    }
+
+    .faq-question__icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .faq-question__icon::before,
+    .faq-question__icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: var(--gold-dark);
+      transition: transform 0.3s var(--ease-out), background 0.3s;
+    }
+    .faq-question__icon::before {
+      width: 14px;
+      height: 1.5px;
+      transform: translate(-50%, -50%);
+    }
+    .faq-question__icon::after {
+      width: 1.5px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+    }
+    .faq-item.active .faq-question__icon::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .faq-item.active .faq-question__icon::before,
+    .faq-item.active .faq-question__icon::after {
+      background: var(--gold);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-out), padding 0.4s var(--ease-out);
+      padding: 0 0;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding: 0 0 1.5rem;
+    }
+    .faq-answer__text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--white-dim);
+      padding-right: 3rem;
+    }
+
+    .golden-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark) 30%, var(--gold) 50%, var(--gold-dark) 70%, transparent);
+      opacity: 0.3;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .faq-section {
+        padding: 3rem 1.5rem 5rem;
+      }
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+      .faq-question {
+        font-size: 1.05rem;
+      }
+      .faq-answer__text {
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <section class="page-hero">
+    <div class="page-hero__label reveal">Помощь</div>
+    <h1 class="page-hero__title reveal">Часто задаваемые <em>вопросы</em></h1>
+  </section>
+
+  <hr class="golden-divider">
+
+  <section class="faq-section">
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Как сделать заказ?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Вы можете позвонить нам по телефону, написать в WhatsApp или Telegram, либо оставить заявку прямо на сайте. Менеджер свяжется с вами в кратчайшие сроки для подтверждения заказа.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Какие способы оплаты вы принимаете?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Мы принимаем наличные при получении, банковские карты (онлайн), оплату через СБП (QR-код), а также безналичный расчёт для юридических лиц с полным пакетом закрывающих документов.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Сколько стоит доставка?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Доставка по Москве бесплатна при заказе от 3 000 &#8381;. При заказе на меньшую сумму стоимость доставки составляет 300 &#8381;. Подробнее — на странице <a href="/delivery.html" style="color: var(--gold);">Доставка и оплата</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Как быстро доставите?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">По Москве — в день заказа или на следующий рабочий день. По Московской области — 1-2 дня. По России (СДЭК, Почта России) — от 2 до 5 рабочих дней.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Можно ли вернуть товар?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Да, мы гарантируем полный возврат средств в течение 14 дней, если качество продукции вас не устроило. Подробнее — на странице <a href="/warranty.html" style="color: var(--gold);">Гарантия качества</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Есть ли оптовые цены?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Да, при заказе от 5 кг мы предлагаем специальные оптовые условия. Для постоянных оптовых клиентов действуют индивидуальные цены. Подробности — на странице <a href="/wholesale.html" style="color: var(--gold);">Оптовые продажи</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Откуда ваши орехи?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Мы работаем напрямую с фермерами и плантациями из более чем 12 стран мира: Иран, Турция, США, Чили, Вьетнам, Узбекистан и другие. Каждый поставщик проходит нашу внутреннюю аккредитацию.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Как хранить орехи?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Рекомендуем хранить орехи в прохладном сухом месте, в герметичной упаковке. Оптимальная температура — от +5 до +15 &#176;C. Избегайте прямых солнечных лучей и повышенной влажности.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Есть ли подарочная упаковка?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Да, мы предлагаем премиум-наборы в элегантной подарочной упаковке, а также корпоративные подарки с возможностью брендирования. Подробнее — на странице <a href="/gifts.html" style="color: var(--gold);">Подарочные наборы</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>Работаете ли с юридическими лицами?</span>
+        <span class="faq-question__icon"></span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer__text">Да, мы работаем с юридическими лицами и ИП. Предоставляем полный пакет закрывающих документов: договор, счёт, накладная, счёт-фактура. Безналичный расчёт с НДС и без.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+  <script>
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item.active').forEach(el => {
+          el.classList.remove('active');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!wasActive) {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
