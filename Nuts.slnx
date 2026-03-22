@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Nuts.Api/Nuts.Api.csproj" />
+    <Project Path="src/Nuts.Application/Nuts.Application.csproj" />
+    <Project Path="src/Nuts.Domain/Nuts.Domain.csproj" />
+    <Project Path="src/Nuts.Infrastructure/Nuts.Infrastructure.csproj" />
+  </Folder>
+</Solution>

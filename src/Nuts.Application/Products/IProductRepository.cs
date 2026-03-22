@@ -1,0 +1,12 @@
+using Nuts.Domain.Entities;
+
+namespace Nuts.Application.Products;
+
+public interface IProductRepository
+{
+    Task<List<Product>> GetAllAsync(CancellationToken ct = default);
+    Task<List<Product>> GetAvailableAsync(CancellationToken ct = default);
+    Task<Product?> GetByIdAsync(Guid id, CancellationToken ct = default);
+    void Add(Product product);
+    void Remove(Product product);
+}

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ореховый Сад — Премиум орехи</title>
+  <meta name="description" content="Ореховый Сад — премиум орехи. Мы делаем премиум доступным. Орешек к орешку.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Навигация -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-icon">✦</span>
+        Ореховый Сад
+      </a>
+      <ul class="nav__links">
+        <li><a href="#philosophy">Философия</a></li>
+        <li><a href="#catalog">Каталог</a></li>
+        <li><a href="#media">СМИ</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Мобильное меню -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="#philosophy">Философия</a></li>
+      <li><a href="#catalog">Каталог</a></li>
+      <li><a href="#media">СМИ</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero секция -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="hero__left">
+        <div class="hero__label reveal">Премиум орехи</div>
+        <h1 class="hero__title reveal">
+          <span class="hero__title-line">Ореховый</span>
+          <span class="hero__title-line hero__title-line--italic">Сад</span>
+        </h1>
+        <p class="hero__subtitle reveal">Мы делаем Премиум Доступным</p>
+        <a href="#catalog" class="hero__cta reveal">
+          <span>Каталог</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero__right">
+        <div class="hero__tree-wrapper">
+          <!-- SVG ореховое дерево -->
+          <svg class="hero__tree" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ствол -->
+            <path class="tree-trunk" d="M300 800 C300 750, 280 700, 270 650 C255 580, 260 520, 280 460 C295 410, 290 370, 270 320 C255 280, 260 240, 290 200"
+                  stroke="url(#trunkGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <!-- Ветви -->
+            <path class="tree-branch tree-branch--1" d="M280 460 C240 430, 180 420, 130 400"
+                  stroke="url(#branchGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path class="tree-branch tree-branch--2" d="M285 380 C330 350, 390 340, 440 310"
+                  stroke="url(#branchGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path class="tree-branch tree-branch--3" d="M275 320 C230 290, 170 280, 120 260"
+                  stroke="url(#branchGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path class="tree-branch tree-branch--4" d="M290 250 C340 220, 400 210, 460 190"
+                  stroke="url(#branchGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path class="tree-branch tree-branch--5" d="M285 220 C250 190, 200 170, 150 150"
+                  stroke="url(#branchGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path class="tree-branch tree-branch--6" d="M290 200 C310 170, 350 140, 380 110"
+                  stroke="url(#branchGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Крона — листья/орехи (декоративные круги) -->
+            <circle class="tree-nut tree-nut--1" cx="130" cy="395" r="18" fill="url(#nutGrad)"/>
+            <circle class="tree-nut tree-nut--2" cx="105" cy="370" r="12" fill="url(#nutGrad2)"/>
+            <circle class="tree-nut tree-nut--3" cx="440" cy="305" r="20" fill="url(#nutGrad)"/>
+            <circle class="tree-nut tree-nut--4" cx="470" cy="280" r="13" fill="url(#nutGrad2)"/>
+            <circle class="tree-nut tree-nut--5" cx="120" cy="255" r="22" fill="url(#nutGrad)"/>
+            <circle class="tree-nut tree-nut--6" cx="90" cy="235" r="14" fill="url(#nutGrad2)"/>
+            <circle class="tree-nut tree-nut--7" cx="460" cy="185" r="19" fill="url(#nutGrad)"/>
+            <circle class="tree-nut tree-nut--8" cx="490" cy="165" r="11" fill="url(#nutGrad2)"/>
+            <circle class="tree-nut tree-nut--9" cx="150" cy="145" r="21" fill="url(#nutGrad)"/>
+            <circle class="tree-nut tree-nut--10" cx="125" cy="125" r="13" fill="url(#nutGrad2)"/>
+            <circle class="tree-nut tree-nut--11" cx="380" cy="105" r="17" fill="url(#nutGrad)"/>
+            <circle class="tree-nut tree-nut--12" cx="405" cy="85" r="11" fill="url(#nutGrad2)"/>
+            <!-- Листья -->
+            <ellipse class="tree-leaf tree-leaf--1" cx="155" cy="410" rx="25" ry="10" transform="rotate(-30 155 410)" fill="url(#leafGrad)" opacity="0.6"/>
+            <ellipse class="tree-leaf tree-leaf--2" cx="415" cy="320" rx="28" ry="11" transform="rotate(20 415 320)" fill="url(#leafGrad)" opacity="0.5"/>
+            <ellipse class="tree-leaf tree-leaf--3" cx="145" cy="270" rx="24" ry="9" transform="rotate(-25 145 270)" fill="url(#leafGrad)" opacity="0.6"/>
+            <ellipse class="tree-leaf tree-leaf--4" cx="435" cy="200" rx="26" ry="10" transform="rotate(15 435 200)" fill="url(#leafGrad)" opacity="0.5"/>
+            <ellipse class="tree-leaf tree-leaf--5" cx="175" cy="160" rx="22" ry="8" transform="rotate(-20 175 160)" fill="url(#leafGrad)" opacity="0.6"/>
+            <ellipse class="tree-leaf tree-leaf--6" cx="355" cy="120" rx="24" ry="9" transform="rotate(25 355 120)" fill="url(#leafGrad)" opacity="0.5"/>
+            <ellipse class="tree-leaf tree-leaf--7" cx="280" cy="180" rx="20" ry="8" transform="rotate(-10 280 180)" fill="url(#leafGrad)" opacity="0.4"/>
+            <ellipse class="tree-leaf tree-leaf--8" cx="310" cy="140" rx="22" ry="9" transform="rotate(10 310 140)" fill="url(#leafGrad)" opacity="0.45"/>
+            <!-- Градиенты -->
+            <defs>
+              <linearGradient id="trunkGrad" x1="300" y1="800" x2="290" y2="200" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#3d2b1f"/>
+                <stop offset="0.5" stop-color="#6b4c3b"/>
+                <stop offset="1" stop-color="#8b6914"/>
+              </linearGradient>
+              <linearGradient id="branchGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0" stop-color="#6b4c3b"/>
+                <stop offset="1" stop-color="#8b6914" stop-opacity="0.6"/>
+              </linearGradient>
+              <radialGradient id="nutGrad">
+                <stop offset="0" stop-color="#c9a84c"/>
+                <stop offset="0.6" stop-color="#8b6914"/>
+                <stop offset="1" stop-color="#5a4210"/>
+              </radialGradient>
+              <radialGradient id="nutGrad2">
+                <stop offset="0" stop-color="#d4b86a"/>
+                <stop offset="0.7" stop-color="#a07d2e"/>
+                <stop offset="1" stop-color="#6b5520"/>
+              </radialGradient>
+              <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0" stop-color="#4a7c3f"/>
+                <stop offset="1" stop-color="#2d5a27" stop-opacity="0.7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <!-- Свечение вокруг дерева -->
+          <div class="hero__tree-glow"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Скролл-индикатор -->
+    <div class="hero__scroll">
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Философия / Ценности -->
+  <section class="philosophy" id="philosophy">
+    <!-- Декоративная ветвь-переход -->
+    <svg class="philosophy__branch" viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M720 0 C720 40, 680 80, 600 100 C500 125, 400 110, 300 130 C200 150, 100 140, 0 160"
+            stroke="url(#philBranch1)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
+      <path d="M720 0 C720 40, 760 80, 840 100 C940 125, 1040 110, 1140 130 C1240 150, 1340 140, 1440 160"
+            stroke="url(#philBranch2)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
+      <defs>
+        <linearGradient id="philBranch1" x1="720" y1="0" x2="0" y2="160" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#8b6914"/>
+          <stop offset="1" stop-color="#3d2b1f" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="philBranch2" x1="720" y1="0" x2="1440" y2="160" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#8b6914"/>
+          <stop offset="1" stop-color="#3d2b1f" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div class="philosophy__container">
+      <div class="philosophy__header reveal">
+        <span class="philosophy__label">Наши ценности</span>
+        <h2 class="philosophy__title">Философия<br><em>качества</em></h2>
+      </div>
+
+      <div class="philosophy__content">
+        <div class="philosophy__text reveal">
+          <p class="philosophy__quote">
+            Каждый орех проходит ручной отбор. Мы не гонимся за объёмами —
+            мы стремимся к совершенству в каждой упаковке.
+          </p>
+        </div>
+
+        <div class="philosophy__cards">
+          <div class="philosophy__card glow-card reveal">
+            <div class="philosophy__card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+                <path d="M14 20L18 24L26 16" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Ручной отбор</h3>
+            <p>Орешек к орешку. Только лучшие экземпляры попадают к вам на стол.</p>
+          </div>
+
+          <div class="philosophy__card glow-card reveal">
+            <div class="philosophy__card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+                <path d="M20 12V20L25 25" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Свежесть</h3>
+            <p>Прямые поставки с плантаций. Минимальное время от сбора до вашего стола.</p>
+          </div>
+
+          <div class="philosophy__card glow-card reveal">
+            <div class="philosophy__card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+                <path d="M13 27C13 27 15 20 20 20C25 20 27 27 27 27" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M20 20C20 20 17 15 20 12C23 15 20 20 20 20Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <h3>Происхождение</h3>
+            <p>Знаем историю каждой партии. Прозрачность от фермера до покупателя.</p>
+          </div>
+
+          <div class="philosophy__card glow-card reveal">
+            <div class="philosophy__card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19" stroke="#8b6914" stroke-width="1"/>
+                <path d="M15 25L20 15L25 25" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17 22H23" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Премиум доступен</h3>
+            <p>Высочайшее качество без переплат. Честная цена за честный продукт.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Статистика -->
+  <section class="stats">
+    <div class="stats__container">
+      <div class="stats__item reveal">
+        <div class="stats__number" data-target="12">0</div>
+        <div class="stats__desc">Стран-поставщиков</div>
+      </div>
+      <div class="stats__item reveal">
+        <div class="stats__number" data-target="50">0</div>
+        <div class="stats__desc">Позиций в каталоге</div>
+      </div>
+      <div class="stats__item reveal">
+        <div class="stats__number" data-target="10000" data-suffix="+">0</div>
+        <div class="stats__desc">Довольных клиентов</div>
+      </div>
+      <div class="stats__item reveal">
+        <div class="stats__number" data-target="7">0</div>
+        <div class="stats__desc">Лет на рынке</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Декоративная строка -->
+  <div class="marquee-line" aria-hidden="true">
+    <div class="marquee-line__inner">
+      Грецкий &nbsp;·&nbsp; Миндаль &nbsp;·&nbsp; Фундук &nbsp;·&nbsp; Фисташка &nbsp;·&nbsp; Кешью &nbsp;·&nbsp; Пекан &nbsp;·&nbsp; Макадамия &nbsp;·&nbsp; Бразильский &nbsp;·&nbsp;
+      Грецкий &nbsp;·&nbsp; Миндаль &nbsp;·&nbsp; Фундук &nbsp;·&nbsp; Фисташка &nbsp;·&nbsp; Кешью &nbsp;·&nbsp; Пекан &nbsp;·&nbsp; Макадамия &nbsp;·&nbsp; Бразильский &nbsp;·&nbsp;
+    </div>
+  </div>
+
+  <!-- Каталог -->
+  <section class="catalog" id="catalog">
+    <div class="catalog__container">
+      <div class="catalog__header reveal">
+        <span class="catalog__label">Коллекция</span>
+        <h2 class="catalog__title">Наш<br><em>каталог</em></h2>
+      </div>
+
+      <!-- Категории-табы -->
+      <div class="catalog__tabs reveal">
+        <button class="catalog__tab active" data-category="all">Все</button>
+        <button class="catalog__tab" data-category="wholesale">Оптовые продажи</button>
+        <button class="catalog__tab" data-category="nuts">Отборные орехи</button>
+        <button class="catalog__tab" data-category="dried-fruits">Свежие сухофрукты</button>
+        <button class="catalog__tab" data-category="desserts">Полезные десерты</button>
+        <button class="catalog__tab" data-category="gift-sets">Подарочные наборы</button>
+        <button class="catalog__tab" data-category="chips">Фрипсы и пастила</button>
+        <button class="catalog__tab" data-category="marmalade">Мармелад</button>
+        <button class="catalog__tab" data-category="tea">Ароматный чай</button>
+        <button class="catalog__tab" data-category="spices">Специи</button>
+      </div>
+
+      <div class="catalog__grid" id="catalogGrid">
+        <!-- Отборные орехи -->
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Грецкий орех</h3><p>Отборные половинки «бабочка»</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🌰</div></div>
+          <div class="catalog__item-info"><h3>Миндаль</h3><p>Калифорнийский, высший сорт</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🌰</div></div>
+          <div class="catalog__item-info"><h3>Фундук</h3><p>Пьемонтский, цельный</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🟢</div></div>
+          <div class="catalog__item-info"><h3>Фисташка</h3><p>Иранская, слабосолёная</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Кешью</h3><p>Вьетнамский, целый W320</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Пекан</h3><p>Половинки, высший сорт</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Макадамия</h3><p>Австралийская, крупная</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Бразильский орех</h3><p>Цельный, высший сорт</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Кедровый орех</h3><p>Сибирский, очищенный</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="nuts wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥜</div></div>
+          <div class="catalog__item-info"><h3>Арахис</h3><p>Отборный, бланшированный</p><span class="catalog__item-category">Отборные орехи</span></div>
+        </div>
+
+        <!-- Свежие сухофрукты -->
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍑</div></div>
+          <div class="catalog__item-info"><h3>Курага</h3><p>Турецкая, натуральная сушка</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🫐</div></div>
+          <div class="catalog__item-info"><h3>Чернослив</h3><p>Без косточки, крупный</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍇</div></div>
+          <div class="catalog__item-info"><h3>Изюм</h3><p>Узбекский, золотистый</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🌴</div></div>
+          <div class="catalog__item-info"><h3>Финики</h3><p>Medjool, премиум</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥭</div></div>
+          <div class="catalog__item-info"><h3>Манго</h3><p>Сушёное, без сахара</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍓</div></div>
+          <div class="catalog__item-info"><h3>Клюква</h3><p>Вяленая, натуральная</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍈</div></div>
+          <div class="catalog__item-info"><h3>Дыня</h3><p>Узбекская, косичка</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="dried-fruits wholesale">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍐</div></div>
+          <div class="catalog__item-info"><h3>Инжир</h3><p>Турецкий, отборный</p><span class="catalog__item-category">Сухофрукты</span></div>
+        </div>
+
+        <!-- Полезные десерты -->
+        <div class="catalog__item glow-card reveal" data-category="desserts">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍫</div></div>
+          <div class="catalog__item-info"><h3>Орехи в шоколаде</h3><p>Бельгийский шоколад, ассорти</p><span class="catalog__item-category">Десерты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="desserts">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍯</div></div>
+          <div class="catalog__item-info"><h3>Орехи в мёде</h3><p>Натуральный мёд, ассорти</p><span class="catalog__item-category">Десерты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="desserts">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🥣</div></div>
+          <div class="catalog__item-info"><h3>Ореховая паста</h3><p>Натуральная, без добавок</p><span class="catalog__item-category">Десерты</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="desserts">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍬</div></div>
+          <div class="catalog__item-info"><h3>Чурчхела</h3><p>Грузинская, с грецким орехом</p><span class="catalog__item-category">Десерты</span></div>
+        </div>
+
+        <!-- Подарочные наборы -->
+        <div class="catalog__item glow-card reveal" data-category="gift-sets">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🎁</div></div>
+          <div class="catalog__item-info"><h3>Подарочный набор «Премиум»</h3><p>6 видов отборных орехов</p><span class="catalog__item-category">Подарки</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="gift-sets">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🎁</div></div>
+          <div class="catalog__item-info"><h3>Набор «Ореховый Сад»</h3><p>Орехи, сухофрукты, мёд</p><span class="catalog__item-category">Подарки</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="gift-sets">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🎁</div></div>
+          <div class="catalog__item-info"><h3>Корпоративный набор</h3><p>Индивидуальная сборка</p><span class="catalog__item-category">Подарки</span></div>
+        </div>
+
+        <!-- Фрипсы и пастила -->
+        <div class="catalog__item glow-card reveal" data-category="chips">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍎</div></div>
+          <div class="catalog__item-info"><h3>Яблочные фрипсы</h3><p>Хрустящие, без сахара</p><span class="catalog__item-category">Фрипсы</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="chips">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍌</div></div>
+          <div class="catalog__item-info"><h3>Банановые чипсы</h3><p>Натуральная сушка</p><span class="catalog__item-category">Фрипсы</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="chips">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🫧</div></div>
+          <div class="catalog__item-info"><h3>Фруктовая пастила</h3><p>Ручная работа, ассорти</p><span class="catalog__item-category">Пастила</span></div>
+        </div>
+
+        <!-- Мармелад -->
+        <div class="catalog__item glow-card reveal" data-category="marmalade">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍬</div></div>
+          <div class="catalog__item-info"><h3>Жевательный мармелад</h3><p>Натуральные соки</p><span class="catalog__item-category">Мармелад</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="marmalade">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍬</div></div>
+          <div class="catalog__item-info"><h3>Мармелад с орехами</h3><p>С цельным миндалём</p><span class="catalog__item-category">Мармелад</span></div>
+        </div>
+
+        <!-- Ароматный чай -->
+        <div class="catalog__item glow-card reveal" data-category="tea">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍵</div></div>
+          <div class="catalog__item-info"><h3>Иван-чай</h3><p>С травами и ягодами</p><span class="catalog__item-category">Чай</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="tea">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍵</div></div>
+          <div class="catalog__item-info"><h3>Чай с орехами</h3><p>Авторская рецептура</p><span class="catalog__item-category">Чай</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="tea">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🍵</div></div>
+          <div class="catalog__item-info"><h3>Травяной сбор</h3><p>Горный, с шиповником</p><span class="catalog__item-category">Чай</span></div>
+        </div>
+
+        <!-- Специи -->
+        <div class="catalog__item glow-card reveal" data-category="spices">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🌶️</div></div>
+          <div class="catalog__item-info"><h3>Паприка</h3><p>Копчёная, молотая</p><span class="catalog__item-category">Специи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="spices">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🧄</div></div>
+          <div class="catalog__item-info"><h3>Куркума</h3><p>Молотая, премиум</p><span class="catalog__item-category">Специи</span></div>
+        </div>
+        <div class="catalog__item glow-card reveal" data-category="spices">
+          <div class="catalog__item-image"><div class="catalog__item-placeholder catalog__item-icon">🌿</div></div>
+          <div class="catalog__item-info"><h3>Набор специй</h3><p>Для мяса, рыбы, выпечки</p><span class="catalog__item-category">Специи</span></div>
+        </div>
+      </div>
+
+      <div class="catalog__cta reveal">
+        <a href="#" class="catalog__button">
+          <span>Оставить заявку</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- СМИ / Нас выбирают -->
+  <section class="media" id="media">
+    <div class="media__header reveal">
+      <span class="media__label">Признание</span>
+      <h2 class="media__title">Нас выбирают<br><em>и о нас пишут</em></h2>
+    </div>
+
+    <div class="media__ticker-wrapper">
+      <div class="media__ticker" id="mediaTicker">
+        <div class="media__ticker-track">
+          <!-- Карточки СМИ — дублируются для бесшовного цикла -->
+          <div class="media__card">
+            <div class="media__card-logo">Forbes</div>
+            <p class="media__card-text">«Ореховый Сад — новый стандарт премиум-сегмента орехов в России»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">РБК</div>
+            <p class="media__card-text">«Компания, которая доказала: премиум и доступность — не антонимы»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">Коммерсантъ</div>
+            <p class="media__card-text">«Ручной отбор, прямые поставки и прозрачная цепочка — формула успеха»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">Afisha</div>
+            <p class="media__card-text">«Лучшие шефы Москвы выбирают орехи именно здесь»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">GQ</div>
+            <p class="media__card-text">«Идеальный подарок для тех, кто ценит вкус и эстетику»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">Vogue</div>
+            <p class="media__card-text">«Упаковка как произведение искусства, содержимое — ещё лучше»</p>
+          </div>
+          <!-- Дубликаты для бесшовности -->
+          <div class="media__card">
+            <div class="media__card-logo">Forbes</div>
+            <p class="media__card-text">«Ореховый Сад — новый стандарт премиум-сегмента орехов в России»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">РБК</div>
+            <p class="media__card-text">«Компания, которая доказала: премиум и доступность — не антонимы»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">Коммерсантъ</div>
+            <p class="media__card-text">«Ручной отбор, прямые поставки и прозрачная цепочка — формула успеха»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">Afisha</div>
+            <p class="media__card-text">«Лучшие шефы Москвы выбирают орехи именно здесь»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">GQ</div>
+            <p class="media__card-text">«Идеальный подарок для тех, кто ценит вкус и эстетику»</p>
+          </div>
+          <div class="media__card">
+            <div class="media__card-logo">Vogue</div>
+            <p class="media__card-text">«Упаковка как произведение искусства, содержимое — ещё лучше»</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section class="contact" id="contact">
+    <div class="contact__container">
+      <div class="contact__left reveal">
+        <span class="contact__label">Свяжитесь с нами</span>
+        <h2 class="contact__title">Готовы<br><em>попробовать?</em></h2>
+        <p class="contact__text">Оставьте заявку, и мы подберём идеальный набор под ваши вкусы и бюджет.</p>
+      </div>
+      <div class="contact__right reveal">
+        <form class="contact__form" id="contactForm">
+          <div class="contact__field">
+            <input type="text" name="name" placeholder="Имя" required autocomplete="name">
+          </div>
+          <div class="contact__field">
+            <input type="tel" name="phone" placeholder="Телефон" required autocomplete="tel">
+          </div>
+          <div class="contact__field">
+            <input type="email" name="email" placeholder="E-mail" autocomplete="email">
+          </div>
+          <button type="submit" class="contact__submit">
+            <span>Отправить заявку</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__logo">✦ Ореховый Сад</span>
+          <p class="footer__tagline">Мы делаем Премиум Доступным</p>
+        </div>
+        <div class="footer__links">
+          <a href="#philosophy">Философия</a>
+          <a href="#catalog">Каталог</a>
+          <a href="#media">СМИ</a>
+          <a href="#contact">Контакты</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Ореховый Сад. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating particles -->
+  <canvas id="particles"></canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
