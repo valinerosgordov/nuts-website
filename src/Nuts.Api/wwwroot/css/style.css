@@ -34,6 +34,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -43,7 +44,7 @@ body {
   background: var(--black);
   color: var(--white);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* --- Film Grain Overlay --- */
@@ -53,7 +54,7 @@ body::after {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -91,7 +92,7 @@ img {
 
 /* --- Scrollbar --- */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -420,6 +421,7 @@ img {
   gap: 0.75rem;
   padding: 1rem 2.5rem;
   border: 1px solid var(--gold-dark);
+  border-radius: 2px;
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -630,6 +632,7 @@ img {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 400;
   line-height: 1.15;
+  letter-spacing: 0.01em;
 }
 
 .philosophy__title em,
@@ -654,10 +657,11 @@ img {
 
 .philosophy__quote {
   font-family: var(--font-serif);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 400;
   font-style: italic;
   line-height: 1.7;
+  letter-spacing: 0.01em;
   color: var(--white-dim);
   position: relative;
   padding: 0 2rem;
@@ -705,7 +709,7 @@ img {
 
 .philosophy__card:hover {
   border-color: var(--gold-dark);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .philosophy__card:hover::before {
@@ -817,8 +821,9 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+  height: 80px;
+  background: linear-gradient(180deg, rgba(139,105,20,0.03) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .catalog__container {
@@ -912,7 +917,7 @@ img {
 
 .catalog__item:hover {
   border-color: var(--gold-dark);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .catalog__item-image {
@@ -964,6 +969,7 @@ img {
   gap: 0.75rem;
   padding: 1rem 2.5rem;
   border: 1px solid var(--gold-dark);
+  border-radius: 2px;
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -1009,8 +1015,9 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+  height: 80px;
+  background: linear-gradient(180deg, rgba(139,105,20,0.03) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .media__header {
@@ -1046,6 +1053,7 @@ img {
   flex-shrink: 0;
   width: 360px;
   padding: 2.5rem;
+  border-radius: 4px;
   background: var(--black-card);
   border: 1px solid var(--black-border);
   transition: border-color 0.3s;
@@ -1085,8 +1093,9 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+  height: 80px;
+  background: linear-gradient(180deg, rgba(139,105,20,0.03) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .contact__container {
@@ -1140,6 +1149,7 @@ img {
   padding: 1.1rem 2.5rem;
   background: var(--gold-dark);
   border: 1px solid var(--gold-dark);
+  border-radius: 2px;
   color: var(--black);
   font-family: var(--font-sans);
   font-size: 0.85rem;
@@ -1159,7 +1169,7 @@ img {
    Footer
    ============================================ */
 .footer {
-  padding: 3rem 0;
+  padding: 4rem 0;
   border-top: 1px solid var(--black-border);
 }
 
@@ -1191,8 +1201,9 @@ img {
 }
 
 .footer__links {
-  display: flex;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, auto));
+  gap: 1rem 2rem;
 }
 
 .footer__links a {

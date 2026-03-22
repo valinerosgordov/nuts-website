@@ -29,7 +29,7 @@
       transform: translateX(-50%);
       width: 60%;
       height: 100%;
-      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
       pointer-events: none;
     }
     .page-hero__label {
@@ -46,6 +46,14 @@
       font-weight: 400;
       line-height: 1.1;
       margin-bottom: 1rem;
+    }
+    .page-hero__title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8b6914, transparent);
+      margin: 1rem auto 0;
     }
     .page-hero__title em {
       font-style: italic;
@@ -98,6 +106,14 @@
     .about-values .philosophy__cards {
       margin-top: 2rem;
     }
+    .about-values .philosophy__card {
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .about-values .philosophy__card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-dark);
+    }
 
     .about-team {
       max-width: 800px;
@@ -137,6 +153,7 @@
       gap: 0.75rem;
       padding: 1rem 2.5rem;
       border: 1px solid var(--gold-dark);
+      border-radius: 2px;
       font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.1em;
@@ -179,6 +196,18 @@
       }
       .page-hero {
         padding: 8rem 1.5rem 3rem;
+      }
+      .page-hero__title {
+        font-size: clamp(2.2rem, 7vw, 4rem);
+      }
+      .page-hero__subtitle {
+        font-size: 1rem;
+      }
+      .about-cta {
+        padding: 4rem 1.5rem;
+      }
+      .about-cta__title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
       }
       .philosophy__cards {
         grid-template-columns: 1fr 1fr;

@@ -30,7 +30,7 @@
       transform: translateX(-50%);
       width: 60%;
       height: 100%;
-      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -50,6 +50,15 @@
       font-weight: 400;
       line-height: 1.1;
       margin-bottom: 1rem;
+    }
+
+    .page-hero__title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8b6914, transparent);
+      margin: 1rem auto 0;
     }
 
     .page-hero__title em {
@@ -101,8 +110,9 @@
     .advantages__card {
       background: var(--black-card);
       border: 1px solid var(--black-border);
+      border-radius: 2px;
       padding: 2.5rem 2rem;
-      transition: all 0.4s var(--ease-out);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
     }
@@ -190,11 +200,13 @@
       padding: 2rem;
       background: var(--black-card);
       border: 1px solid var(--black-border);
-      transition: border-color 0.3s;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .conditions__item:hover {
       border-color: var(--gold-dark);
+      transform: translateY(-4px);
     }
 
     .conditions__item-icon {
@@ -264,7 +276,8 @@
       padding: 2.5rem 1.5rem;
       background: var(--black-card);
       border: 1px solid var(--black-border);
-      transition: all 0.4s var(--ease-out);
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .audience__item:hover {
@@ -325,6 +338,18 @@
       margin-top: 1.5rem;
     }
 
+    /* Form fields */
+    .contact__field input,
+    .contact__field textarea {
+      border-radius: 2px;
+    }
+
+    .contact__field input:focus,
+    .contact__field textarea:focus {
+      border-color: var(--gold-dark);
+      box-shadow: 0 0 0 2px rgba(139, 105, 20, 0.15);
+    }
+
     .contact__field textarea {
       width: 100%;
       padding: 1.1rem 1.5rem;
@@ -334,7 +359,7 @@
       font-family: var(--font-sans);
       font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, box-shadow 0.3s;
       resize: vertical;
       min-height: 120px;
     }
@@ -343,8 +368,26 @@
       color: var(--gray);
     }
 
-    .contact__field textarea:focus {
-      border-color: var(--gold-dark);
+    /* Submit button with fill animation */
+    .contact__submit {
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact__submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .contact__submit:hover::before {
+      transform: scaleX(1);
     }
 
     /* Responsive */
@@ -364,6 +407,14 @@
         padding: 8rem 1.5rem 3rem;
       }
 
+      .page-hero__title {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+      }
+
+      .page-hero__subtitle {
+        font-size: 1rem;
+      }
+
       .advantages__container,
       .conditions__container,
       .audience__container,
@@ -381,6 +432,10 @@
 
       .audience__grid {
         grid-template-columns: 1fr;
+      }
+
+      .wholesale-cta {
+        padding: 5rem 0;
       }
     }
   </style>

@@ -29,7 +29,7 @@
       transform: translateX(-50%);
       width: 60%;
       height: 100%;
-      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
       pointer-events: none;
     }
     .page-hero__label {
@@ -46,6 +46,14 @@
       font-weight: 400;
       line-height: 1.1;
       margin-bottom: 1rem;
+    }
+    .page-hero__title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8b6914, transparent);
+      margin: 1rem auto 0;
     }
     .page-hero__title em {
       font-style: italic;
@@ -82,8 +90,9 @@
     .delivery-card {
       background: var(--black-card);
       border: 1px solid var(--black-border);
+      border-radius: 2px;
       padding: 2.5rem 2rem;
-      transition: all 0.4s var(--ease-out);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
     }
@@ -135,9 +144,10 @@
     .payment-card {
       background: var(--black-card);
       border: 1px solid var(--black-border);
+      border-radius: 2px;
       padding: 2rem 1.5rem;
       text-align: center;
-      transition: all 0.4s var(--ease-out);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
     }
@@ -186,10 +196,12 @@
       padding: 2.5rem 1.5rem;
       background: var(--black-card);
       border: 1px solid var(--black-border);
-      transition: all 0.4s var(--ease-out);
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .discount-item:hover {
       border-color: var(--gold-dark);
+      transform: translateY(-4px);
     }
     .discount-item__amount {
       font-family: var(--font-serif);
@@ -213,6 +225,7 @@
       padding: 2rem;
       background: linear-gradient(135deg, rgba(139, 105, 20, 0.1), rgba(201, 168, 76, 0.05));
       border: 1px solid var(--gold-dark);
+      border-radius: 2px;
       font-family: var(--font-serif);
       font-size: 1.2rem;
       color: var(--gold-light);
@@ -233,6 +246,12 @@
       }
       .page-hero {
         padding: 8rem 1.5rem 3rem;
+      }
+      .page-hero__title {
+        font-size: clamp(2.2rem, 7vw, 4rem);
+      }
+      .info-section__title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
       }
       .delivery-cards {
         grid-template-columns: 1fr;
