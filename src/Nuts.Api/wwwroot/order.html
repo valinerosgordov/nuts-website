@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заказ — Ореховый Сад</title>
+  <meta name="description" content="Детали заказа — Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Page Hero */
+    .page-hero {
+      min-height: 28vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 3rem;
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero__title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8b6914, transparent);
+      margin: 1rem auto 0;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem 2rem;
+      font-size: 0.82rem;
+      color: var(--white-dim);
+    }
+
+    .breadcrumb a {
+      color: var(--white-dim);
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--gold);
+    }
+
+    .breadcrumb__sep {
+      color: var(--gray);
+      font-size: 0.7rem;
+    }
+
+    .breadcrumb__current {
+      color: var(--gold);
+    }
+
+    /* Order Detail Section */
+    .order-detail {
+      padding: 0 0 8rem;
+      position: relative;
+    }
+
+    .order-detail__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* Order Info Card */
+    .order-info {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .order-info::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    }
+
+    .order-info__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+    }
+
+    .order-info__row + .order-info__row {
+      border-top: 1px solid var(--black-border);
+    }
+
+    .order-info__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    .order-info__value {
+      font-size: 0.95rem;
+      color: var(--white);
+      text-align: right;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .status-badge--processing {
+      background: rgba(201, 168, 76, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    .status-badge--shipped {
+      background: rgba(76, 140, 201, 0.12);
+      color: #6ab0e8;
+      border: 1px solid rgba(76, 140, 201, 0.25);
+    }
+
+    .status-badge--delivered {
+      background: rgba(76, 201, 100, 0.12);
+      color: #60c070;
+      border: 1px solid rgba(76, 201, 100, 0.25);
+    }
+
+    .status-badge--cancelled {
+      background: rgba(201, 76, 76, 0.12);
+      color: #c06060;
+      border: 1px solid rgba(201, 76, 76, 0.25);
+    }
+
+    .status-badge--created {
+      background: rgba(160, 152, 136, 0.12);
+      color: var(--white-dim);
+      border: 1px solid rgba(160, 152, 136, 0.25);
+    }
+
+    /* Status Timeline */
+    .timeline {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      padding: 2rem 2.5rem;
+      position: sticky;
+      top: 100px;
+    }
+
+    .timeline__title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .timeline__steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline__step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .timeline__step:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline__step::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 24px;
+      width: 1px;
+      bottom: 0;
+      background: var(--black-border);
+    }
+
+    .timeline__step:last-child::before {
+      display: none;
+    }
+
+    .timeline__step.active::before {
+      background: var(--gold-dark);
+    }
+
+    .timeline__dot {
+      flex-shrink: 0;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      border: 2px solid var(--black-border);
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      transition: all 0.3s;
+    }
+
+    .timeline__step.active .timeline__dot {
+      border-color: var(--gold);
+      background: rgba(139, 105, 20, 0.2);
+    }
+
+    .timeline__step.completed .timeline__dot {
+      border-color: var(--gold);
+      background: var(--gold-dark);
+      color: var(--black);
+    }
+
+    .timeline__step-content {
+      flex: 1;
+      padding-top: 1px;
+    }
+
+    .timeline__step-label {
+      font-size: 0.88rem;
+      color: var(--gray);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline__step.active .timeline__step-label,
+    .timeline__step.completed .timeline__step-label {
+      color: var(--white);
+    }
+
+    .timeline__step-date {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    /* Items Table */
+    .order-items {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .order-items__header {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--black-border);
+    }
+
+    .order-items__title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .items-table th {
+      padding: 0.8rem 2rem;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--black-border);
+    }
+
+    .items-table td {
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--black-border);
+      color: var(--white-dim);
+      vertical-align: middle;
+    }
+
+    .items-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .item-row {
+      transition: background 0.3s;
+    }
+
+    .item-row:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .item-product {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .item-product__image {
+      width: 56px;
+      height: 56px;
+      border-radius: 2px;
+      background: var(--black-light);
+      border: 1px solid var(--black-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .item-product__name {
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .item-product__variant {
+      font-size: 0.8rem;
+      color: var(--white-dim);
+      margin-top: 0.15rem;
+    }
+
+    .item-subtotal {
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    /* Order Summary (sidebar bottom) */
+    .order-summary {
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .order-summary__title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      color: var(--white);
+    }
+
+    .order-summary__row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: var(--white-dim);
+    }
+
+    .order-summary__row--total {
+      margin-top: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--black-border);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .order-summary__row--total .order-summary__amount {
+      color: var(--gold);
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      transition: all 0.3s;
+    }
+
+    .back-link:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .order-detail__container {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 8rem 1.5rem 2rem;
+      }
+
+      .breadcrumb,
+      .order-detail__container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .order-info,
+      .timeline,
+      .order-summary {
+        padding: 1.5rem;
+      }
+
+      .items-table th,
+      .items-table td {
+        padding: 0.8rem 1rem;
+      }
+
+      .items-table th:nth-child(4),
+      .items-table td:nth-child(4) {
+        display: none;
+      }
+
+      .item-product__image {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+        <li><a href="/account.html" class="nav__account-link">Кабинет</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+      <li><a href="/account.html">Кабинет</a></li>
+    </ul>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <span class="page-hero__label reveal">Детали заказа</span>
+    <h1 class="page-hero__title reveal" id="heroTitle">Заказ <em id="heroOrderId">...</em></h1>
+  </section>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb reveal">
+    <a href="/account.html">Личный кабинет</a>
+    <span class="breadcrumb__sep">→</span>
+    <a href="/orders.html">Мои заказы</a>
+    <span class="breadcrumb__sep">→</span>
+    <span class="breadcrumb__current" id="breadcrumbOrder">Заказ</span>
+  </nav>
+
+  <!-- Order Detail -->
+  <section class="order-detail">
+    <div class="order-detail__container">
+      <!-- Left: Order content -->
+      <div>
+        <!-- Order Info -->
+        <div class="order-info reveal">
+          <div class="order-info__row">
+            <span class="order-info__label">Статус</span>
+            <span class="order-info__value" id="orderStatus"></span>
+          </div>
+          <div class="order-info__row">
+            <span class="order-info__label">Дата оформления</span>
+            <span class="order-info__value" id="orderDate"></span>
+          </div>
+          <div class="order-info__row">
+            <span class="order-info__label">Адрес доставки</span>
+            <span class="order-info__value" id="orderAddress"></span>
+          </div>
+        </div>
+
+        <!-- Items -->
+        <div class="order-items reveal">
+          <div class="order-items__header">
+            <h3 class="order-items__title">Состав заказа</h3>
+          </div>
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th>Товар</th>
+                <th>Кол-во</th>
+                <th>Цена</th>
+                <th>Сумма</th>
+              </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+            </tbody>
+          </table>
+        </div>
+
+        <a href="/orders.html" class="back-link reveal">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path d="M16 10H4M4 10L9 5M4 10L9 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Назад к заказам
+        </a>
+      </div>
+
+      <!-- Right: Timeline + Summary -->
+      <div>
+        <!-- Timeline -->
+        <div class="timeline reveal">
+          <h3 class="timeline__title">Статус заказа</h3>
+          <div class="timeline__steps" id="timelineSteps">
+            <div class="timeline__step" data-step="Created">
+              <div class="timeline__dot">✓</div>
+              <div class="timeline__step-content">
+                <div class="timeline__step-label">Создан</div>
+                <div class="timeline__step-date" data-date="Created"></div>
+              </div>
+            </div>
+            <div class="timeline__step" data-step="Processing">
+              <div class="timeline__dot">✓</div>
+              <div class="timeline__step-content">
+                <div class="timeline__step-label">В обработке</div>
+                <div class="timeline__step-date" data-date="Processing"></div>
+              </div>
+            </div>
+            <div class="timeline__step" data-step="Shipped">
+              <div class="timeline__dot">✓</div>
+              <div class="timeline__step-content">
+                <div class="timeline__step-label">Отправлен</div>
+                <div class="timeline__step-date" data-date="Shipped"></div>
+              </div>
+            </div>
+            <div class="timeline__step" data-step="Delivered">
+              <div class="timeline__dot">✓</div>
+              <div class="timeline__step-content">
+                <div class="timeline__step-label">Доставлен</div>
+                <div class="timeline__step-date" data-date="Delivered"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="order-summary reveal">
+          <h3 class="order-summary__title">Итого</h3>
+          <div class="order-summary__row">
+            <span>Товары</span>
+            <span class="order-summary__amount" id="summarySubtotal">0 ₽</span>
+          </div>
+          <div class="order-summary__row">
+            <span>Доставка</span>
+            <span class="order-summary__amount" id="summaryDelivery">0 ₽</span>
+          </div>
+          <div class="order-summary__row order-summary__row--total">
+            <span>Итого</span>
+            <span class="order-summary__amount" id="summaryTotal">0 ₽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        window.location.href = '/login.html';
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('id');
+      if (!orderId) {
+        window.location.href = '/orders.html';
+        return;
+      }
+
+      const statusMap = {
+        'Created': { label: 'Создан', class: 'created' },
+        'Processing': { label: 'В обработке', class: 'processing' },
+        'Shipped': { label: 'Отправлен', class: 'shipped' },
+        'Delivered': { label: 'Доставлен', class: 'delivered' },
+        'Cancelled': { label: 'Отменён', class: 'cancelled' }
+      };
+
+      const statusOrder = ['Created', 'Processing', 'Shipped', 'Delivered'];
+
+      function formatDate(dateStr) {
+        if (!dateStr) return '\u2014';
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+
+      function formatMoney(amount) {
+        return new Intl.NumberFormat('ru-RU').format(amount) + ' \u20BD';
+      }
+
+      function statusBadge(status) {
+        const s = statusMap[status] || { label: status, class: 'created' };
+        return '<span class="status-badge status-badge--' + s.class + '">' + s.label + '</span>';
+      }
+
+      function updateTimeline(status, dates) {
+        const currentIdx = statusOrder.indexOf(status);
+        const steps = document.querySelectorAll('.timeline__step');
+
+        steps.forEach((step, i) => {
+          const stepName = step.dataset.step;
+          const idx = statusOrder.indexOf(stepName);
+          const dateEl = step.querySelector('.timeline__step-date');
+
+          if (idx < currentIdx) {
+            step.classList.add('completed');
+            step.classList.remove('active');
+            if (dates && dates[stepName]) dateEl.textContent = formatDate(dates[stepName]);
+          } else if (idx === currentIdx) {
+            step.classList.add('active');
+            step.classList.remove('completed');
+            if (dates && dates[stepName]) dateEl.textContent = formatDate(dates[stepName]);
+          } else {
+            step.classList.remove('active', 'completed');
+          }
+        });
+
+        // Handle cancelled
+        if (status === 'Cancelled') {
+          steps.forEach(step => {
+            step.classList.remove('active');
+          });
+        }
+      }
+
+      async function loadOrder() {
+        try {
+          const res = await fetch('/api/account/orders/' + orderId, {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          if (res.status === 401) { localStorage.removeItem('auth_token'); window.location.href = '/login.html'; return; }
+          if (res.status === 404) { window.location.href = '/orders.html'; return; }
+
+          const order = await res.json();
+          const shortId = order.shortId || order.id.substring(0, 8);
+
+          // Title
+          document.title = 'Заказ #' + shortId + ' — Ореховый Сад';
+          document.getElementById('heroOrderId').textContent = '#' + shortId;
+          document.getElementById('breadcrumbOrder').textContent = 'Заказ #' + shortId;
+
+          // Info card
+          document.getElementById('orderStatus').innerHTML = statusBadge(order.status);
+          document.getElementById('orderDate').textContent = formatDate(order.createdAt);
+          document.getElementById('orderAddress').textContent = order.shippingAddress || 'Не указан';
+
+          // Items
+          const tbody = document.getElementById('itemsTableBody');
+          if (order.items && order.items.length > 0) {
+            tbody.innerHTML = order.items.map(item =>
+              '<tr class="item-row">' +
+              '<td><div class="item-product">' +
+              '<div class="item-product__image">' + (item.imageUrl ? '<img src="' + item.imageUrl + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">' : '🥜') + '</div>' +
+              '<div><div class="item-product__name">' + (item.name || 'Товар') + '</div>' +
+              (item.variant ? '<div class="item-product__variant">' + item.variant + '</div>' : '') +
+              '</div></div></td>' +
+              '<td>' + (item.quantity || 1) + '</td>' +
+              '<td>' + formatMoney(item.unitPrice || 0) + '</td>' +
+              '<td class="item-subtotal">' + formatMoney((item.unitPrice || 0) * (item.quantity || 1)) + '</td>' +
+              '</tr>'
+            ).join('');
+          } else {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--white-dim);padding:2rem;">Нет данных о товарах</td></tr>';
+          }
+
+          // Summary
+          const subtotal = order.subtotal || order.total || 0;
+          const delivery = order.deliveryCost || 0;
+          const total = order.total || subtotal + delivery;
+          document.getElementById('summarySubtotal').textContent = formatMoney(subtotal);
+          document.getElementById('summaryDelivery').textContent = delivery > 0 ? formatMoney(delivery) : 'Бесплатно';
+          document.getElementById('summaryTotal').textContent = formatMoney(total);
+
+          // Timeline
+          updateTimeline(order.status, order.statusDates || {});
+
+        } catch {
+          document.getElementById('heroOrderId').textContent = '#???';
+        }
+      }
+
+      loadOrder();
+    })();
+  </script>
+</body>
+</html>
