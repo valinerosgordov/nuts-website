@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Nuts.Application.Account;
 using Nuts.Application.Common;
 using Nuts.Application.Contacts;
 using Nuts.Application.Media;
@@ -24,6 +25,8 @@ public static class DependencyInjection
         services.AddScoped<IMediaMentionRepository, MediaMentionRepository>();
         services.AddScoped<IContactRequestRepository, ContactRequestRepository>();
         services.AddScoped<IPageRepository, PageRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
         return services;
     }

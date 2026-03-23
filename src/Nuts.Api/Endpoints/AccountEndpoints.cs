@@ -1,0 +1,227 @@
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using Nuts.Application.Account;
+using Nuts.Application.Common;
+using Nuts.Domain.Entities;
+
+namespace Nuts.Api.Endpoints;
+
+public static class AccountEndpoints
+{
+    public static void MapAccountEndpoints(this IEndpointRouteBuilder app)
+    {
+        var authGroup = app.MapGroup("/api/auth").WithTags("Account — Auth");
+        var accountGroup = app.MapGroup("/api/account").WithTags("Account").RequireAuthorization("User");
+
+        // ── Registration ──
+        authGroup.MapPost("/register", async Task<Results<Ok<AuthResponse>, BadRequest<string>>> (
+            RegisterRequest req,
+            IUserRepository userRepo,
+            IUnitOfWork uow,
+            IConfiguration config,
+            CancellationToken ct) =>
+        {
+            var existing = await userRepo.GetByEmailAsync(req.Email.Trim().ToLowerInvariant(), ct);
+            if (existing is not null)
+                return TypedResults.BadRequest("Пользователь с таким e-mail уже существует.");
+
+            var passwordHash = HashPassword(req.Password);
+            var userResult = User.Create(req.Email, passwordHash, req.FullName, req.Phone);
+
+            return await userResult.Match<Task<Results<Ok<AuthResponse>, BadRequest<string>>>>(
+                async user =>
+                {
+                    userRepo.Add(user);
+                    await uow.SaveChangesAsync(ct);
+                    var token = GenerateToken(user, config);
+                    return TypedResults.Ok(new AuthResponse(token, user.FullName, user.Email));
+                },
+                error => Task.FromResult<Results<Ok<AuthResponse>, BadRequest<string>>>(
+                    TypedResults.BadRequest(error.Message)));
+        }).AllowAnonymous();
+
+        // ── Login ──
+        authGroup.MapPost("/user-login", async Task<Results<Ok<AuthResponse>, UnauthorizedHttpResult>> (
+            UserLoginRequest req,
+            IUserRepository userRepo,
+            IConfiguration config,
+            CancellationToken ct) =>
+        {
+            var user = await userRepo.GetByEmailAsync(req.Email.Trim().ToLowerInvariant(), ct);
+            if (user is null)
+                return TypedResults.Unauthorized();
+
+            var inputHash = HashPassword(req.Password);
+            var expected = Encoding.UTF8.GetBytes(user.PasswordHash);
+            var actual = Encoding.UTF8.GetBytes(inputHash);
+
+            if (!CryptographicOperations.FixedTimeEquals(actual, expected))
+                return TypedResults.Unauthorized();
+
+            user.UpdateLastLogin();
+            var token = GenerateToken(user, config);
+            return TypedResults.Ok(new AuthResponse(token, user.FullName, user.Email));
+        }).AllowAnonymous();
+
+        // ── Profile ──
+        accountGroup.MapGet("/profile", async Task<Results<Ok<ProfileResponse>, NotFound>> (
+            ClaimsPrincipal claims,
+            IUserRepository userRepo,
+            CancellationToken ct) =>
+        {
+            var userId = GetUserId(claims);
+            if (userId is null) return TypedResults.NotFound();
+
+            var user = await userRepo.GetByIdAsync(userId.Value, ct);
+            if (user is null) return TypedResults.NotFound();
+
+            return TypedResults.Ok(new ProfileResponse(
+                user.Id, user.FullName, user.Email, user.Phone, user.CreatedAt));
+        });
+
+        accountGroup.MapPut("/profile", async Task<Results<Ok<ProfileResponse>, NotFound, BadRequest<string>>> (
+            UpdateProfileRequest req,
+            ClaimsPrincipal claims,
+            IUserRepository userRepo,
+            IUnitOfWork uow,
+            CancellationToken ct) =>
+        {
+            var userId = GetUserId(claims);
+            if (userId is null) return TypedResults.NotFound();
+
+            var user = await userRepo.GetByIdAsync(userId.Value, ct);
+            if (user is null) return TypedResults.NotFound();
+
+            var result = user.UpdateProfile(req.FullName, req.Phone);
+            if (result.IsFailure)
+                return TypedResults.BadRequest(result.Error.Message);
+
+            await uow.SaveChangesAsync(ct);
+            return TypedResults.Ok(new ProfileResponse(
+                user.Id, user.FullName, user.Email, user.Phone, user.CreatedAt));
+        });
+
+        // ── Orders ──
+        accountGroup.MapGet("/orders", async Task<Results<Ok<List<OrderSummaryDto>>, NotFound>> (
+            ClaimsPrincipal claims,
+            IOrderRepository orderRepo,
+            CancellationToken ct) =>
+        {
+            var userId = GetUserId(claims);
+            if (userId is null) return TypedResults.NotFound();
+
+            var orders = await orderRepo.GetByUserIdAsync(userId.Value, ct);
+            var dtos = orders.Select(o => new OrderSummaryDto(
+                o.Id,
+                o.Id.ToString()[..8].ToUpperInvariant(),
+                o.Status,
+                o.TotalAmount,
+                o.Items.Count,
+                o.CreatedAt)).ToList();
+
+            return TypedResults.Ok(dtos);
+        });
+
+        accountGroup.MapGet("/orders/{id:guid}", async Task<Results<Ok<OrderDetailDto>, NotFound>> (
+            Guid id,
+            ClaimsPrincipal claims,
+            IOrderRepository orderRepo,
+            CancellationToken ct) =>
+        {
+            var userId = GetUserId(claims);
+            if (userId is null) return TypedResults.NotFound();
+
+            var order = await orderRepo.GetByIdAsync(id, ct);
+            if (order is null || order.UserId != userId) return TypedResults.NotFound();
+
+            var items = order.Items.Select(i => new OrderItemDto(
+                i.Id, i.ProductId, i.ProductName, i.Quantity, i.UnitPrice, i.Weight, i.Subtotal)).ToList();
+
+            return TypedResults.Ok(new OrderDetailDto(
+                order.Id,
+                order.Id.ToString()[..8].ToUpperInvariant(),
+                order.Status,
+                order.TotalAmount,
+                order.ShippingAddress,
+                order.CreatedAt,
+                order.UpdatedAt,
+                items));
+        });
+    }
+
+    private static Guid? GetUserId(ClaimsPrincipal claims)
+    {
+        var idClaim = claims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        return Guid.TryParse(idClaim, out var id) ? id : null;
+    }
+
+    private static string HashPassword(string password)
+    {
+        var hash = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+        return Convert.ToHexStringLower(hash);
+    }
+
+    private static string GenerateToken(User user, IConfiguration config)
+    {
+        var key = config["Jwt:Key"] ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var descriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(
+            [
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Role, "User")
+            ]),
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = credentials,
+            Issuer = config["Jwt:Issuer"] ?? "NutsApi",
+            Audience = config["Jwt:Audience"] ?? "NutsAdmin"
+        };
+
+        var handler = new JsonWebTokenHandler();
+        return handler.CreateToken(descriptor);
+    }
+}
+
+// ── DTOs ──
+public sealed record RegisterRequest
+{
+    public required string Email { get; init; }
+    public required string Password { get; init; }
+    public required string FullName { get; init; }
+    public string? Phone { get; init; }
+}
+
+public sealed record UserLoginRequest
+{
+    public required string Email { get; init; }
+    public required string Password { get; init; }
+}
+
+public sealed record AuthResponse(string Token, string FullName, string Email);
+
+public sealed record ProfileResponse(Guid Id, string FullName, string Email, string? Phone, DateTime CreatedAt);
+
+public sealed record UpdateProfileRequest
+{
+    public required string FullName { get; init; }
+    public string? Phone { get; init; }
+}
+
+public sealed record OrderSummaryDto(
+    Guid Id, string OrderNumber, string Status, decimal TotalAmount, int ItemsCount, DateTime CreatedAt);
+
+public sealed record OrderDetailDto(
+    Guid Id, string OrderNumber, string Status, decimal TotalAmount,
+    string ShippingAddress, DateTime CreatedAt, DateTime? UpdatedAt, List<OrderItemDto> Items);
+
+public sealed record OrderItemDto(
+    Guid Id, Guid ProductId, string ProductName, int Quantity, decimal UnitPrice, string Weight, decimal Subtotal);

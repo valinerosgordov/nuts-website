@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет — Ореховый Сад</title>
+  <meta name="description" content="Войдите или зарегистрируйтесь в личном кабинете Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Page Hero */
+    .page-hero {
+      min-height: 35vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 3rem 3rem;
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero__title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8b6914, transparent);
+      margin: 1rem auto 0;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .page-hero__subtitle {
+      font-size: 1.05rem;
+      color: var(--white-dim);
+      font-weight: 300;
+      letter-spacing: 0.03em;
+    }
+
+    /* Auth Section */
+    .auth-section {
+      padding: 3rem 0 8rem;
+      position: relative;
+    }
+
+    .auth-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+    }
+
+    .auth__container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    /* Tabs */
+    .auth__tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .auth__tab {
+      flex: 1;
+      padding: 1rem;
+      background: transparent;
+      border: none;
+      color: var(--white-dim);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .auth__tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth__tab.active {
+      color: var(--gold);
+      background: rgba(139, 105, 20, 0.08);
+    }
+
+    .auth__tab.active::after {
+      transform: scaleX(1);
+    }
+
+    .auth__tab:hover:not(.active) {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Forms */
+    .auth__form-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: opacity 0.4s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth__form.hidden {
+      display: none;
+    }
+
+    .auth__form.fade-out {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .auth__field {
+      position: relative;
+    }
+
+    .auth__field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .auth__field input {
+      width: 100%;
+      padding: 1.1rem 1.5rem;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .auth__field input::placeholder {
+      color: var(--gray);
+    }
+
+    .auth__field input:focus {
+      border-color: var(--gold-dark);
+      box-shadow: 0 0 0 2px rgba(139, 105, 20, 0.15);
+    }
+
+    .auth__field input.error {
+      border-color: #a04040;
+      box-shadow: 0 0 0 2px rgba(160, 64, 64, 0.15);
+    }
+
+    .auth__field-error {
+      display: none;
+      font-size: 0.78rem;
+      color: #c06060;
+      margin-top: 0.4rem;
+    }
+
+    .auth__field input.error ~ .auth__field-error {
+      display: block;
+    }
+
+    /* Forgot password link */
+    .auth__forgot {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: var(--white-dim);
+      transition: color 0.3s;
+      text-align: right;
+      margin-top: -0.5rem;
+    }
+
+    .auth__forgot:hover {
+      color: var(--gold);
+    }
+
+    /* Submit */
+    .auth__submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.1rem 2.5rem;
+      background: var(--gold-dark);
+      border: 1px solid var(--gold-dark);
+      border-radius: 2px;
+      color: var(--black);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .auth__submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .auth__submit:hover::before {
+      transform: scaleX(1);
+    }
+
+    .auth__submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Message */
+    .auth__message {
+      display: none;
+      padding: 1rem 1.5rem;
+      border-radius: 2px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .auth__message.error {
+      display: block;
+      background: rgba(160, 64, 64, 0.1);
+      border: 1px solid rgba(160, 64, 64, 0.3);
+      color: #c06060;
+    }
+
+    .auth__message.success {
+      display: block;
+      background: rgba(64, 160, 80, 0.1);
+      border: 1px solid rgba(64, 160, 80, 0.3);
+      color: #60c070;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 8rem 1.5rem 2rem;
+      }
+
+      .auth__container {
+        padding: 0 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+        <li><a href="/account.html" class="nav__account-link" style="display:none;">Кабинет</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+      <li><a href="/account.html" class="nav__account-link" style="display:none;">Кабинет</a></li>
+    </ul>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <span class="page-hero__label reveal">Добро пожаловать</span>
+    <h1 class="page-hero__title reveal">Личный <em>кабинет</em></h1>
+    <p class="page-hero__subtitle reveal">Войдите или зарегистрируйтесь</p>
+  </section>
+
+  <!-- Auth Section -->
+  <section class="auth-section">
+    <div class="auth__container">
+      <!-- Tabs -->
+      <div class="auth__tabs reveal">
+        <button class="auth__tab active" data-tab="login">Вход</button>
+        <button class="auth__tab" data-tab="register">Регистрация</button>
+      </div>
+
+      <div class="auth__form-wrapper reveal">
+        <!-- Message -->
+        <div class="auth__message" id="authMessage"></div>
+
+        <!-- Login Form -->
+        <form class="auth__form" id="loginForm">
+          <div class="auth__field">
+            <label for="loginEmail">E-mail</label>
+            <input type="email" id="loginEmail" name="email" placeholder="your@email.com" required autocomplete="email">
+            <span class="auth__field-error">Введите корректный e-mail</span>
+          </div>
+          <div class="auth__field">
+            <label for="loginPassword">Пароль</label>
+            <input type="password" id="loginPassword" name="password" placeholder="Ваш пароль" required autocomplete="current-password">
+            <span class="auth__field-error">Введите пароль</span>
+          </div>
+          <a href="#" class="auth__forgot">Забыли пароль?</a>
+          <button type="submit" class="auth__submit">
+            <span>Войти</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Register Form -->
+        <form class="auth__form hidden" id="registerForm">
+          <div class="auth__field">
+            <label for="regName">Имя</label>
+            <input type="text" id="regName" name="name" placeholder="Ваше имя" required autocomplete="name">
+            <span class="auth__field-error">Введите имя</span>
+          </div>
+          <div class="auth__field">
+            <label for="regEmail">E-mail</label>
+            <input type="email" id="regEmail" name="email" placeholder="your@email.com" required autocomplete="email">
+            <span class="auth__field-error">Введите корректный e-mail</span>
+          </div>
+          <div class="auth__field">
+            <label for="regPhone">Телефон</label>
+            <input type="tel" id="regPhone" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
+            <span class="auth__field-error">Введите номер телефона</span>
+          </div>
+          <div class="auth__field">
+            <label for="regPassword">Пароль</label>
+            <input type="password" id="regPassword" name="password" placeholder="Минимум 8 символов" required autocomplete="new-password">
+            <span class="auth__field-error">Минимум 8 символов</span>
+          </div>
+          <div class="auth__field">
+            <label for="regPasswordConfirm">Подтвердите пароль</label>
+            <input type="password" id="regPasswordConfirm" name="passwordConfirm" placeholder="Повторите пароль" required autocomplete="new-password">
+            <span class="auth__field-error">Пароли не совпадают</span>
+          </div>
+          <button type="submit" class="auth__submit">
+            <span>Зарегистрироваться</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      // Show account link if logged in
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        document.querySelectorAll('.nav__account-link').forEach(el => el.style.display = '');
+      }
+
+      // Tab switching
+      const tabs = document.querySelectorAll('.auth__tab');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const authMessage = document.getElementById('authMessage');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          authMessage.className = 'auth__message';
+          authMessage.textContent = '';
+
+          if (tab.dataset.tab === 'login') {
+            registerForm.classList.add('fade-out');
+            setTimeout(() => {
+              registerForm.classList.add('hidden');
+              registerForm.classList.remove('fade-out');
+              loginForm.classList.remove('hidden');
+            }, 200);
+          } else {
+            loginForm.classList.add('fade-out');
+            setTimeout(() => {
+              loginForm.classList.add('hidden');
+              loginForm.classList.remove('fade-out');
+              registerForm.classList.remove('hidden');
+            }, 200);
+          }
+        });
+      });
+
+      function showMessage(text, type) {
+        authMessage.textContent = text;
+        authMessage.className = 'auth__message ' + type;
+      }
+
+      function clearErrors(form) {
+        form.querySelectorAll('input').forEach(inp => inp.classList.remove('error'));
+      }
+
+      // Login
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors(loginForm);
+        authMessage.className = 'auth__message';
+
+        const email = document.getElementById('loginEmail');
+        const password = document.getElementById('loginPassword');
+        let valid = true;
+
+        if (!email.value || !email.validity.valid) { email.classList.add('error'); valid = false; }
+        if (!password.value) { password.classList.add('error'); valid = false; }
+        if (!valid) return;
+
+        const btn = loginForm.querySelector('.auth__submit');
+        btn.disabled = true;
+
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email.value, password: password.value })
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data.token) {
+            localStorage.setItem('auth_token', data.token);
+            if (data.user) localStorage.setItem('auth_user', JSON.stringify(data.user));
+            showMessage('Вход выполнен! Перенаправляем...', 'success');
+            setTimeout(() => window.location.href = '/account.html', 800);
+          } else {
+            showMessage(data.detail || data.message || 'Неверный e-mail или пароль', 'error');
+          }
+        } catch {
+          showMessage('Ошибка соединения. Попробуйте позже.', 'error');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      // Register
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors(registerForm);
+        authMessage.className = 'auth__message';
+
+        const name = document.getElementById('regName');
+        const email = document.getElementById('regEmail');
+        const phone = document.getElementById('regPhone');
+        const password = document.getElementById('regPassword');
+        const confirm = document.getElementById('regPasswordConfirm');
+        let valid = true;
+
+        if (!name.value.trim()) { name.classList.add('error'); valid = false; }
+        if (!email.value || !email.validity.valid) { email.classList.add('error'); valid = false; }
+        if (!phone.value.trim()) { phone.classList.add('error'); valid = false; }
+        if (!password.value || password.value.length < 8) { password.classList.add('error'); valid = false; }
+        if (password.value !== confirm.value) { confirm.classList.add('error'); valid = false; }
+        if (!valid) return;
+
+        const btn = registerForm.querySelector('.auth__submit');
+        btn.disabled = true;
+
+        try {
+          const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: name.value.trim(),
+              email: email.value,
+              phone: phone.value.trim(),
+              password: password.value
+            })
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data.token) {
+            localStorage.setItem('auth_token', data.token);
+            if (data.user) localStorage.setItem('auth_user', JSON.stringify(data.user));
+            showMessage('Регистрация успешна! Перенаправляем...', 'success');
+            setTimeout(() => window.location.href = '/account.html', 800);
+          } else {
+            showMessage(data.detail || data.message || 'Ошибка регистрации', 'error');
+          }
+        } catch {
+          showMessage('Ошибка соединения. Попробуйте позже.', 'error');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

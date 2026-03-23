@@ -29,7 +29,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    .AddPolicy("Admin", policy => policy.RequireRole("Admin"))
+    .AddPolicy("User", policy => policy.RequireRole("User"));
 
 // CORS
 builder.Services.AddCors(options =>
@@ -62,6 +63,7 @@ app.MapAuthEndpoints();
 app.MapProductEndpoints();
 app.MapContactEndpoints();
 app.MapMediaEndpoints();
+app.MapAccountEndpoints();
 
 // Fallback to index.html for SPA-like routing
 app.MapFallbackToFile("index.html");
