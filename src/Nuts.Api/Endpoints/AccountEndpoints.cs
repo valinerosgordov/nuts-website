@@ -48,6 +48,7 @@ public static class AccountEndpoints
         authGroup.MapPost("/user-login", async Task<Results<Ok<AuthResponse>, UnauthorizedHttpResult>> (
             UserLoginRequest req,
             IUserRepository userRepo,
+            IUnitOfWork uow,
             IConfiguration config,
             CancellationToken ct) =>
         {
@@ -59,6 +60,7 @@ public static class AccountEndpoints
                 return TypedResults.Unauthorized();
 
             user.UpdateLastLogin();
+            await uow.SaveChangesAsync(ct);
             var token = GenerateToken(user, config);
             return TypedResults.Ok(new AuthResponse(token, user.FullName, user.Email));
         }).AllowAnonymous();

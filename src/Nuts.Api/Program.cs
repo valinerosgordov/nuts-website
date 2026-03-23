@@ -69,14 +69,15 @@ using (var scope = app.Services.CreateScope())
                     ["Сухофрукты"] = "Сухофрукты",
                     ["Полезные десерты"] = "Десерты",
                     ["Мармелад"] = "Мармелад",
-                    ["Чай"] = "Чай",
-                    ["Специи"] = "Специи"
                 };
 
                 var sortOrder = 0;
                 foreach (var (categoryName, data) in catalog)
                 {
-                    var displayCategory = categoryMap.GetValueOrDefault(categoryName, categoryName);
+                    if (!categoryMap.ContainsKey(categoryName))
+                        continue;
+
+                    var displayCategory = categoryMap[categoryName];
                     var products = data.GetProperty("products");
 
                     foreach (var p in products.EnumerateArray())
@@ -94,13 +95,11 @@ using (var scope = app.Services.CreateScope())
                                 decimal.TryParse(priceEl.GetString(), out price);
                         }
 
-                        var result = Product.Create(name, origin, price, origin, displayCategory);
+                        var result = Product.Create(name, name, price, origin, displayCategory);
                         if (result.IsSuccess)
                         {
                             var product = result.Value;
                             product.SetImage(imageUrl);
-                            product.Update(product.Name, product.Description, product.Price,
-                                product.Origin, product.Category, true, sortOrder++);
                             db.Products.Add(product);
                         }
                     }

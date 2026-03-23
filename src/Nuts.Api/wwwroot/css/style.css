@@ -25,8 +25,8 @@
   --white-dim: #a09888;
   --gray: #666;
 
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Raleway', -apple-system, sans-serif;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -1837,4 +1837,51 @@ img {
     margin-left: auto;
     margin-right: 0.75rem;
   }
+}
+
+/* ============================================
+   Botanical Decorative Elements
+   ============================================ */
+.leaf-decor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+}
+
+.leaf-decor--1 {
+  width: 400px;
+  top: 0;
+  left: -50px;
+}
+
+.leaf-decor--2 {
+  width: 350px;
+  top: 30%;
+  right: -80px;
+  transform: scaleX(-1);
+}
+
+.leaf-decor--3 {
+  width: 300px;
+  bottom: 0;
+  left: 10%;
+}
+
+/* Subtle green tint on section backgrounds */
+.philosophy {
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(74, 124, 63, 0.02) 30%,
+    rgba(74, 124, 63, 0.03) 50%,
+    rgba(74, 124, 63, 0.02) 70%,
+    transparent 100%);
+}
+
+/* Leaf pattern overlay on media section */
+.media {
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(45, 90, 39, 0.02) 50%,
+    transparent 100%);
 }

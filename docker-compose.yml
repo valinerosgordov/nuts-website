@@ -1,0 +1,48 @@
+services:
+  nuts-api:
+    build: .
+    container_name: nuts-api
+    restart: unless-stopped
+    ports:
+      - "5100:5100"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-ChangeThisToASecureKeyAtLeast32Bytes!!}
+    volumes:
+      - nuts-data:/app/data
+    networks:
+      - nuts-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nuts-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - certbot-etc:/etc/letsencrypt:ro
+      - certbot-var:/var/lib/letsencrypt:ro
+    depends_on:
+      - nuts-api
+    networks:
+      - nuts-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: nuts-certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - nginx
+
+volumes:
+  nuts-data:
+  certbot-etc:
+  certbot-var:
+
+networks:
+  nuts-network:
+    driver: bridge
