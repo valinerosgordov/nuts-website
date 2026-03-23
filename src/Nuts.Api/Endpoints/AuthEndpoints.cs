@@ -24,7 +24,7 @@ public static class AuthEndpoints
             if (req.Username != adminUser || !CryptographicOperations.FixedTimeEquals(actual, expected))
                 return Task.FromResult<Results<Ok<LoginResponse>, UnauthorizedHttpResult>>(TypedResults.Unauthorized());
 
-            var key = config["Jwt:Key"] ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+            var key = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? config["Jwt:Key"] ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
