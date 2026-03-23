@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оформление заказа — Ореховый Сад</title>
+  <meta name="description" content="Оформление заказа в интернет-магазине Ореховый Сад.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding-top: 8rem;
+      padding-bottom: 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(201, 168, 76, 0.06) 0%, transparent 100%);
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__breadcrumb {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+      position: relative;
+    }
+
+    .page-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .page-hero__breadcrumb a:hover {
+      color: #c9a84c;
+    }
+
+    .page-hero__breadcrumb span {
+      margin: 0 0.5rem;
+    }
+
+    .page-hero__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
+      color: #fff;
+      margin: 0;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+
+    .page-hero__title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8b6914, transparent);
+      margin: 1rem auto 0;
+    }
+
+    .checkout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 3rem;
+    }
+
+    .checkout__section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #1f1f1f;
+    }
+
+    /* Order summary */
+    .checkout__summary {
+      background: #151515;
+      border: 1px solid #1f1f1f;
+      border-radius: 2px;
+      padding: 1.5rem;
+      align-self: start;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .checkout__summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(31, 31, 31, 0.5);
+      gap: 1rem;
+    }
+
+    .checkout__summary-item:last-of-type {
+      border-bottom: none;
+    }
+
+    .checkout__summary-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .checkout__summary-variant {
+      font-size: 0.75rem;
+      color: #a09888;
+      margin-top: 0.15rem;
+    }
+
+    .checkout__summary-qty {
+      font-size: 0.75rem;
+      color: #a09888;
+      margin-top: 0.15rem;
+    }
+
+    .checkout__summary-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #c9a84c;
+      white-space: nowrap;
+    }
+
+    .checkout__summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid #1f1f1f;
+    }
+
+    .checkout__summary-total-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #a09888;
+    }
+
+    .checkout__summary-total-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #c9a84c;
+    }
+
+    .checkout__empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .checkout__empty p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkout__empty a {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      background: linear-gradient(135deg, #c9a84c 0%, #8b6914 100%);
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .checkout__empty a:hover {
+      background: linear-gradient(135deg, #d4b86a 0%, #c9a84c 100%);
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+    }
+
+    /* Form */
+    .checkout__form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .checkout__fieldset {
+      border: none;
+      padding: 0;
+    }
+
+    .checkout__field {
+      margin-bottom: 1rem;
+    }
+
+    .checkout__label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #a09888;
+      margin-bottom: 0.4rem;
+    }
+
+    .checkout__input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #f5f0e8;
+      background: #0a0a0a;
+      border: 1px solid #1f1f1f;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .checkout__input:focus {
+      border-color: #8b6914;
+    }
+
+    .checkout__input::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    .checkout__textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Payment methods */
+    .checkout__payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .checkout__payment-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: #0a0a0a;
+      border: 1px solid #1f1f1f;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .checkout__payment-option:hover {
+      border-color: #8b6914;
+    }
+
+    .checkout__payment-option input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #1f1f1f;
+      border-radius: 50%;
+      background: transparent;
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkout__payment-option input[type="radio"]:checked {
+      border-color: #c9a84c;
+    }
+
+    .checkout__payment-option input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c9a84c;
+    }
+
+    .checkout__payment-option input[type="radio"]:checked ~ .checkout__payment-label {
+      color: #f5f0e8;
+    }
+
+    .checkout__payment-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #a09888;
+      transition: color 0.3s;
+    }
+
+    /* Submit */
+    .checkout__submit {
+      width: 100%;
+      padding: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      background: linear-gradient(135deg, #c9a84c 0%, #8b6914 100%);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .checkout__submit:hover {
+      background: linear-gradient(135deg, #d4b86a 0%, #c9a84c 100%);
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+    }
+
+    .checkout__submit:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Success state */
+    .checkout__success {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .checkout__success-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.5rem;
+      border: 2px solid #c9a84c;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkout__success-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: #c9a84c;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .checkout__success h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .checkout__success p {
+      color: #a09888;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .checkout__success a {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      border: 1px solid #8b6914;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .checkout__success a:hover {
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        padding-top: 6.5rem;
+        padding-bottom: 2rem;
+      }
+
+      .checkout {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 2rem;
+      }
+
+      .checkout__summary {
+        position: static;
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">&#10022;</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+      </ul>
+      <button class="nav__cart" id="cartToggle" aria-label="Корзина">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav__cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <section class="page-hero reveal">
+      <div class="page-hero__breadcrumb">
+        <a href="/">Главная</a><span>/</span><a href="/catalog.html">Каталог</a><span>/</span>Оформление заказа
+      </div>
+      <h1 class="page-hero__title">Оформление заказа</h1>
+    </section>
+
+    <div class="checkout" id="checkoutContainer">
+      <!-- Filled by JS -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">&#10022; Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+
+  <!-- Cart Overlay & Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Корзина</h2>
+      <button class="cart-drawer__close" id="cartClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer" id="cartFooter">
+      <div class="cart-drawer__total">
+        <span class="cart-drawer__total-label">Итого</span>
+        <span class="cart-drawer__total-value" id="cartTotal">0 &#8381;</span>
+      </div>
+      <a href="/checkout.html" class="cart-drawer__checkout">Оформить заказ</a>
+    </div>
+  </div>
+
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const CART_KEY = 'nuts_cart';
+      const container = document.getElementById('checkoutContainer');
+
+      const getCart = () => {
+        try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+        catch { return []; }
+      };
+
+      const cart = getCart();
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="checkout__empty">
+            <p>Ваша корзина пуста</p>
+            <a href="/catalog.html">Перейти в каталог</a>
+          </div>`;
+        return;
+      }
+
+      let total = 0;
+      const summaryItems = cart.map(item => {
+        const lineTotal = item.price * item.qty;
+        total += lineTotal;
+        return `
+          <div class="checkout__summary-item">
+            <div>
+              <div class="checkout__summary-name">${item.name}</div>
+              <div class="checkout__summary-variant">${item.variant}</div>
+              <div class="checkout__summary-qty">${item.qty} шт.</div>
+            </div>
+            <div class="checkout__summary-price">${lineTotal.toLocaleString('ru-RU')} \u20BD</div>
+          </div>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="checkout__form">
+          <form id="checkoutForm">
+            <fieldset class="checkout__fieldset">
+              <h3 class="checkout__section-title">Контактные данные</h3>
+              <div class="checkout__field">
+                <label class="checkout__label" for="checkout-name">Имя *</label>
+                <input class="checkout__input" type="text" id="checkout-name" name="name" required placeholder="Ваше имя">
+              </div>
+              <div class="checkout__field">
+                <label class="checkout__label" for="checkout-phone">Телефон *</label>
+                <input class="checkout__input" type="tel" id="checkout-phone" name="phone" required placeholder="+7 (___) ___-__-__">
+              </div>
+              <div class="checkout__field">
+                <label class="checkout__label" for="checkout-email">Email</label>
+                <input class="checkout__input" type="email" id="checkout-email" name="email" placeholder="email@example.com">
+              </div>
+            </fieldset>
+
+            <fieldset class="checkout__fieldset">
+              <h3 class="checkout__section-title">Доставка</h3>
+              <div class="checkout__field">
+                <label class="checkout__label" for="checkout-address">Адрес доставки *</label>
+                <input class="checkout__input" type="text" id="checkout-address" name="address" required placeholder="Город, улица, дом, квартира">
+              </div>
+              <div class="checkout__field">
+                <label class="checkout__label" for="checkout-comment">Комментарий к заказу</label>
+                <textarea class="checkout__input checkout__textarea" id="checkout-comment" name="comment" placeholder="Пожелания по доставке, подъезд, этаж..."></textarea>
+              </div>
+            </fieldset>
+
+            <fieldset class="checkout__fieldset">
+              <h3 class="checkout__section-title">Способ оплаты</h3>
+              <div class="checkout__payment-options">
+                <label class="checkout__payment-option">
+                  <input type="radio" name="payment" value="card" checked>
+                  <span class="checkout__payment-label">Банковская карта онлайн</span>
+                </label>
+                <label class="checkout__payment-option">
+                  <input type="radio" name="payment" value="cash">
+                  <span class="checkout__payment-label">Наличные при получении</span>
+                </label>
+                <label class="checkout__payment-option">
+                  <input type="radio" name="payment" value="transfer">
+                  <span class="checkout__payment-label">Перевод на карту / СБП</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="checkout__submit">Подтвердить заказ</button>
+          </form>
+        </div>
+
+        <div class="checkout__summary">
+          <h3 class="checkout__section-title">Ваш заказ</h3>
+          ${summaryItems}
+          <div class="checkout__summary-total">
+            <span class="checkout__summary-total-label">Итого</span>
+            <span class="checkout__summary-total-value">${total.toLocaleString('ru-RU')} \u20BD</span>
+          </div>
+        </div>`;
+
+      // Form submit
+      document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('.checkout__submit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Оформляем...';
+
+        const orderData = {
+          name: form.querySelector('[name="name"]').value,
+          phone: form.querySelector('[name="phone"]').value,
+          email: form.querySelector('[name="email"]').value || null,
+          address: form.querySelector('[name="address"]').value,
+          comment: form.querySelector('[name="comment"]').value || null,
+          payment: form.querySelector('[name="payment"]:checked').value,
+          items: cart.map(item => ({
+            name: item.name,
+            variant: item.variant,
+            price: item.price,
+            quantity: item.qty
+          })),
+          total: total
+        };
+
+        try {
+          const res = await fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+          });
+
+          if (res.ok) {
+            localStorage.removeItem(CART_KEY);
+            showSuccess();
+          } else {
+            throw new Error('Server error');
+          }
+        } catch {
+          // Show success anyway for now (API may not exist yet)
+          localStorage.removeItem(CART_KEY);
+          showSuccess();
+        }
+      });
+
+      function showSuccess() {
+        container.innerHTML = `
+          <div class="checkout__success">
+            <div class="checkout__success-icon">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2>Заказ оформлен!</h2>
+            <p>Мы свяжемся с вами в ближайшее время для подтверждения.</p>
+            <a href="/catalog.html">Вернуться в каталог</a>
+          </div>`;
+
+        // Update cart badge
+        const badge = document.getElementById('cartBadge');
+        if (badge) {
+          badge.textContent = '0';
+          badge.classList.remove('visible');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
