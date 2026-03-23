@@ -751,7 +751,7 @@
           if (res.status === 404) { window.location.href = '/orders.html'; return; }
 
           const order = await res.json();
-          const shortId = order.shortId || order.id.substring(0, 8);
+          const shortId = order.orderNumber || order.id.substring(0, 8);
 
           // Title
           document.title = 'Заказ #' + escapeHtml(shortId) + ' — Ореховый Сад';
@@ -771,8 +771,8 @@
               '<tr class="item-row">' +
               '<td><div class="item-product">' +
               '<div class="item-product__image">' + (item.imageUrl ? '<img src="' + item.imageUrl + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">' : '🥜') + '</div>' +
-              '<div><div class="item-product__name">' + escapeHtml(item.name || 'Товар') + '</div>' +
-              (item.variant ? '<div class="item-product__variant">' + escapeHtml(item.variant) + '</div>' : '') +
+              '<div><div class="item-product__name">' + escapeHtml(item.productName || 'Товар') + '</div>' +
+              (item.weight ? '<div class="item-product__variant">' + escapeHtml(item.weight) + '</div>' : '') +
               '</div></div></td>' +
               '<td>' + (item.quantity || 1) + '</td>' +
               '<td>' + formatMoney(item.unitPrice || 0) + '</td>' +
@@ -784,9 +784,9 @@
           }
 
           // Summary
-          const subtotal = order.subtotal || order.total || 0;
-          const delivery = order.deliveryCost || 0;
-          const total = order.total || subtotal + delivery;
+          const subtotal = order.totalAmount || 0;
+          const delivery = 0;
+          const total = order.totalAmount || subtotal;
           document.getElementById('summarySubtotal').textContent = formatMoney(subtotal);
           document.getElementById('summaryDelivery').textContent = delivery > 0 ? formatMoney(delivery) : 'Бесплатно';
           document.getElementById('summaryTotal').textContent = formatMoney(total);

@@ -463,8 +463,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const messageEl = form.querySelector('[name="message"]');
+        const companyEl = form.querySelector('[name="company"]');
+        const nameValue = form.querySelector('[name="name"]').value;
+        const fullName = companyEl && companyEl.value ? companyEl.value + ' — ' + nameValue : nameValue;
         const body = {
-          name: form.querySelector('[name="name"]').value,
+          name: fullName,
           phone: form.querySelector('[name="phone"]').value,
           email: form.querySelector('[name="email"]').value || null,
           message: messageEl ? messageEl.value || null : null

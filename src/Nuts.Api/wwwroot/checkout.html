@@ -449,6 +449,7 @@
       <li><a href="/warranty.html">Гарантия качества</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/contacts.html">Контакты</a></li>
+      <li><a href="/account.html">Кабинет</a></li>
     </ul>
   </div>
 
@@ -629,15 +630,49 @@
         };
 
         try {
-          const res = await fetch('/api/orders', {
+          const authToken = localStorage.getItem('auth_token');
+          const fetchHeaders = { 'Content-Type': 'application/json' };
+          if (authToken) fetchHeaders['Authorization'] = 'Bearer ' + authToken;
+
+          // Build API payload matching CreateOrderRequest
+          const apiPayload = {
+            shippingAddress: orderData.address + (orderData.comment ? ' (' + orderData.comment + ')' : ''),
+            items: cart.map(item => ({
+              productName: item.name,
+              quantity: item.qty,
+              unitPrice: item.price,
+              weight: item.variant
+            }))
+          };
+
+          const res = await fetch('/api/account/orders', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(orderData)
+            headers: fetchHeaders,
+            body: JSON.stringify(apiPayload)
           });
 
           if (res.ok) {
             localStorage.removeItem(CART_KEY);
             showSuccess();
+          } else if (res.status === 401 || res.status === 403) {
+            // User not logged in — submit as contact request instead
+            const contactPayload = {
+              name: orderData.name,
+              phone: orderData.phone,
+              email: orderData.email,
+              message: 'Заказ: ' + cart.map(i => i.name + ' (' + i.variant + ') x' + i.qty).join(', ') + '. Адрес: ' + orderData.address + (orderData.comment ? '. ' + orderData.comment : '')
+            };
+            const contactRes = await fetch('/api/contacts', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(contactPayload)
+            });
+            if (contactRes.ok || contactRes.status === 201) {
+              localStorage.removeItem(CART_KEY);
+              showSuccess();
+            } else {
+              throw new Error('Contact submit failed');
+            }
           } else {
             throw new Error('Server error');
           }

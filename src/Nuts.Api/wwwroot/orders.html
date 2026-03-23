@@ -473,12 +473,12 @@
         container.innerHTML = orders.map(order =>
           '<div class="order-card" onclick="window.location.href=\'/order.html?id=' + encodeURIComponent(order.id) + '\'">' +
           '<div class="order-card__info">' +
-          '<div class="order-card__id">#' + escapeHtml(order.shortId || order.id.substring(0, 8)) + '</div>' +
+          '<div class="order-card__id">#' + escapeHtml(order.orderNumber || order.id.substring(0, 8)) + '</div>' +
           '<div class="order-card__date">' + escapeHtml(formatDate(order.createdAt)) + '</div>' +
           '</div>' +
           '<div class="order-card__items">' + (order.itemsCount || 0) + ' товар(ов)</div>' +
           statusBadge(order.status) +
-          '<div class="order-card__total">' + formatMoney(order.total) + '</div>' +
+          '<div class="order-card__total">' + formatMoney(order.totalAmount) + '</div>' +
           '</div>'
         ).join('');
       }

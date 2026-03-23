@@ -374,7 +374,7 @@
             <input type="password" id="loginPassword" name="password" placeholder="Ваш пароль" required autocomplete="current-password">
             <span class="auth__field-error">Введите пароль</span>
           </div>
-          <a href="#" class="auth__forgot">Забыли пароль?</a>
+          <a href="javascript:void(0)" class="auth__forgot" onclick="document.getElementById('authMessage').textContent='Свяжитесь с нами: +7 (918) 374-38-13';document.getElementById('authMessage').className='auth__message success';">Забыли пароль?</a>
           <button type="submit" class="auth__submit">
             <span>Войти</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -515,15 +515,14 @@
             body: JSON.stringify({ email: email.value, password: password.value })
           });
 
-          const data = await res.json();
-
-          if (res.ok && data.token) {
+          if (!res.ok) {
+            showMessage('Неверный e-mail или пароль', 'error');
+          } else {
+            const data = await res.json();
             localStorage.setItem('auth_token', data.token);
-            if (data.user) localStorage.setItem('auth_user', JSON.stringify(data.user));
+            localStorage.setItem('auth_user', JSON.stringify({ fullName: data.fullName, email: data.email }));
             showMessage('Вход выполнен! Перенаправляем...', 'success');
             setTimeout(() => window.location.href = '/account.html', 800);
-          } else {
-            showMessage(data.detail || data.message || 'Неверный e-mail или пароль', 'error');
           }
         } catch {
           showMessage('Ошибка соединения. Попробуйте позже.', 'error');
@@ -567,15 +566,19 @@
             })
           });
 
-          const data = await res.json();
-
-          if (res.ok && data.token) {
+          if (!res.ok) {
+            let errorText = 'Ошибка регистрации';
+            try {
+              const errData = await res.json();
+              errorText = typeof errData === 'string' ? errData : (errData.detail || errData.message || errorText);
+            } catch {}
+            showMessage(errorText, 'error');
+          } else {
+            const data = await res.json();
             localStorage.setItem('auth_token', data.token);
-            if (data.user) localStorage.setItem('auth_user', JSON.stringify(data.user));
+            localStorage.setItem('auth_user', JSON.stringify({ fullName: data.fullName, email: data.email }));
             showMessage('Регистрация успешна! Перенаправляем...', 'success');
             setTimeout(() => window.location.href = '/account.html', 800);
-          } else {
-            showMessage(data.detail || data.message || 'Ошибка регистрации', 'error');
           }
         } catch {
           showMessage('Ошибка соединения. Попробуйте позже.', 'error');
