@@ -604,16 +604,16 @@
           });
           if (res.status === 401) { localStorage.removeItem('auth_token'); window.location.href = '/login.html'; return; }
           const user = await res.json();
-          document.getElementById('heroName').textContent = user.name || 'Гость';
-          document.getElementById('welcomeName').textContent = user.name || 'Гость';
+          document.getElementById('heroName').textContent = user.fullName || 'Гость';
+          document.getElementById('welcomeName').textContent = user.fullName || 'Гость';
           document.getElementById('welcomeEmail').textContent = user.email || '';
         } catch {
           // Use cached data
           const cached = localStorage.getItem('auth_user');
           if (cached) {
             const user = JSON.parse(cached);
-            document.getElementById('heroName').textContent = user.name || 'Гость';
-            document.getElementById('welcomeName').textContent = user.name || 'Гость';
+            document.getElementById('heroName').textContent = user.fullName || 'Гость';
+            document.getElementById('welcomeName').textContent = user.fullName || 'Гость';
             document.getElementById('welcomeEmail').textContent = user.email || '';
           }
         }
@@ -632,7 +632,7 @@
           document.getElementById('statTotal').textContent = orders.length;
           if (orders.length > 0) {
             document.getElementById('statLastDate').textContent = formatDate(orders[0].createdAt);
-            const totalAmount = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+            const totalAmount = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
             document.getElementById('statTotalAmount').textContent = formatMoney(totalAmount);
           }
 
@@ -649,10 +649,10 @@
 
           tbody.innerHTML = recent.map(order =>
             '<tr style="cursor:pointer" onclick="window.location.href=\'/order.html?id=' + encodeURIComponent(order.id) + '\'">' +
-            '<td class="orders-table__order-id">#' + escapeHtml(order.shortId || order.id.substring(0, 8)) + '</td>' +
+            '<td class="orders-table__order-id">#' + escapeHtml(order.orderNumber || order.id.substring(0, 8)) + '</td>' +
             '<td>' + escapeHtml(formatDate(order.createdAt)) + '</td>' +
             '<td>' + statusBadge(order.status) + '</td>' +
-            '<td class="orders-table__total">' + escapeHtml(formatMoney(order.total)) + '</td>' +
+            '<td class="orders-table__total">' + escapeHtml(formatMoney(order.totalAmount)) + '</td>' +
             '</tr>'
           ).join('');
         } catch {
