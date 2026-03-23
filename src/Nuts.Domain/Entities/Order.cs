@@ -17,10 +17,15 @@ public sealed class Order : AggregateRoot<Guid>
     public DateTime CreatedAt { get; private init; }
     public DateTime? UpdatedAt { get; private set; }
 
-    private static readonly FrozenSet<string> ValidStatuses = new[]
-    {
-        "Created", "Processing", "Shipped", "Delivered", "Cancelled"
-    }.ToFrozenSet();
+    private static readonly FrozenDictionary<string, FrozenSet<string>> AllowedTransitions =
+        new Dictionary<string, FrozenSet<string>>
+        {
+            ["Created"] = new[] { "Processing", "Cancelled" }.ToFrozenSet(),
+            ["Processing"] = new[] { "Shipped", "Cancelled" }.ToFrozenSet(),
+            ["Shipped"] = new[] { "Delivered" }.ToFrozenSet(),
+            ["Delivered"] = FrozenSet<string>.Empty,
+            ["Cancelled"] = FrozenSet<string>.Empty,
+        }.ToFrozenDictionary();
 
     public static Result<Order> Create(Guid userId, string shippingAddress)
     {
@@ -52,8 +57,9 @@ public sealed class Order : AggregateRoot<Guid>
 
     public Result UpdateStatus(string newStatus)
     {
-        if (!ValidStatuses.Contains(newStatus))
-            return Result.Failure(new Error("Order.InvalidStatus", $"Invalid status: {newStatus}"));
+        if (!AllowedTransitions.TryGetValue(Status, out var allowed) || !allowed.Contains(newStatus))
+            return Result.Failure(new Error("Order.InvalidTransition",
+                $"Cannot transition from '{Status}' to '{newStatus}'."));
 
         Status = newStatus;
         UpdatedAt = DateTime.UtcNow;

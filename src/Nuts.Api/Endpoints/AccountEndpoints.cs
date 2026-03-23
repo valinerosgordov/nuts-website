@@ -55,11 +55,7 @@ public static class AccountEndpoints
             if (user is null)
                 return TypedResults.Unauthorized();
 
-            var inputHash = HashPassword(req.Password);
-            var expected = Encoding.UTF8.GetBytes(user.PasswordHash);
-            var actual = Encoding.UTF8.GetBytes(inputHash);
-
-            if (!CryptographicOperations.FixedTimeEquals(actual, expected))
+            if (!VerifyPassword(req.Password, user.PasswordHash))
                 return TypedResults.Unauthorized();
 
             user.UpdateLastLogin();
@@ -126,6 +122,36 @@ public static class AccountEndpoints
             return TypedResults.Ok(dtos);
         });
 
+        accountGroup.MapPost("/orders", async Task<Results<Ok<CreateOrderResponse>, NotFound, BadRequest<string>>> (
+            CreateOrderRequest req,
+            ClaimsPrincipal claims,
+            IOrderRepository orderRepo,
+            IUnitOfWork uow,
+            CancellationToken ct) =>
+        {
+            var userId = GetUserId(claims);
+            if (userId is null) return TypedResults.NotFound();
+
+            var orderResult = Order.Create(userId.Value, req.ShippingAddress);
+            if (orderResult.IsFailure)
+                return TypedResults.BadRequest(orderResult.Error.Message);
+
+            var order = orderResult.Value;
+
+            foreach (var item in req.Items)
+            {
+                var addResult = order.AddItem(
+                    Guid.NewGuid(), item.ProductName, item.Quantity, item.UnitPrice, item.Weight);
+                if (addResult.IsFailure)
+                    return TypedResults.BadRequest(addResult.Error.Message);
+            }
+
+            orderRepo.Add(order);
+            await uow.SaveChangesAsync(ct);
+
+            return TypedResults.Ok(new CreateOrderResponse(order.Id));
+        });
+
         accountGroup.MapGet("/orders/{id:guid}", async Task<Results<Ok<OrderDetailDto>, NotFound>> (
             Guid id,
             ClaimsPrincipal claims,
@@ -161,13 +187,26 @@ public static class AccountEndpoints
 
     private static string HashPassword(string password)
     {
-        var hash = SHA256.HashData(Encoding.UTF8.GetBytes(password));
-        return Convert.ToHexStringLower(hash);
+        var salt = RandomNumberGenerator.GetBytes(16);
+        var hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
+        return $"{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}";
+    }
+
+    private static bool VerifyPassword(string password, string storedHash)
+    {
+        var parts = storedHash.Split(':');
+        if (parts.Length != 2) return false;
+        var salt = Convert.FromBase64String(parts[0]);
+        var hash = Convert.FromBase64String(parts[1]);
+        var computed = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
+        return CryptographicOperations.FixedTimeEquals(hash, computed);
     }
 
     private static string GenerateToken(User user, IConfiguration config)
     {
-        var key = config["Jwt:Key"] ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+        var key = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+            ?? config["Jwt:Key"]
+            ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
@@ -225,3 +264,19 @@ public sealed record OrderDetailDto(
 
 public sealed record OrderItemDto(
     Guid Id, Guid ProductId, string ProductName, int Quantity, decimal UnitPrice, string Weight, decimal Subtotal);
+
+public sealed record CreateOrderRequest
+{
+    public required List<CreateOrderItemRequest> Items { get; init; }
+    public required string ShippingAddress { get; init; }
+}
+
+public sealed record CreateOrderItemRequest
+{
+    public required string ProductName { get; init; }
+    public required int Quantity { get; init; }
+    public required decimal UnitPrice { get; init; }
+    public required string Weight { get; init; }
+}
+
+public sealed record CreateOrderResponse(Guid OrderId);

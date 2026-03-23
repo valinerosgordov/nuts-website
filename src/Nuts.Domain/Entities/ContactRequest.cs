@@ -1,3 +1,4 @@
+using System.Net;
 using Nuts.Domain.Common;
 
 namespace Nuts.Domain.Entities;
@@ -24,10 +25,10 @@ public sealed class ContactRequest : AggregateRoot<Guid>
         return new ContactRequest
         {
             Id = Guid.NewGuid(),
-            Name = name.Trim(),
-            Phone = phone.Trim(),
-            Email = email?.Trim(),
-            Message = message?.Trim(),
+            Name = WebUtility.HtmlEncode(name.Trim()),
+            Phone = WebUtility.HtmlEncode(phone.Trim()),
+            Email = email is not null ? WebUtility.HtmlEncode(email.Trim()) : null,
+            Message = message is not null ? WebUtility.HtmlEncode(message.Trim()) : null,
             CreatedAt = DateTime.UtcNow
         };
     }

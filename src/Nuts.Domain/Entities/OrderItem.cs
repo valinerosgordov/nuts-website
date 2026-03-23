@@ -2,7 +2,7 @@ using Nuts.Domain.Common;
 
 namespace Nuts.Domain.Entities;
 
-public sealed class OrderItem : AggregateRoot<Guid>
+public sealed class OrderItem : Entity<Guid>
 {
     private OrderItem() { }
 

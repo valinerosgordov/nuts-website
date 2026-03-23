@@ -420,6 +420,8 @@
   <script src="js/main.js"></script>
   <script>
     (function() {
+      const escapeHtml = (str) => String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
       const token = localStorage.getItem('auth_token');
       if (!token) {
         window.location.href = '/login.html';
@@ -451,7 +453,7 @@
 
       function statusBadge(status) {
         const s = statusMap[status] || { label: status, class: 'created' };
-        return '<span class="status-badge status-badge--' + s.class + '">' + s.label + '</span>';
+        return '<span class="status-badge status-badge--' + escapeHtml(s.class) + '">' + escapeHtml(s.label) + '</span>';
       }
 
       function renderOrders(orders) {
@@ -469,10 +471,10 @@
         }
 
         container.innerHTML = orders.map(order =>
-          '<div class="order-card" onclick="window.location.href=\'/order.html?id=' + order.id + '\'">' +
+          '<div class="order-card" onclick="window.location.href=\'/order.html?id=' + encodeURIComponent(order.id) + '\'">' +
           '<div class="order-card__info">' +
-          '<div class="order-card__id">#' + (order.shortId || order.id.substring(0, 8)) + '</div>' +
-          '<div class="order-card__date">' + formatDate(order.createdAt) + '</div>' +
+          '<div class="order-card__id">#' + escapeHtml(order.shortId || order.id.substring(0, 8)) + '</div>' +
+          '<div class="order-card__date">' + escapeHtml(formatDate(order.createdAt)) + '</div>' +
           '</div>' +
           '<div class="order-card__items">' + (order.itemsCount || 0) + ' товар(ов)</div>' +
           statusBadge(order.status) +

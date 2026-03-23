@@ -430,6 +430,7 @@
         <li><a href="/about.html">О нас</a></li>
         <li><a href="/delivery.html">Доставка и оплата</a></li>
         <li><a href="/contacts.html">Контакты</a></li>
+        <li><a href="/account.html">Кабинет</a></li>
       </ul>
       <button class="nav__cart" id="cartToggle" aria-label="Корзина">
         <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -473,6 +474,12 @@
           <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
           <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
         </div>
+      </div>
+      <div class="footer__contacts">
+        <a href="tel:+79183743813">+7 (918) 374-38-13</a>
+        <a href="mailto:greengrand.ru@yandex.ru">greengrand.ru@yandex.ru</a>
+        <a href="https://wa.me/79604742917" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://t.me/Green_Grand" target="_blank" rel="noopener">Telegram</a>
       </div>
       <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
     </div>
@@ -635,9 +642,9 @@
             throw new Error('Server error');
           }
         } catch {
-          // Show success anyway for now (API may not exist yet)
-          localStorage.removeItem(CART_KEY);
-          showSuccess();
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Подтвердить заказ';
+          alert('Ошибка соединения. Попробуйте позже.');
         }
       });
 

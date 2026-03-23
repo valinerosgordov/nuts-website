@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Личный кабинет — Ореховый Сад</title>
+  <title>Вход — Ореховый Сад</title>
   <meta name="description" content="Войдите или зарегистрируйтесь в личном кабинете Ореховый Сад.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -509,7 +509,7 @@
         btn.disabled = true;
 
         try {
-          const res = await fetch('/api/auth/login', {
+          const res = await fetch('/api/auth/user-login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email.value, password: password.value })
@@ -560,7 +560,7 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              name: name.value.trim(),
+              fullName: name.value.trim(),
               email: email.value,
               phone: phone.value.trim(),
               password: password.value

@@ -565,6 +565,8 @@
   <script src="js/main.js"></script>
   <script>
     (function() {
+      const escapeHtml = (str) => String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
       const token = localStorage.getItem('auth_token');
       if (!token) {
         window.location.href = '/login.html';
@@ -591,7 +593,7 @@
 
       function statusBadge(status) {
         const s = statusMap[status] || { label: status, class: 'created' };
-        return '<span class="status-badge status-badge--' + s.class + '">' + s.label + '</span>';
+        return '<span class="status-badge status-badge--' + escapeHtml(s.class) + '">' + escapeHtml(s.label) + '</span>';
       }
 
       // Load profile
@@ -646,11 +648,11 @@
           }
 
           tbody.innerHTML = recent.map(order =>
-            '<tr style="cursor:pointer" onclick="window.location.href=\'/order.html?id=' + order.id + '\'">' +
-            '<td class="orders-table__order-id">#' + (order.shortId || order.id.substring(0, 8)) + '</td>' +
-            '<td>' + formatDate(order.createdAt) + '</td>' +
+            '<tr style="cursor:pointer" onclick="window.location.href=\'/order.html?id=' + encodeURIComponent(order.id) + '\'">' +
+            '<td class="orders-table__order-id">#' + escapeHtml(order.shortId || order.id.substring(0, 8)) + '</td>' +
+            '<td>' + escapeHtml(formatDate(order.createdAt)) + '</td>' +
             '<td>' + statusBadge(order.status) + '</td>' +
-            '<td class="orders-table__total">' + formatMoney(order.total) + '</td>' +
+            '<td class="orders-table__total">' + escapeHtml(formatMoney(order.total)) + '</td>' +
             '</tr>'
           ).join('');
         } catch {
