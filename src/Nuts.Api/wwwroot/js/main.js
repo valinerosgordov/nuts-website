@@ -261,6 +261,187 @@ document.addEventListener('DOMContentLoaded', () => {
   // Custom cursor removed for better UX
 
   // =========================================
+  // Shopping Cart
+  // =========================================
+  const CART_KEY = 'nuts_cart';
+
+  const getCart = () => {
+    try {
+      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveCart = (cart) => {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  };
+
+  const addToCart = (product) => {
+    const cart = getCart();
+    const existing = cart.find(
+      item => item.name === product.name && item.variant === product.variant
+    );
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ ...product, qty: 1 });
+    }
+    saveCart(cart);
+    updateCartBadge();
+    renderCart();
+  };
+
+  const removeFromCart = (index) => {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    updateCartBadge();
+    renderCart();
+  };
+
+  const updateQuantity = (index, delta) => {
+    const cart = getCart();
+    if (!cart[index]) return;
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) {
+      cart.splice(index, 1);
+    }
+    saveCart(cart);
+    updateCartBadge();
+    renderCart();
+  };
+
+  const updateCartBadge = () => {
+    const badge = document.getElementById('cartBadge');
+    if (!badge) return;
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    badge.textContent = count;
+    badge.classList.toggle('visible', count > 0);
+  };
+
+  const renderCart = () => {
+    const container = document.getElementById('cartItems');
+    const footer = document.getElementById('cartFooter');
+    const totalEl = document.getElementById('cartTotal');
+    if (!container) return;
+
+    const cart = getCart();
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="cart-drawer__empty">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <p>Корзина пуста</p>
+        </div>`;
+      if (footer) footer.style.display = 'none';
+      return;
+    }
+
+    if (footer) footer.style.display = '';
+
+    let total = 0;
+    container.innerHTML = cart.map((item, i) => {
+      const lineTotal = item.price * item.qty;
+      total += lineTotal;
+      return `
+        <div class="cart-item">
+          <div class="cart-item__info">
+            <div class="cart-item__name">${item.name}</div>
+            <div class="cart-item__variant">${item.variant}</div>
+            <div class="cart-item__controls">
+              <button class="cart-item__qty-btn" data-action="minus" data-index="${i}">&minus;</button>
+              <span class="cart-item__qty">${item.qty}</span>
+              <button class="cart-item__qty-btn" data-action="plus" data-index="${i}">+</button>
+            </div>
+            <div class="cart-item__price">${lineTotal.toLocaleString('ru-RU')} &#8381;</div>
+          </div>
+          <button class="cart-item__remove" data-index="${i}">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>`;
+    }).join('');
+
+    if (totalEl) {
+      totalEl.textContent = total.toLocaleString('ru-RU') + ' \u20BD';
+    }
+  };
+
+  // Cart drawer open/close
+  const openCart = () => {
+    const overlay = document.getElementById('cartOverlay');
+    const drawer = document.getElementById('cartDrawer');
+    if (overlay) overlay.classList.add('active');
+    if (drawer) drawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderCart();
+  };
+
+  const closeCart = () => {
+    const overlay = document.getElementById('cartOverlay');
+    const drawer = document.getElementById('cartDrawer');
+    if (overlay) overlay.classList.remove('active');
+    if (drawer) drawer.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  const cartToggle = document.getElementById('cartToggle');
+  if (cartToggle) cartToggle.addEventListener('click', openCart);
+
+  const cartClose = document.getElementById('cartClose');
+  if (cartClose) cartClose.addEventListener('click', closeCart);
+
+  const cartOverlay = document.getElementById('cartOverlay');
+  if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+  // Delegated events for cart items
+  const cartItemsEl = document.getElementById('cartItems');
+  if (cartItemsEl) {
+    cartItemsEl.addEventListener('click', (e) => {
+      const qtyBtn = e.target.closest('.cart-item__qty-btn');
+      if (qtyBtn) {
+        const index = parseInt(qtyBtn.dataset.index, 10);
+        const delta = qtyBtn.dataset.action === 'plus' ? 1 : -1;
+        updateQuantity(index, delta);
+        return;
+      }
+      const removeBtn = e.target.closest('.cart-item__remove');
+      if (removeBtn) {
+        removeFromCart(parseInt(removeBtn.dataset.index, 10));
+      }
+    });
+  }
+
+  // Add-to-cart buttons on catalog cards
+  document.addEventListener('click', (e) => {
+    const addBtn = e.target.closest('.catalog__add-to-cart');
+    if (!addBtn) return;
+
+    const card = addBtn.closest('.catalog__item');
+    if (!card) return;
+
+    const name = card.querySelector('h3').textContent;
+    const activeVariant = card.querySelector('.variant-btn.active') || card.querySelector('.variant-btn');
+    const variant = activeVariant.textContent.trim();
+    const price = parseInt(activeVariant.dataset.price, 10);
+
+    addToCart({ name, variant, price });
+
+    // Visual feedback
+    addBtn.classList.add('catalog__add-to-cart--added');
+    const origHTML = addBtn.innerHTML;
+    addBtn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Добавлено';
+    setTimeout(() => {
+      addBtn.classList.remove('catalog__add-to-cart--added');
+      addBtn.innerHTML = origHTML;
+    }, 1200);
+  });
+
+  // Init badge on load
+  updateCartBadge();
+
+  // =========================================
   // Contact form
   // =========================================
   const form = document.getElementById('contactForm');
