@@ -12,6 +12,5 @@ internal sealed class OrderItemConfiguration : IEntityTypeConfiguration<OrderIte
         builder.Property(i => i.ProductName).HasMaxLength(200).IsRequired();
         builder.Property(i => i.UnitPrice).HasPrecision(10, 2);
         builder.Property(i => i.Weight).HasMaxLength(50);
-        builder.Ignore(i => i.DomainEvents);
     }
 }

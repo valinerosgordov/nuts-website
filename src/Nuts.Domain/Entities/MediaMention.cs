@@ -1,3 +1,4 @@
+using System.Net;
 using Nuts.Domain.Common;
 
 namespace Nuts.Domain.Entities;
@@ -25,8 +26,8 @@ public sealed class MediaMention : AggregateRoot<Guid>
         return new MediaMention
         {
             Id = Guid.NewGuid(),
-            Source = source.Trim(),
-            Quote = quote.Trim(),
+            Source = WebUtility.HtmlEncode(source.Trim()),
+            Quote = WebUtility.HtmlEncode(quote.Trim()),
             Url = url?.Trim(),
             CreatedAt = DateTime.UtcNow
         };
@@ -37,8 +38,8 @@ public sealed class MediaMention : AggregateRoot<Guid>
         if (string.IsNullOrWhiteSpace(source))
             return Result.Failure(new Error("Media.SourceRequired", "Source is required."));
 
-        Source = source.Trim();
-        Quote = quote.Trim();
+        Source = WebUtility.HtmlEncode(source.Trim());
+        Quote = WebUtility.HtmlEncode(quote.Trim());
         Url = url?.Trim();
         IsVisible = isVisible;
         SortOrder = sortOrder;

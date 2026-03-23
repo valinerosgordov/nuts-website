@@ -1,3 +1,4 @@
+using System.Net;
 using Nuts.Domain.Common;
 
 namespace Nuts.Domain.Entities;
@@ -29,8 +30,8 @@ public sealed class User : AggregateRoot<Guid>
             Id = Guid.NewGuid(),
             Email = email.Trim().ToLowerInvariant(),
             PasswordHash = passwordHash,
-            FullName = fullName.Trim(),
-            Phone = phone?.Trim(),
+            FullName = WebUtility.HtmlEncode(fullName.Trim()),
+            Phone = phone is not null ? WebUtility.HtmlEncode(phone.Trim()) : null,
             CreatedAt = DateTime.UtcNow
         };
     }
@@ -40,8 +41,8 @@ public sealed class User : AggregateRoot<Guid>
         if (string.IsNullOrWhiteSpace(fullName))
             return Result.Failure(new Error("User.NameRequired", "Name is required."));
 
-        FullName = fullName.Trim();
-        Phone = phone?.Trim();
+        FullName = WebUtility.HtmlEncode(fullName.Trim());
+        Phone = phone is not null ? WebUtility.HtmlEncode(phone.Trim()) : null;
         return Result.Success();
     }
 

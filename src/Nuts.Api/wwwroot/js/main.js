@@ -263,6 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   // Shopping Cart
   // =========================================
+  const escapeHtml = (str) => str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
   const CART_KEY = 'nuts_cart';
 
   const getCart = () => {
@@ -348,8 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <div class="cart-item">
           <div class="cart-item__info">
-            <div class="cart-item__name">${item.name}</div>
-            <div class="cart-item__variant">${item.variant}</div>
+            <div class="cart-item__name">${escapeHtml(item.name)}</div>
+            <div class="cart-item__variant">${escapeHtml(item.variant)}</div>
             <div class="cart-item__controls">
               <button class="cart-item__qty-btn" data-action="minus" data-index="${i}">&minus;</button>
               <span class="cart-item__qty">${item.qty}</span>
@@ -423,8 +425,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const name = card.querySelector('h3').textContent;
     const activeVariant = card.querySelector('.variant-btn.active') || card.querySelector('.variant-btn');
-    const variant = activeVariant.textContent.trim();
-    const price = parseInt(activeVariant.dataset.price, 10);
+    let variant, price;
+    if (activeVariant) {
+      variant = activeVariant.textContent.trim();
+      price = parseInt(activeVariant.dataset.price, 10);
+    } else {
+      variant = '1 шт';
+      const priceEl = card.querySelector('.catalog__item-price');
+      price = priceEl ? parseInt(priceEl.textContent.replace(/\D/g, ''), 10) || 0 : 0;
+    }
 
     addToCart({ name, variant, price });
 
@@ -453,10 +462,12 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Отправка...';
 
       try {
+        const messageEl = form.querySelector('[name="message"]');
         const body = {
           name: form.querySelector('[name="name"]').value,
           phone: form.querySelector('[name="phone"]').value,
-          email: form.querySelector('[name="email"]').value || null
+          email: form.querySelector('[name="email"]').value || null,
+          message: messageEl ? messageEl.value || null : null
         };
         const res = await fetch('/api/contacts', {
           method: 'POST',

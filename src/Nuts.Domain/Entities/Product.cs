@@ -1,3 +1,4 @@
+using System.Net;
 using Nuts.Domain.Common;
 
 namespace Nuts.Domain.Entities;
@@ -33,11 +34,11 @@ public sealed class Product : AggregateRoot<Guid>
         var product = new Product
         {
             Id = Guid.NewGuid(),
-            Name = name.Trim(),
-            Description = description.Trim(),
+            Name = WebUtility.HtmlEncode(name.Trim()),
+            Description = WebUtility.HtmlEncode(description.Trim()),
             Price = price,
-            Origin = origin.Trim(),
-            Category = category.Trim(),
+            Origin = WebUtility.HtmlEncode(origin.Trim()),
+            Category = WebUtility.HtmlEncode(category.Trim()),
             CreatedAt = DateTime.UtcNow
         };
 
@@ -52,11 +53,11 @@ public sealed class Product : AggregateRoot<Guid>
         if (price < 0)
             return Result.Failure(new Error("Product.InvalidPrice", "Price cannot be negative."));
 
-        Name = name.Trim();
-        Description = description.Trim();
+        Name = WebUtility.HtmlEncode(name.Trim());
+        Description = WebUtility.HtmlEncode(description.Trim());
         Price = price;
-        Origin = origin.Trim();
-        Category = category.Trim();
+        Origin = WebUtility.HtmlEncode(origin.Trim());
+        Category = WebUtility.HtmlEncode(category.Trim());
         IsAvailable = isAvailable;
         SortOrder = sortOrder;
         UpdatedAt = DateTime.UtcNow;

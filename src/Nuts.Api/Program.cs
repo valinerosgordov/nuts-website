@@ -12,7 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Auth
-var jwtKey = builder.Configuration["Jwt:Key"] ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+    ?? builder.Configuration["Jwt:Key"]
+    ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -51,12 +53,13 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors();
-app.UseAuthentication();
-app.UseAuthorization();
 
-// Static files (frontend + admin)
+// Static files (frontend + admin) — must be before auth middleware
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // API Endpoints
 app.MapAuthEndpoints();

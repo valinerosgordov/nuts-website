@@ -49,6 +49,7 @@ public static class AuthEndpoints
         }).WithTags("Auth").AllowAnonymous();
     }
 
+    // TODO: Upgrade admin password hashing to PBKDF2 (currently SHA256 because the hash is stored in appsettings config)
     private static string HashPassword(string password)
     {
         var hash = SHA256.HashData(Encoding.UTF8.GetBytes(password));
