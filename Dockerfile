@@ -19,6 +19,7 @@ RUN dotnet publish Nuts.Api/Nuts.Api.csproj -c Release -o /app/publish --no-rest
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
+COPY products_catalog.json .
 
 ENV ASPNETCORE_URLS=http://+:5100
 ENV ASPNETCORE_ENVIRONMENT=Production
