@@ -56,7 +56,9 @@ using (var scope = app.Services.CreateScope())
     // Seed products from JSON if DB is empty
     if (!await db.Products.AnyAsync())
     {
-        var jsonPath = Path.Combine(app.Environment.ContentRootPath, "..", "..", "products_catalog.json");
+        var jsonPath = Path.Combine(app.Environment.ContentRootPath, "products_catalog.json");
+        if (!File.Exists(jsonPath))
+            jsonPath = Path.Combine(app.Environment.ContentRootPath, "..", "..", "products_catalog.json");
         if (File.Exists(jsonPath))
         {
             var json = await File.ReadAllTextAsync(jsonPath);
