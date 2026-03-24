@@ -167,7 +167,13 @@
       <div class="section" id="sec-products">
         <div class="main__header">
           <h1 class="main__title">Товары</h1>
-          <div class="main__actions"><button id="addProductBtn">+ Добавить</button></div>
+          <div class="main__actions">
+            <button id="exportProductsBtn" style="background:#1a6b3c;margin-right:0.4rem;">Экспорт</button>
+            <button id="importProductsBtn" style="background:#2563a8;margin-right:0.4rem;">Импорт</button>
+            <input type="file" id="importFileInput" accept=".xlsx" style="display:none;">
+            <button id="templateBtn" style="background:#444;margin-right:0.4rem;">Шаблон</button>
+            <button id="addProductBtn">+ Добавить</button>
+          </div>
         </div>
         <div class="table-wrapper">
           <table id="productsTable">
@@ -511,6 +517,67 @@
 
     // --- Helpers ---
     function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    // --- Excel Import/Export ---
+    document.getElementById('exportProductsBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch(`${API}/api/admin/products/export`, { headers: { 'Authorization': `Bearer ${token}` } });
+        if (!res.ok) { alert('Export failed'); return; }
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'products.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (e) { alert('Export error: ' + e.message); }
+    });
+
+    document.getElementById('importProductsBtn').addEventListener('click', () => {
+      document.getElementById('importFileInput').click();
+    });
+
+    document.getElementById('importFileInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const fd = new FormData();
+      fd.append('file', file);
+      try {
+        const res = await fetch(`${API}/api/admin/products/import`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: fd
+        });
+        const result = await res.json();
+        if (res.ok) {
+          let msg = `Import complete:\nCreated: ${result.created}\nUpdated: ${result.updated}\nFailed: ${result.failed}`;
+          if (result.errors && result.errors.length > 0) msg += '\n\nErrors:\n' + result.errors.join('\n');
+          alert(msg);
+          loadProducts();
+        } else {
+          alert('Import failed: ' + (result.error || JSON.stringify(result)));
+        }
+      } catch (err) { alert('Import error: ' + err.message); }
+      e.target.value = '';
+    });
+
+    document.getElementById('templateBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch(`${API}/api/admin/products/template`, { headers: { 'Authorization': `Bearer ${token}` } });
+        if (!res.ok) { alert('Template download failed'); return; }
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'products_template.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (e) { alert('Template error: ' + e.message); }
+    });
 
     // Close modals on overlay click
     document.querySelectorAll('.modal-overlay').forEach(o => {

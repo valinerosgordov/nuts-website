@@ -15,6 +15,9 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
     public Task<Product?> GetByIdAsync(Guid id, CancellationToken ct = default) =>
         db.Products.FirstOrDefaultAsync(p => p.Id == id, ct);
 
+    public Task<Product?> GetByNameAsync(string name, CancellationToken ct = default) =>
+        db.Products.FirstOrDefaultAsync(p => p.Name == name, ct);
+
     public void Add(Product product) => db.Products.Add(product);
 
     public void Remove(Product product) => db.Products.Remove(product);
