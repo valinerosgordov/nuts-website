@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Falling Golden Leaves (CSS-animated SVGs)
   // =========================================
   if (window.innerWidth >= 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const LEAF_COLORS = ['#c9a84c', '#8b6914', '#d4b86a', '#a07d2e'];
+    const LEAF_COLORS = ['#c9a84c', '#b8943e', '#d4b86a', '#dcc47a', '#a8892e'];
     // Realistic walnut leaf with serrated edges
     const LEAF_PATHS = [
       // Walnut leaf shape 1 — classic pointed with serrations
@@ -124,18 +124,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const path = document.createElementNS(ns, 'path');
       path.setAttribute('d', LEAF_PATHS[Math.floor(Math.random() * LEAF_PATHS.length)]);
       path.setAttribute('fill', color);
-      path.setAttribute('opacity', '0.75');
+      path.setAttribute('opacity', '0.8');
       svg.appendChild(path);
 
-      // Leaf vein line for realism
-      const vein = document.createElementNS(ns, 'line');
-      vein.setAttribute('x1', '12');
-      vein.setAttribute('y1', '4');
-      vein.setAttribute('x2', '12');
-      vein.setAttribute('y2', '20');
-      vein.setAttribute('stroke', color);
-      vein.setAttribute('stroke-opacity', '0.3');
-      vein.setAttribute('stroke-width', '0.5');
+      // Leaf vein — lighter gold, no dark center
+      const vein = document.createElementNS(ns, 'path');
+      vein.setAttribute('d', 'M12 4L12 20M12 8L9 6.5M12 8L15 6.5M12 12L8.5 10M12 12L15.5 10M12 16L9.5 14.5M12 16L14.5 14.5');
+      vein.setAttribute('stroke', '#dcc47a');
+      vein.setAttribute('stroke-opacity', '0.4');
+      vein.setAttribute('stroke-width', '0.4');
+      vein.setAttribute('fill', 'none');
+      vein.setAttribute('stroke-linecap', 'round');
       svg.appendChild(vein);
 
       document.body.appendChild(svg);
