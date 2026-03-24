@@ -84,6 +84,79 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================
+  // Falling Golden Leaves (CSS-animated SVGs)
+  // =========================================
+  if (window.innerWidth >= 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const LEAF_COLORS = ['#c9a84c', '#8b6914', '#d4b86a', '#6b4c3b'];
+    const LEAF_PATH = 'M12 2C12 2 7 4 5 8C3 12 4 16 6 18C8 20 10 22 12 22C14 22 16 20 18 18C20 16 21 12 19 8C17 4 12 2 12 2ZM12 4C12 4 15 6 16 9C17 12 16.5 15 15 17C13.5 19 12 20 12 20C12 20 10.5 19 9 17C7.5 15 7 12 8 9C9 6 12 4 12 4Z';
+    const MAX_LEAVES = 12;
+    let activeLeaves = 0;
+
+    const createLeaf = () => {
+      if (activeLeaves >= MAX_LEAVES) return;
+
+      const size = Math.random() * 15 + 15; // 15–30px
+      const left = Math.random() * 100;      // 0–100vw
+      const duration = Math.random() * 8 + 12; // 12–20s
+      const delay = Math.random() * 2;
+      const color = LEAF_COLORS[Math.floor(Math.random() * LEAF_COLORS.length)];
+      const swayDir = Math.random() > 0.5 ? 1 : -1;
+
+      const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('width', String(size));
+      svg.setAttribute('height', String(size));
+      svg.classList.add('falling-leaf');
+      svg.style.left = left + 'vw';
+      svg.style.animationDuration = duration + 's';
+      svg.style.animationDelay = delay + 's';
+      svg.style.transform = `scaleX(${swayDir})`;
+
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', LEAF_PATH);
+      path.setAttribute('fill', color);
+      path.setAttribute('opacity', '0.75');
+      svg.appendChild(path);
+
+      // Leaf vein line for realism
+      const vein = document.createElementNS(ns, 'line');
+      vein.setAttribute('x1', '12');
+      vein.setAttribute('y1', '4');
+      vein.setAttribute('x2', '12');
+      vein.setAttribute('y2', '20');
+      vein.setAttribute('stroke', color);
+      vein.setAttribute('stroke-opacity', '0.3');
+      vein.setAttribute('stroke-width', '0.5');
+      svg.appendChild(vein);
+
+      document.body.appendChild(svg);
+      activeLeaves++;
+
+      const cleanup = () => {
+        svg.remove();
+        activeLeaves--;
+      };
+
+      svg.addEventListener('animationend', cleanup);
+      // Safety fallback in case animationend doesn't fire
+      setTimeout(cleanup, (duration + delay + 1) * 1000);
+    };
+
+    // Stagger initial batch
+    for (let i = 0; i < MAX_LEAVES; i++) {
+      setTimeout(createLeaf, i * 1500);
+    }
+
+    // Continuously spawn new leaves
+    setInterval(() => {
+      if (activeLeaves < MAX_LEAVES) {
+        createLeaf();
+      }
+    }, 2000);
+  }
+
+  // =========================================
   // Header scroll effect
   // =========================================
   const header = document.getElementById('header');

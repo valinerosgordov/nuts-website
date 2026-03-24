@@ -8,6 +8,7 @@ using Nuts.Application.Media;
 using Nuts.Application.Products;
 using Nuts.Infrastructure.Persistence;
 using Nuts.Infrastructure.Persistence.Repositories;
+using Nuts.Infrastructure.Services;
 
 namespace Nuts.Infrastructure;
 
@@ -27,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<IPageRepository, PageRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IProductExcelService, ProductExcelService>();
 
         return services;
     }

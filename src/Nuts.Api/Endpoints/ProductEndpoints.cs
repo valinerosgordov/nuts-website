@@ -34,6 +34,38 @@ public static class ProductEndpoints
             .WithTags("Admin — Products")
             .RequireAuthorization("Admin");
 
+        adminGroup.MapGet("/export", async (IProductExcelService excelService, CancellationToken ct) =>
+        {
+            var bytes = await excelService.ExportAsync(ct);
+            return Results.File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                $"products_{DateTime.UtcNow:yyyyMMdd_HHmmss}.xlsx");
+        });
+
+        adminGroup.MapPost("/import", async (IFormFile file, IProductExcelService excelService, CancellationToken ct) =>
+        {
+            if (file is null || file.Length == 0)
+                return Results.BadRequest(new { error = "File is required." });
+
+            if (!file.FileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
+                return Results.BadRequest(new { error = "Only .xlsx files are supported." });
+
+            if (file.Length > 5 * 1024 * 1024)
+                return Results.BadRequest(new { error = "File must be less than 5 MB." });
+
+            using var stream = file.OpenReadStream();
+            var result = await excelService.ImportAsync(stream, ct);
+            return Results.Ok(result);
+        }).DisableAntiforgery();
+
+        adminGroup.MapGet("/template", (IProductExcelService excelService) =>
+        {
+            var bytes = excelService.GenerateTemplate();
+            return Results.File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "products_template.xlsx");
+        });
+
         adminGroup.MapGet("/", async (IProductRepository repo, CancellationToken ct) =>
         {
             var products = await repo.GetAllAsync(ct);
