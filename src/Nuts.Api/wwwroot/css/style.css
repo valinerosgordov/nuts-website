@@ -16,16 +16,16 @@
   --black-light: #111111;
   --black-card: #151515;
   --black-border: #252018;
-  --gold: #c9a84c;
-  --gold-dark: #8b6914;
-  --gold-light: #d4b86a;
+  --gold: #D4AF37;
+  --gold-dark: #AA8C2E;
+  --gold-light: #C7A23B;
   --brown: #6b4c3b;
   --brown-dark: #3d2b1f;
   --white: #f5f0e8;
   --white-dim: #a09888;
   --gray: #666;
 
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Tiempos Headline', 'Playfair Display', Georgia, serif;
   --font-sans: 'Raleway', -apple-system, sans-serif;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -43,9 +43,12 @@ html {
 body {
   font-family: var(--font-sans);
   background: var(--black);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   color: var(--white);
   overflow-x: hidden;
   line-height: 1.7;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
 }
 
 /* --- Subtle golden ambient glow on page background --- */
@@ -263,7 +266,7 @@ img {
 .nav__links a {
   font-size: 0.85rem;
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--white-dim);
   transition: color 0.3s;
@@ -438,17 +441,22 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 2.5rem;
-  border: 1px solid var(--gold-dark);
-  border-radius: 2px;
-  font-size: 0.85rem;
+  padding: 1.25rem 3.5rem;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-radius: 8px;
+  font-size: 1rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold-light);
-  transition: all 0.4s var(--ease-out);
+  transition: all 0.3s var(--ease-out);
   position: relative;
   overflow: hidden;
+}
+
+.hero__cta:hover {
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.15);
 }
 
 .hero__cta::before {
@@ -651,7 +659,7 @@ img {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 400;
   line-height: 1.15;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.04em;
 }
 
 .philosophy__title em,
@@ -701,17 +709,20 @@ img {
 .philosophy__cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
   width: 100%;
 }
 
 .philosophy__card {
-  background: var(--black-card);
-  border: 1px solid var(--black-border);
-  padding: 2.5rem 2rem;
-  transition: all 0.4s var(--ease-out);
+  background: #1A1815;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.83 0 0 0 0 0.69 0 0 0 0 0.22 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  transition: all 0.3s var(--ease-out);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(212, 175, 55, 0.04);
 }
 
 .philosophy__card::before {
@@ -727,9 +738,25 @@ img {
 }
 
 .philosophy__card:hover {
-  border-color: var(--gold-dark);
+  border-color: rgba(212, 175, 55, 0.5);
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 32px rgba(139, 105, 20, 0.08);
+  box-shadow: 0 8px 40px rgba(212, 175, 55, 0.1), 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.philosophy__card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 70%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.philosophy__card:hover::after {
+  opacity: 1;
 }
 
 .philosophy__card:hover::before {
@@ -830,7 +857,7 @@ img {
    Catalog Section
    ============================================ */
 .catalog {
-  padding: 6rem 0;
+  padding: 8rem 0;
   background: var(--black-light);
   position: relative;
 }
@@ -933,21 +960,25 @@ img {
 .catalog__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: 2.5rem;
+  margin-bottom: 4rem;
 }
 
 .catalog__item {
-  background: var(--black-card);
-  border: 1px solid var(--black-border);
+  background: #1A1815;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.83 0 0 0 0 0.69 0 0 0 0 0.22 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 16px;
   overflow: hidden;
-  transition: all 0.4s var(--ease-out);
+  transition: all 0.3s var(--ease-out);
   cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.04);
 }
 
 .catalog__item:hover {
-  border-color: var(--gold-dark);
-  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .catalog__item-image {
@@ -979,9 +1010,17 @@ img {
 
 .catalog__item-info h3 {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 500;
-  margin-bottom: 0.3rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.catalog__item-price {
+  color: #D4AF37;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
 }
 
 .catalog__item-info p {
@@ -997,15 +1036,15 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 2.5rem;
-  border: 1px solid var(--gold-dark);
-  border-radius: 2px;
-  font-size: 0.85rem;
+  padding: 1.25rem 3.5rem;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-radius: 8px;
+  font-size: 1rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold-light);
-  transition: all 0.4s var(--ease-out);
+  transition: all 0.3s var(--ease-out);
   position: relative;
   overflow: hidden;
 }
@@ -1081,16 +1120,32 @@ img {
 
 .media__card {
   flex-shrink: 0;
-  width: 360px;
-  padding: 2.5rem;
-  border-radius: 4px;
-  background: var(--black-card);
-  border: 1px solid var(--black-border);
-  transition: border-color 0.3s;
+  width: 380px;
+  padding: 3rem;
+  border-radius: 20px;
+  background: #1A1815;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.83 0 0 0 0 0.69 0 0 0 0 0.22 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.media__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
 }
 
 .media__card:hover {
-  border-color: var(--gold-dark);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 8px 40px rgba(212, 175, 55, 0.1), 0 4px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
 }
 
 .media__card-logo {
@@ -1155,10 +1210,11 @@ img {
   width: 100%;
   padding: 1.1rem 1.5rem;
   background: var(--black-card);
-  border: 1px solid var(--black-border);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
   color: var(--white);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 1rem;
   outline: none;
   transition: border-color 0.3s;
 }
@@ -1176,15 +1232,15 @@ img {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  padding: 1.1rem 2.5rem;
+  padding: 1.25rem 3rem;
   background: var(--gold-dark);
-  border: 1px solid var(--gold-dark);
-  border-radius: 2px;
+  border: 1.5px solid var(--gold-dark);
+  border-radius: 8px;
   color: var(--black);
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.4s var(--ease-out);
