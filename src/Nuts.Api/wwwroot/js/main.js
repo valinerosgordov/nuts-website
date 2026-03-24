@@ -87,8 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Falling Golden Leaves (CSS-animated SVGs)
   // =========================================
   if (window.innerWidth >= 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const LEAF_COLORS = ['#c9a84c', '#8b6914', '#d4b86a', '#6b4c3b'];
-    const LEAF_PATH = 'M12 2C12 2 7 4 5 8C3 12 4 16 6 18C8 20 10 22 12 22C14 22 16 20 18 18C20 16 21 12 19 8C17 4 12 2 12 2ZM12 4C12 4 15 6 16 9C17 12 16.5 15 15 17C13.5 19 12 20 12 20C12 20 10.5 19 9 17C7.5 15 7 12 8 9C9 6 12 4 12 4Z';
+    const LEAF_COLORS = ['#c9a84c', '#8b6914', '#d4b86a', '#a07d2e'];
+    // Realistic walnut leaf with serrated edges
+    const LEAF_PATHS = [
+      // Walnut leaf shape 1 — classic pointed with serrations
+      'M12 1C12 1 10 3 8.5 5.5C7.5 4.8 6 5 5.5 6.5C4.5 6 3 6.8 3 8.5C2 8.5 1 9.8 1.5 11.5C1 12 0.8 13.5 2 14.5C1.5 15.5 2 17 3.5 17.5C3.5 18.5 4.5 19.5 6 19.5C6.5 20.5 7.5 21.5 9 21.5C9.5 22.5 10.5 23 12 23C13.5 23 14.5 22.5 15 21.5C16.5 21.5 17.5 20.5 18 19.5C19.5 19.5 20.5 18.5 20.5 17.5C22 17 22.5 15.5 22 14.5C23.2 13.5 23 12 22.5 11.5C23 9.8 22 8.5 21 8.5C21 6.8 19.5 6 18.5 6.5C18 5 16.5 4.8 15.5 5.5C14 3 12 1 12 1Z',
+      // Leaf shape 2 — rounder, maple-like
+      'M12 1.5C12 1.5 9 4 7 6C5.5 5 3.5 5.5 3 7.5C1.5 7.5 0.5 9 1 11C0 12 0 14 1.5 15.5C1 17 2 19 4 19.5C4.5 21 6.5 22 8.5 21.5C10 23 14 23 15.5 21.5C17.5 22 19.5 21 20 19.5C22 19 23 17 22.5 15.5C24 14 24 12 23 11C23.5 9 22.5 7.5 21 7.5C20.5 5.5 18.5 5 17 6C15 4 12 1.5 12 1.5Z',
+      // Leaf shape 3 — elongated, elegant
+      'M12 0.5C12 0.5 10 2.5 9 4.5C7.5 4 6 4.5 5.5 6C4 6 3 7 3 8.5C2 9 1.5 10.5 2 12C1.5 13 1.5 14.5 2.5 15.5C2.5 17 3.5 18 5 18.5C5.5 19.5 7 20.5 8.5 20.5C9.5 21.5 10.5 22.5 12 22.5C13.5 22.5 14.5 21.5 15.5 20.5C17 20.5 18.5 19.5 19 18.5C20.5 18 21.5 17 21.5 15.5C22.5 14.5 22.5 13 22 12C22.5 10.5 22 9 21 8.5C21 7 20 6 18.5 6C18 4.5 16.5 4 15 4.5C14 2.5 12 0.5 12 0.5Z'
+    ];
     const MAX_LEAVES = 12;
     let activeLeaves = 0;
 
@@ -114,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
       svg.style.transform = `scaleX(${swayDir})`;
 
       const path = document.createElementNS(ns, 'path');
-      path.setAttribute('d', LEAF_PATH);
+      path.setAttribute('d', LEAF_PATHS[Math.floor(Math.random() * LEAF_PATHS.length)]);
       path.setAttribute('fill', color);
       path.setAttribute('opacity', '0.75');
       svg.appendChild(path);
