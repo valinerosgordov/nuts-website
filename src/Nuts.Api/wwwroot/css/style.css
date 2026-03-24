@@ -15,7 +15,7 @@
   --black: #0a0a0a;
   --black-light: #111111;
   --black-card: #151515;
-  --black-border: #1f1f1f;
+  --black-border: #252018;
   --gold: #c9a84c;
   --gold-dark: #8b6914;
   --gold-light: #d4b86a;
@@ -46,6 +46,23 @@ body {
   color: var(--white);
   overflow-x: hidden;
   line-height: 1.7;
+}
+
+/* --- Subtle golden ambient glow on page background --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(201, 168, 76, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 80% 50%, rgba(139, 105, 20, 0.025) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 30% 85%, rgba(212, 184, 106, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* --- Film Grain Overlay --- */
@@ -101,12 +118,12 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--brown-dark);
+  background: linear-gradient(180deg, var(--gold-dark), var(--brown-dark));
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-dark);
+  background: linear-gradient(180deg, var(--gold), var(--gold-dark));
 }
 
 /* --- Reveal Animation --- */
@@ -206,6 +223,7 @@ img {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 1rem 3rem;
+  border-bottom: 1px solid rgba(139, 105, 20, 0.12);
 }
 
 .nav {
@@ -711,6 +729,7 @@ img {
 .philosophy__card:hover {
   border-color: var(--gold-dark);
   transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(139, 105, 20, 0.08);
 }
 
 .philosophy__card:hover::before {
@@ -1181,7 +1200,8 @@ img {
    ============================================ */
 .footer {
   padding: 4rem 0;
-  border-top: 1px solid var(--black-border);
+  border-top: 1px solid rgba(139, 105, 20, 0.15);
+  background: linear-gradient(180deg, transparent 0%, rgba(139, 105, 20, 0.02) 100%);
 }
 
 .footer__container {
