@@ -1,0 +1,126 @@
+<svg viewBox="0 0 500 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="trunk" x1="250" y1="750" x2="250" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a1510"/>
+      <stop offset="0.3" stop-color="#2C2A24"/>
+      <stop offset="0.7" stop-color="#3A3530"/>
+      <stop offset="1" stop-color="#4A4540"/>
+    </linearGradient>
+    <linearGradient id="trunkHighlight" x1="240" y1="750" x2="260" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="transparent"/>
+      <stop offset="0.4" stop-color="rgba(212,175,55,0.06)"/>
+      <stop offset="0.7" stop-color="rgba(212,175,55,0.03)"/>
+      <stop offset="1" stop-color="transparent"/>
+    </linearGradient>
+    <radialGradient id="crownBack" cx="50%" cy="45%" r="50%">
+      <stop offset="0" stop-color="#2a4a25"/>
+      <stop offset="0.6" stop-color="#1e3a1a"/>
+      <stop offset="1" stop-color="#142812" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crownMid" cx="45%" cy="40%" r="48%">
+      <stop offset="0" stop-color="#3a6830"/>
+      <stop offset="0.5" stop-color="#2d5425"/>
+      <stop offset="1" stop-color="#1a3815" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crownFront" cx="55%" cy="50%" r="45%">
+      <stop offset="0" stop-color="#4a7c3f"/>
+      <stop offset="0.4" stop-color="#3a6530"/>
+      <stop offset="1" stop-color="#2a4f22" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crownGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0" stop-color="rgba(212,175,55,0.04)"/>
+      <stop offset="1" stop-color="transparent"/>
+    </radialGradient>
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <filter id="tinyBlur">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Atmospheric glow behind crown -->
+  <ellipse cx="250" cy="250" rx="200" ry="180" fill="url(#crownGlow)" opacity="0.8"/>
+
+  <!-- Trunk — thick, elegant, slightly curved -->
+  <path d="M230 750 C228 700, 225 650, 228 600 C231 550, 235 500, 240 460 C245 420, 248 390, 250 360 C252 330, 250 310, 248 290"
+        stroke="url(#trunk)" stroke-width="28" fill="none" stroke-linecap="round"/>
+  <!-- Trunk center highlight -->
+  <path d="M232 720 C230 680, 228 640, 231 590 C234 540, 238 490, 242 450 C246 410, 249 380, 250 355"
+        stroke="url(#trunkHighlight)" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <!-- Subtle bark texture lines -->
+  <path d="M238 700 C237 660, 236 620, 238 580 C240 540, 243 500, 246 465" stroke="#3A3530" stroke-width="0.6" fill="none" opacity="0.3"/>
+  <path d="M260 710 C259 670, 257 630, 258 590 C259 550, 260 510, 260 470" stroke="#3A3530" stroke-width="0.5" fill="none" opacity="0.25"/>
+  <path d="M244 680 C243 650, 242 620, 244 590" stroke="#4A4540" stroke-width="0.4" fill="none" opacity="0.2"/>
+
+  <!-- Root flare -->
+  <path d="M220 750 C215 735, 200 725, 185 730" stroke="#2C2A24" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M270 750 C275 735, 290 725, 310 728" stroke="#2C2A24" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M205 750 C198 742, 175 740, 160 745" stroke="#2C2A24" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- === CROWN: Organic silhouette shapes, NOT individual leaves === -->
+
+  <!-- Back crown layer (darkest, deepest) -->
+  <path class="tree-leaf tree-leaf--1"
+        d="M250 280 C200 260, 120 240, 80 210 C50 185, 55 150, 90 130 C120 112, 160 100, 200 95 C230 91, 260 90, 290 95 C340 100, 390 115, 420 140 C445 160, 450 190, 430 220 C410 250, 350 270, 310 280 C290 285, 260 285, 250 280Z"
+        fill="url(#crownBack)" opacity="0.7" filter="url(#softBlur)"/>
+
+  <!-- Back-mid crown (slightly offset) -->
+  <path class="tree-leaf tree-leaf--2"
+        d="M245 270 C210 258, 140 240, 100 215 C65 192, 60 160, 85 135 C110 112, 155 95, 195 85 C225 78, 265 75, 300 82 C345 90, 395 110, 425 135 C450 158, 455 185, 435 210 C415 235, 360 258, 310 268 C285 273, 258 273, 245 270Z"
+        fill="#1e3d18" opacity="0.5"/>
+
+  <!-- Mid crown — main shape -->
+  <path class="tree-leaf tree-leaf--3"
+        d="M250 260 C215 248, 145 228, 105 200 C75 178, 75 145, 100 120 C130 95, 175 78, 215 70 C240 65, 270 63, 295 68 C340 75, 385 95, 410 120 C430 142, 432 170, 415 195 C395 225, 340 248, 300 258 C278 263, 260 262, 250 260Z"
+        fill="url(#crownMid)" opacity="0.8"/>
+
+  <!-- Front-mid layer -->
+  <path class="tree-leaf tree-leaf--4"
+        d="M248 250 C220 240, 158 222, 120 198 C90 178, 92 150, 115 128 C140 108, 180 92, 215 82 C242 76, 268 74, 290 78 C330 84, 375 100, 398 122 C416 140, 418 165, 402 185 C385 210, 335 238, 295 248 C275 253, 258 252, 248 250Z"
+        fill="#2d5425" opacity="0.6"/>
+
+  <!-- Front crown — brightest, most detail -->
+  <path class="tree-leaf tree-leaf--5"
+        d="M250 242 C222 234, 165 215, 130 192 C100 172, 105 145, 128 125 C152 108, 190 95, 222 87 C245 82, 268 80, 288 84 C325 90, 365 105, 385 125 C400 140, 402 160, 388 178 C372 200, 330 228, 295 240 C275 245, 258 244, 250 242Z"
+        fill="url(#crownFront)" opacity="0.7"/>
+
+  <!-- Top crown detail -->
+  <path class="tree-leaf tree-leaf--6"
+        d="M250 230 C230 222, 180 205, 150 185 C125 168, 130 145, 150 128 C170 112, 200 100, 228 92 C248 87, 268 86, 285 90 C315 96, 348 110, 365 128 C378 142, 378 160, 365 175 C350 192, 310 218, 282 228 C268 232, 255 232, 250 230Z"
+        fill="#3a6530" opacity="0.5"/>
+
+  <!-- Crown edge detail — irregular bumps for organic look -->
+  <path class="tree-leaf tree-leaf--7"
+        d="M90 180 C78 165, 72 145, 82 130 C92 118, 110 125, 108 140 C106 155, 95 172, 90 180Z"
+        fill="#2a5020" opacity="0.5"/>
+  <path d="M420 175 C432 160, 438 140, 428 125 C418 112, 400 120, 402 135 C404 150, 415 165, 420 175Z"
+        fill="#2a5020" opacity="0.45"/>
+  <path d="M140 110 C130 95, 135 78, 150 72 C162 67, 170 78, 165 90 C160 102, 148 108, 140 110Z"
+        fill="#3a6530" opacity="0.4"/>
+  <path d="M370 105 C380 90, 385 72, 372 65 C360 60, 352 72, 355 84 C358 96, 365 103, 370 105Z"
+        fill="#3a6530" opacity="0.4"/>
+  <path class="tree-leaf tree-leaf--8"
+        d="M250 72 C240 55, 245 38, 258 32 C268 27, 275 38, 272 50 C269 62, 256 70, 250 72Z"
+        fill="#4a7c3f" opacity="0.45"/>
+  <path d="M200 80 C190 65, 195 48, 208 42 C218 37, 225 48, 222 60 C219 72, 208 78, 200 80Z"
+        fill="#3a6530" opacity="0.35"/>
+  <path d="M310 78 C318 62, 325 45, 315 38 C305 32, 298 44, 300 56 C302 68, 308 76, 310 78Z"
+        fill="#3a6530" opacity="0.35"/>
+
+  <!-- Subtle light spots on crown -->
+  <ellipse cx="200" cy="160" rx="30" ry="25" fill="#5a8d4f" opacity="0.12" filter="url(#softBlur)"/>
+  <ellipse cx="310" cy="140" rx="25" ry="20" fill="#5a8d4f" opacity="0.1" filter="url(#softBlur)"/>
+  <ellipse cx="250" cy="120" rx="20" ry="18" fill="#6a9e5a" opacity="0.08" filter="url(#softBlur)"/>
+
+  <!-- Branches peeking through crown -->
+  <path class="tree-branch tree-branch--1" d="M248 290 C220 270, 160 250, 100 230" stroke="#3A3530" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path class="tree-branch tree-branch--2" d="M252 290 C280 268, 340 248, 400 230" stroke="#3A3530" stroke-width="4.5" fill="none" stroke-linecap="round" opacity="0.28"/>
+  <path class="tree-branch tree-branch--3" d="M248 270 C225 250, 170 228, 120 205" stroke="#3A3530" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.25"/>
+  <path class="tree-branch tree-branch--4" d="M252 268 C275 248, 335 225, 395 200" stroke="#3A3530" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.22"/>
+  <path class="tree-branch tree-branch--5" d="M249 240 C230 218, 180 195, 140 172" stroke="#3A3530" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path class="tree-branch tree-branch--6" d="M251 238 C270 218, 320 195, 370 170" stroke="#3A3530" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.18"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="248" cy="752" rx="80" ry="6" fill="#0a0a0a" opacity="0.4" filter="url(#softBlur)"/>
+</svg>
