@@ -93,18 +93,18 @@
       pointer-events: none;
     }
     .leaf-decor--left {
-      left: -40px;
-      top: 15%;
-      width: 220px;
-      height: 80vh;
-      opacity: 0.10;
+      left: -20px;
+      top: 5%;
+      width: 280px;
+      height: 90vh;
+      opacity: 0.22;
     }
     .leaf-decor--right {
-      right: -40px;
-      top: 10%;
-      width: 220px;
-      height: 80vh;
-      opacity: 0.08;
+      right: -20px;
+      top: 0%;
+      width: 280px;
+      height: 90vh;
+      opacity: 0.18;
       transform: scaleX(-1);
     }
     @media (max-width: 1024px) {
@@ -336,39 +336,63 @@
 </head>
 <body>
   <!-- Decorative green leaves framing page sides -->
-  <svg class="leaf-decor leaf-decor--left" viewBox="0 0 200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Vine stem -->
-    <path d="M160 800 C155 720, 140 640, 150 560 C160 480, 130 400, 145 320 C160 240, 135 160, 150 80 C158 40, 155 10, 155 0" stroke="#4A6B3F" stroke-width="2.5" fill="none" opacity="0.6"/>
-    <!-- Leaves along the vine — pointed ovals -->
-    <path d="M150 720 C130 700, 70 690, 40 660 C70 665, 120 670, 150 690" fill="#4A6B3F" opacity="0.5"/>
-    <path d="M150 720 C160 698, 180 680, 195 650 C175 670, 155 690, 150 700" fill="#6A8E5A" opacity="0.35"/>
-    <path d="M145 620 C125 600, 60 595, 30 565 C65 572, 118 578, 145 598" fill="#4A6B3F" opacity="0.45"/>
-    <path d="M145 620 C155 598, 175 580, 190 550 C170 570, 150 592, 145 600" fill="#6A8E5A" opacity="0.3"/>
-    <path d="M150 520 C128 498, 65 490, 35 458 C68 466, 122 472, 150 495" fill="#4A6B3F" opacity="0.5"/>
-    <path d="M150 520 C162 498, 185 478, 198 448 C180 468, 156 492, 150 500" fill="#6A8E5A" opacity="0.35"/>
-    <path d="M148 420 C126 398, 58 388, 25 355 C60 364, 120 370, 148 395" fill="#4A6B3F" opacity="0.4"/>
-    <path d="M148 420 C158 398, 178 378, 192 345 C175 368, 152 394, 148 400" fill="#6A8E5A" opacity="0.3"/>
-    <path d="M152 320 C130 298, 62 290, 30 258 C65 268, 124 274, 152 298" fill="#4A6B3F" opacity="0.45"/>
-    <path d="M152 320 C164 298, 186 278, 198 248 C180 270, 158 296, 152 300" fill="#6A8E5A" opacity="0.3"/>
-    <path d="M148 220 C128 198, 65 192, 35 162 C68 170, 120 178, 148 198" fill="#4A6B3F" opacity="0.4"/>
-    <path d="M148 220 C158 198, 176 178, 188 148 C172 170, 152 196, 148 200" fill="#6A8E5A" opacity="0.25"/>
-    <path d="M150 130 C132 110, 72 104, 42 78 C72 86, 124 92, 150 112" fill="#4A6B3F" opacity="0.35"/>
+  <svg class="leaf-decor leaf-decor--left" viewBox="0 0 250 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main vine -->
+    <path d="M200 900 C195 820, 180 740, 190 660 C200 580, 170 500, 185 420 C200 340, 175 260, 190 180 C200 120, 195 60, 195 0" stroke="#3a6b2f" stroke-width="3" fill="none" opacity="0.7"/>
+    <!-- Secondary vine -->
+    <path d="M210 900 C205 800, 195 720, 200 640 C205 560, 185 480, 195 400 C205 320, 190 240, 200 160" stroke="#4a7c3f" stroke-width="1.8" fill="none" opacity="0.4"/>
+    <!-- Tendrils -->
+    <path d="M190 660 C170 640, 120 635, 80 610" stroke="#4a7c3f" stroke-width="1.2" fill="none" opacity="0.4"/>
+    <path d="M185 420 C165 400, 110 395, 70 370" stroke="#4a7c3f" stroke-width="1.2" fill="none" opacity="0.35"/>
+    <path d="M190 180 C170 160, 115 155, 75 130" stroke="#4a7c3f" stroke-width="1" fill="none" opacity="0.3"/>
+    <!-- Large leaves (left side) -->
+    <path d="M190 800 C160 775, 80 765, 40 730 C80 738, 150 745, 190 770" fill="#3a6b2f" opacity="0.6"/>
+    <path d="M190 800 C200 775, 220 755, 240 720 C225 745, 200 770, 190 780" fill="#5a8d4f" opacity="0.4"/>
+    <path d="M185 700 C155 675, 70 668, 30 635 C72 644, 148 650, 185 674" fill="#4a7c3f" opacity="0.55"/>
+    <path d="M185 700 C198 675, 225 652, 245 618 C228 645, 198 672, 185 680" fill="#6A8E5A" opacity="0.35"/>
+    <path d="M192 600 C162 575, 78 568, 38 535 C78 544, 155 550, 192 574" fill="#3a6b2f" opacity="0.5"/>
+    <path d="M192 600 C205 575, 230 555, 248 522 C232 548, 205 573, 192 580" fill="#5a8d4f" opacity="0.35"/>
+    <path d="M188 500 C158 475, 72 468, 32 435 C72 444, 150 450, 188 474" fill="#4a7c3f" opacity="0.55"/>
+    <path d="M188 500 C200 475, 225 455, 242 422 C228 448, 200 472, 188 480" fill="#6A8E5A" opacity="0.35"/>
+    <path d="M185 400 C155 375, 68 368, 28 335 C68 345, 148 352, 185 375" fill="#3a6b2f" opacity="0.5"/>
+    <path d="M185 400 C198 375, 222 355, 240 322 C224 348, 198 373, 185 380" fill="#5a8d4f" opacity="0.3"/>
+    <path d="M190 300 C160 275, 75 268, 38 238 C76 248, 152 254, 190 276" fill="#4a7c3f" opacity="0.45"/>
+    <path d="M190 300 C202 275, 226 255, 242 225 C228 250, 202 274, 190 280" fill="#6A8E5A" opacity="0.3"/>
+    <path d="M188 210 C160 188, 80 182, 45 155 C80 164, 152 170, 188 192" fill="#3a6b2f" opacity="0.4"/>
+    <path d="M188 210 C198 188, 218 170, 235 142 C220 165, 198 188, 188 195" fill="#5a8d4f" opacity="0.25"/>
+    <path d="M192 130 C168 112, 95 108, 62 85 C95 92, 160 98, 192 115" fill="#4a7c3f" opacity="0.35"/>
+    <!-- Small accent leaves -->
+    <path d="M195 750 C180 740, 145 738, 130 725 C148 728, 178 732, 195 740" fill="#5a8d4f" opacity="0.45"/>
+    <path d="M188 550 C173 540, 138 538, 123 525 C141 528, 171 532, 188 540" fill="#5a8d4f" opacity="0.4"/>
+    <path d="M190 350 C175 340, 140 338, 125 325 C143 328, 173 332, 190 340" fill="#5a8d4f" opacity="0.35"/>
+    <path d="M188 155 C175 147, 145 146, 132 136 C148 138, 173 140, 188 148" fill="#5a8d4f" opacity="0.3"/>
   </svg>
-  <svg class="leaf-decor leaf-decor--right" viewBox="0 0 200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Vine stem -->
-    <path d="M160 800 C155 720, 140 640, 150 560 C160 480, 130 400, 145 320 C160 240, 135 160, 150 80 C158 40, 155 10, 155 0" stroke="#4A6B3F" stroke-width="2.5" fill="none" opacity="0.6"/>
-    <!-- Leaves along the vine — pointed ovals -->
-    <path d="M150 700 C128 678, 62 670, 32 640 C66 648, 122 654, 150 676" fill="#4A6B3F" opacity="0.45"/>
-    <path d="M150 700 C162 678, 184 660, 196 630 C178 652, 155 676, 150 680" fill="#6A8E5A" opacity="0.3"/>
-    <path d="M148 590 C126 568, 58 560, 28 530 C62 540, 120 546, 148 568" fill="#4A6B3F" opacity="0.5"/>
-    <path d="M148 590 C160 568, 182 548, 194 518 C176 540, 152 566, 148 570" fill="#6A8E5A" opacity="0.35"/>
-    <path d="M152 480 C130 458, 64 450, 34 420 C68 430, 124 436, 152 458" fill="#4A6B3F" opacity="0.4"/>
-    <path d="M152 480 C164 458, 186 438, 198 408 C180 430, 158 456, 152 460" fill="#6A8E5A" opacity="0.3"/>
-    <path d="M148 370 C126 348, 60 342, 32 312 C64 322, 120 328, 148 350" fill="#4A6B3F" opacity="0.45"/>
-    <path d="M148 370 C158 348, 176 328, 190 298 C174 320, 152 346, 148 350" fill="#6A8E5A" opacity="0.3"/>
-    <path d="M150 260 C130 240, 68 234, 38 206 C68 214, 122 220, 150 242" fill="#4A6B3F" opacity="0.4"/>
-    <path d="M150 260 C160 238, 178 218, 192 188 C176 210, 154 236, 150 240" fill="#6A8E5A" opacity="0.25"/>
-    <path d="M148 160 C130 142, 72 136, 44 110 C72 118, 122 124, 148 144" fill="#4A6B3F" opacity="0.35"/>
+  <svg class="leaf-decor leaf-decor--right" viewBox="0 0 250 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main vine -->
+    <path d="M200 900 C195 810, 185 730, 195 650 C205 570, 178 490, 192 410 C205 330, 182 250, 195 170 C202 110, 198 50, 198 0" stroke="#3a6b2f" stroke-width="3" fill="none" opacity="0.7"/>
+    <!-- Secondary vine -->
+    <path d="M208 900 C202 790, 192 710, 198 630 C204 550, 188 470, 198 390 C208 310, 192 230, 202 150" stroke="#4a7c3f" stroke-width="1.8" fill="none" opacity="0.4"/>
+    <!-- Tendrils -->
+    <path d="M195 650 C175 630, 125 625, 85 600" stroke="#4a7c3f" stroke-width="1.2" fill="none" opacity="0.4"/>
+    <path d="M192 410 C172 390, 118 385, 78 360" stroke="#4a7c3f" stroke-width="1.2" fill="none" opacity="0.35"/>
+    <!-- Large leaves -->
+    <path d="M195 780 C165 755, 82 748, 42 715 C82 724, 158 730, 195 754" fill="#3a6b2f" opacity="0.55"/>
+    <path d="M195 780 C208 755, 232 735, 248 700 C232 725, 208 752, 195 762" fill="#5a8d4f" opacity="0.38"/>
+    <path d="M192 680 C162 655, 78 648, 38 615 C78 624, 155 630, 192 654" fill="#4a7c3f" opacity="0.5"/>
+    <path d="M192 680 C205 655, 228 635, 245 602 C230 628, 205 653, 192 660" fill="#6A8E5A" opacity="0.32"/>
+    <path d="M195 570 C165 545, 80 538, 40 505 C80 514, 158 520, 195 544" fill="#3a6b2f" opacity="0.5"/>
+    <path d="M195 570 C208 545, 232 525, 248 492 C232 518, 208 543, 195 550" fill="#5a8d4f" opacity="0.35"/>
+    <path d="M190 460 C160 435, 75 428, 35 395 C75 404, 152 410, 190 434" fill="#4a7c3f" opacity="0.5"/>
+    <path d="M190 460 C202 435, 225 415, 242 382 C228 408, 202 433, 190 440" fill="#6A8E5A" opacity="0.32"/>
+    <path d="M195 350 C165 325, 82 318, 45 288 C82 298, 158 304, 195 326" fill="#3a6b2f" opacity="0.45"/>
+    <path d="M195 350 C208 325, 230 305, 245 275 C230 300, 208 324, 195 332" fill="#5a8d4f" opacity="0.28"/>
+    <path d="M192 250 C165 228, 85 222, 50 195 C85 204, 158 210, 192 232" fill="#4a7c3f" opacity="0.4"/>
+    <path d="M192 250 C202 228, 222 210, 238 182 C224 205, 202 228, 192 235" fill="#6A8E5A" opacity="0.25"/>
+    <path d="M195 155 C172 138, 100 134, 68 112 C100 118, 165 124, 195 142" fill="#3a6b2f" opacity="0.35"/>
+    <!-- Small accent leaves -->
+    <path d="M198 730 C183 720, 148 718, 133 705 C150 708, 180 712, 198 720" fill="#5a8d4f" opacity="0.42"/>
+    <path d="M192 520 C177 510, 142 508, 127 495 C145 498, 175 502, 192 510" fill="#5a8d4f" opacity="0.38"/>
+    <path d="M195 310 C180 300, 148 298, 135 288 C150 290, 178 294, 195 302" fill="#5a8d4f" opacity="0.32"/>
   </svg>
 
   <!-- Боковая панель -->
