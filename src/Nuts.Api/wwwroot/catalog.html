@@ -1880,6 +1880,19 @@ tabs.forEach(tab => {
     }
   }
 })();
+
+// Product card click-through to detail page
+document.querySelectorAll('.catalog__item').forEach(card => {
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', (e) => {
+    // Don't navigate if clicking variant buttons or add-to-cart
+    if (e.target.closest('.variant-btn') || e.target.closest('.catalog__add-to-cart')) return;
+    const name = card.querySelector('h3')?.textContent;
+    if (name) {
+      window.location.href = '/product.html?name=' + encodeURIComponent(name);
+    }
+  });
+});
   </script>
 </body>
 </html>

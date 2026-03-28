@@ -19,6 +19,16 @@ public static class ProductEndpoints
                 p.Id, p.Name, p.Description, p.ImagePath, p.Price, p.Origin, p.Category, p.SortOrder)));
         });
 
+        publicGroup.MapGet("/by-name", async Task<Results<Ok<ProductDto>, NotFound>> (
+            string name, IProductRepository repo, CancellationToken ct) =>
+        {
+            var product = await repo.GetByNameAsync(System.Net.WebUtility.HtmlEncode(name), ct);
+            if (product is null || !product.IsAvailable) return TypedResults.NotFound();
+            return TypedResults.Ok(new ProductDto(
+                product.Id, product.Name, product.Description, product.ImagePath,
+                product.Price, product.Origin, product.Category, product.SortOrder));
+        });
+
         publicGroup.MapGet("/{id:guid}", async Task<Results<Ok<ProductDto>, NotFound>> (
             Guid id, IProductRepository repo, CancellationToken ct) =>
         {

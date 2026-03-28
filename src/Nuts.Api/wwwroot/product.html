@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Загрузка... — Ореховый Сад</title>
+  <meta name="description" content="Ореховый Сад — премиум орехи. Мы делаем премиум доступным.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding-top: 8rem;
+      padding-bottom: 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(201, 168, 76, 0.06) 0%, transparent 100%);
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, rgba(139, 105, 20, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__breadcrumb {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+      position: relative;
+    }
+
+    .page-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .page-hero__breadcrumb a:hover {
+      color: #c9a84c;
+    }
+
+    .page-hero__breadcrumb span {
+      margin: 0 0.5rem;
+    }
+
+    /* Product Detail Layout */
+    .product-detail {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .product-detail__image-wrap {
+      position: sticky;
+      top: 6rem;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--black-border);
+      background: var(--black-card);
+    }
+
+    .product-detail__image {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-detail__image-wrap:hover .product-detail__image {
+      transform: scale(1.04);
+    }
+
+    .product-detail__info {
+      padding-top: 0.5rem;
+    }
+
+    .product-detail__category {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .product-detail__name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+    }
+
+    .product-detail__origin {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .product-detail__origin svg {
+      width: 14px;
+      height: 14px;
+      stroke: rgba(255, 255, 255, 0.35);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .product-detail__divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--black-border), transparent);
+      margin: 1.5rem 0;
+    }
+
+    .product-detail__variants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .product-detail__variants-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+
+    .product-variant-btn {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      background: transparent;
+      border: 1px solid #1f1f1f;
+      border-radius: 2px;
+      color: #a09888;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-variant-btn:hover {
+      border-color: #8b6914;
+      color: #f5f0e8;
+    }
+
+    .product-variant-btn.active {
+      background: #8b6914;
+      border-color: #8b6914;
+      color: #0a0a0a;
+      font-weight: 500;
+    }
+
+    .product-detail__price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #c9a84c;
+      font-weight: 600;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .product-detail__description {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .product-detail__add-to-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 3rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #8b6914, #c9a84c);
+      color: #0a0a0a;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .product-detail__add-to-cart:hover {
+      background: linear-gradient(135deg, #c9a84c, #d4b86a);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 105, 20, 0.3);
+    }
+
+    .product-detail__add-to-cart svg {
+      width: 20px;
+      height: 20px;
+      stroke: #0a0a0a;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Collapsible Sections */
+    .product-detail__sections {
+      margin-top: 2.5rem;
+    }
+
+    .product-collapse {
+      border-top: 1px solid rgba(37, 32, 24, 0.6);
+    }
+
+    .product-collapse:last-child {
+      border-bottom: 1px solid rgba(37, 32, 24, 0.6);
+    }
+
+    .product-collapse__toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    .product-collapse__toggle:hover {
+      color: #c9a84c;
+    }
+
+    .product-collapse__toggle svg {
+      width: 18px;
+      height: 18px;
+      stroke: rgba(255, 255, 255, 0.4);
+      fill: none;
+      stroke-width: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .product-collapse.open .product-collapse__toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .product-collapse__content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-collapse.open .product-collapse__content {
+      max-height: 400px;
+    }
+
+    .product-collapse__inner {
+      padding: 0 0 1.2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.7;
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .nutrition-item {
+      text-align: center;
+      padding: 0.8rem 0.5rem;
+      border: 1px solid rgba(37, 32, 24, 0.6);
+      border-radius: 2px;
+    }
+
+    .nutrition-item__value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #c9a84c;
+      font-weight: 600;
+      display: block;
+    }
+
+    .nutrition-item__label {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+    /* Loading & Error */
+    .product-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 50vh;
+      gap: 1.5rem;
+    }
+
+    .product-loading__spinner {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--black-border);
+      border-top-color: #c9a84c;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .product-loading__text {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .product-error {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .product-error__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .product-error__text {
+      font-family: 'Raleway', sans-serif;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 2rem;
+    }
+
+    .product-error__link {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: transparent;
+      color: #c9a84c;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .product-error__link:hover {
+      background: rgba(201, 168, 76, 0.1);
+      border-color: #c9a84c;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .product-detail {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1.5rem 1.5rem 4rem;
+      }
+
+      .product-detail__image-wrap {
+        position: static;
+      }
+
+      .product-detail__name {
+        font-size: clamp(1.6rem, 5vw, 2.5rem);
+      }
+
+      .product-detail__price {
+        font-size: 1.8rem;
+      }
+
+      .nutrition-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero {
+        padding-top: 6.5rem;
+      }
+
+      .product-detail {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">✦</span> Ореховый Сад</a>
+      <ul class="nav__links">
+        <li><a href="/catalog.html">Каталог</a></li>
+        <li><a href="/wholesale.html">Опт</a></li>
+        <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/about.html">О нас</a></li>
+        <li><a href="/delivery.html">Доставка и оплата</a></li>
+        <li><a href="/contacts.html">Контакты</a></li>
+        <li><a href="/account.html">Кабинет</a></li>
+      </ul>
+      <button class="nav__cart" id="cartToggle" aria-label="Корзина">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav__cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="/catalog.html">Каталог</a></li>
+      <li><a href="/wholesale.html">Оптовые продажи</a></li>
+      <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/about.html">О компании</a></li>
+      <li><a href="/delivery.html">Доставка и оплата</a></li>
+      <li><a href="/warranty.html">Гарантия качества</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/contacts.html">Контакты</a></li>
+      <li><a href="/account.html">Кабинет</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <section class="page-hero reveal">
+      <div class="page-hero__breadcrumb" id="breadcrumb">
+        <a href="/">Главная</a><span>/</span><a href="/catalog.html">Каталог</a><span>/</span><span id="breadcrumbName">...</span>
+      </div>
+    </section>
+
+    <div id="productContent">
+      <div class="product-loading" id="productLoading">
+        <div class="product-loading__spinner"></div>
+        <p class="product-loading__text">Загрузка товара...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
+        <div class="footer__links">
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
+          <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
+        </div>
+      </div>
+      <div class="footer__contacts">
+        <a href="tel:+79183743813">+7 (918) 374-38-13</a>
+        <a href="mailto:greengrand.ru@yandex.ru">greengrand.ru@yandex.ru</a>
+        <a href="https://wa.me/79604742917" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://t.me/Green_Grand" target="_blank" rel="noopener">Telegram</a>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 Ореховый Сад. Все права защищены.</p></div>
+    </div>
+  </footer>
+
+  <!-- Cart Overlay & Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Корзина</h2>
+      <button class="cart-drawer__close" id="cartClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer" id="cartFooter">
+      <div class="cart-drawer__total">
+        <span class="cart-drawer__total-label">Итого</span>
+        <span class="cart-drawer__total-value" id="cartTotal">0 &#8381;</span>
+      </div>
+      <a href="/checkout.html" class="cart-drawer__checkout">Оформить заказ</a>
+    </div>
+  </div>
+
+  <canvas id="particles"></canvas>
+  <script src="js/main.js"></script>
+  <script>
+  (async function() {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+    const productName = params.get('name');
+
+    if (!productId && !productName) {
+      showError();
+      return;
+    }
+
+    try {
+      let response;
+      if (productId) {
+        response = await fetch('/api/products/' + encodeURIComponent(productId));
+      } else {
+        response = await fetch('/api/products/by-name?name=' + encodeURIComponent(productName));
+      }
+
+      if (!response.ok) {
+        showError();
+        return;
+      }
+
+      const product = await response.json();
+      renderProduct(product);
+    } catch {
+      showError();
+    }
+
+    function renderProduct(p) {
+      document.title = p.name + ' — Ореховый Сад';
+      document.getElementById('breadcrumbName').textContent = p.name;
+
+      const imgSrc = p.imagePath || 'https://via.placeholder.com/600x600/151515/c9a84c?text=' + encodeURIComponent(p.name);
+
+      document.getElementById('productContent').innerHTML = `
+        <div class="product-detail">
+          <div class="product-detail__image-wrap">
+            <img class="product-detail__image" src="${escapeHtml(imgSrc)}" alt="${escapeHtml(p.name)}" loading="lazy">
+          </div>
+          <div class="product-detail__info">
+            <span class="product-detail__category">${escapeHtml(p.category)}</span>
+            <h1 class="product-detail__name">${escapeHtml(p.name)}</h1>
+            <div class="product-detail__origin">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              ${escapeHtml(p.origin)}
+            </div>
+            <div class="product-detail__divider"></div>
+            <p class="product-detail__price" id="productPrice">${formatPrice(p.price)} &#8381;</p>
+            <div class="product-detail__divider"></div>
+            <p class="product-detail__description">${escapeHtml(p.description)}</p>
+            <button class="product-detail__add-to-cart" id="addToCartBtn" data-name="${escapeHtml(p.name)}" data-price="${p.price}" data-image="${escapeHtml(imgSrc)}">
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              В корзину
+            </button>
+            <div class="product-detail__sections">
+              <div class="product-collapse">
+                <button class="product-collapse__toggle" type="button">
+                  Состав
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="product-collapse__content">
+                  <div class="product-collapse__inner">
+                    ${escapeHtml(p.name)} натуральный, без добавок. Точный состав уточняйте у менеджера.
+                  </div>
+                </div>
+              </div>
+              <div class="product-collapse">
+                <button class="product-collapse__toggle" type="button">
+                  Пищевая ценность (КБЖУ)
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="product-collapse__content">
+                  <div class="product-collapse__inner">
+                    <div class="nutrition-grid">
+                      <div class="nutrition-item">
+                        <span class="nutrition-item__value">&mdash;</span>
+                        <span class="nutrition-item__label">Ккал</span>
+                      </div>
+                      <div class="nutrition-item">
+                        <span class="nutrition-item__value">&mdash;</span>
+                        <span class="nutrition-item__label">Белки</span>
+                      </div>
+                      <div class="nutrition-item">
+                        <span class="nutrition-item__value">&mdash;</span>
+                        <span class="nutrition-item__label">Жиры</span>
+                      </div>
+                      <div class="nutrition-item">
+                        <span class="nutrition-item__value">&mdash;</span>
+                        <span class="nutrition-item__label">Углеводы</span>
+                      </div>
+                    </div>
+                    <p style="margin-top: 0.8rem; font-size: 0.8rem; color: rgba(255,255,255,0.35);">На 100 г продукта. Данные уточняются.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="product-collapse">
+                <button class="product-collapse__toggle" type="button">
+                  Хранение
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="product-collapse__content">
+                  <div class="product-collapse__inner">
+                    Хранить в сухом прохладном месте при температуре не выше +25&deg;C, вдали от прямых солнечных лучей. После вскрытия упаковки рекомендуется хранить в герметичной таре.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Collapsible sections
+      document.querySelectorAll('.product-collapse__toggle').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          btn.parentElement.classList.toggle('open');
+        });
+      });
+
+      // Add to cart
+      var addBtn = document.getElementById('addToCartBtn');
+      if (addBtn) {
+        addBtn.addEventListener('click', function() {
+          if (typeof window.addToCart === 'function') {
+            window.addToCart(addBtn.dataset.name, parseFloat(addBtn.dataset.price), addBtn.dataset.image);
+          }
+          addBtn.textContent = 'Добавлено!';
+          addBtn.style.background = 'linear-gradient(135deg, #2d5a27, #4a7c3f)';
+          addBtn.style.color = '#f5f0e8';
+          setTimeout(function() {
+            addBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину';
+            addBtn.style.background = '';
+            addBtn.style.color = '';
+          }, 1500);
+        });
+      }
+    }
+
+    function showError() {
+      document.title = 'Товар не найден — Ореховый Сад';
+      document.getElementById('breadcrumbName').textContent = 'Не найден';
+      document.getElementById('productContent').innerHTML = `
+        <div class="product-error">
+          <h2 class="product-error__title">Товар не найден</h2>
+          <p class="product-error__text">Возможно, товар был удален или ссылка некорректна.</p>
+          <a href="/catalog.html" class="product-error__link">Вернуться в каталог</a>
+        </div>
+      `;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function formatPrice(price) {
+      return new Intl.NumberFormat('ru-RU').format(price);
+    }
+  })();
+  </script>
+</body>
+</html>
