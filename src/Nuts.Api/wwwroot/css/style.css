@@ -1893,34 +1893,7 @@ img {
   }
 }
 
-/* ============================================
-   Botanical Decorative Elements
-   ============================================ */
-.leaf-decor {
-  position: fixed;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.06;
-}
-
-.leaf-decor--1 {
-  width: 400px;
-  top: 0;
-  left: -50px;
-}
-
-.leaf-decor--2 {
-  width: 350px;
-  top: 30%;
-  right: -80px;
-  transform: scaleX(-1);
-}
-
-.leaf-decor--3 {
-  width: 300px;
-  bottom: 0;
-  left: 10%;
-}
+/* Botanical elements removed */
 
 /* Subtle green tint on section backgrounds */
 .philosophy {
