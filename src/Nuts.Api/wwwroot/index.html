@@ -323,6 +323,21 @@
     .final-cta__branch--left { left: -10%; top: 20%; width: 200px; transform: rotate(-15deg); }
     .final-cta__branch--right { right: -10%; bottom: 20%; width: 200px; transform: rotate(15deg) scaleX(-1); }
 
+    /* ===== Search ===== */
+    .nav__search { background:none; border:none; color:var(--white-dim); cursor:pointer; padding:8px; transition:color 0.3s; }
+    .nav__search:hover { color:var(--gold); }
+    .search-overlay { position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.95); backdrop-filter:blur(20px); display:flex; align-items:flex-start; justify-content:center; padding-top:20vh; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+    .search-overlay.active { opacity:1; pointer-events:all; }
+    .search-overlay__content { width:90%; max-width:600px; position:relative; }
+    .search-overlay__input { width:100%; padding:1.25rem 3rem 1.25rem 1.5rem; background:#151515; border:1px solid rgba(212,175,55,0.3); border-radius:12px; color:#f5f0e8; font-size:1.2rem; font-family:inherit; outline:none; }
+    .search-overlay__input:focus { border-color:rgba(212,175,55,0.6); }
+    .search-overlay__close { position:absolute; right:12px; top:12px; background:none; border:none; color:#a09888; font-size:1.5rem; cursor:pointer; }
+    .search-overlay__results { margin-top:1rem; max-height:50vh; overflow-y:auto; }
+    .search-result { display:block; padding:1rem 1.5rem; border-bottom:1px solid #252018; color:#f5f0e8; text-decoration:none; transition:background 0.2s; }
+    .search-result:hover { background:#1A1815; }
+    .search-result__title { font-weight:500; margin-bottom:0.25rem; }
+    .search-result__type { font-size:0.85rem; color:#a09888; }
+
     /* ===== Responsive ===== */
     @media (max-width: 1024px) {
       .why__cards, .awards__grid { grid-template-columns: repeat(2, 1fr); }
@@ -447,6 +462,9 @@
         <li><a href="/contacts.html">Контакты</a></li>
         <li><a href="/account.html">Личный кабинет</a></li>
       </ul>
+      <button class="nav__search" id="searchToggle" aria-label="Поиск">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
       <button class="nav__burger" id="burger" aria-label="Меню">
         <span></span>
         <span></span>
@@ -465,8 +483,17 @@
       <li><a href="/warranty.html">Гарантия качества</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/contacts.html">Контакты</a></li>
-      <li><a href="/account.html">Кабинет</a></li>
+      <li><a href="/account.html">Личный кабинет</a></li>
     </ul>
+  </div>
+
+  <!-- Поиск по сайту -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay__content">
+      <input type="text" class="search-overlay__input" id="searchInput" placeholder="Поиск по сайту..." autocomplete="off">
+      <button class="search-overlay__close" id="searchClose">&times;</button>
+      <div class="search-overlay__results" id="searchResults"></div>
+    </div>
   </div>
 
   <!-- 1. Hero -->

@@ -225,20 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================
-  // Mouse glow on cards
+  // Mouse glow on cards — removed per client request
   // =========================================
-  const cards = document.querySelectorAll('.philosophy__card, .catalog__item, .media__card');
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.background = `radial-gradient(400px circle at ${x}px ${y}px, rgba(139,105,20,0.07), var(--black-card))`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.background = '';
-    });
-  });
 
   // =========================================
   // Magnetic effect on CTA buttons
@@ -483,6 +471,66 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.textContent = 'Ошибка сети';
       }
       setTimeout(() => { btn.textContent = originalText; }, 2500);
+    });
+  }
+
+  // =========================================
+  // Search overlay
+  // =========================================
+  const searchToggle = document.getElementById('searchToggle');
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchInput = document.getElementById('searchInput');
+  const searchClose = document.getElementById('searchClose');
+  const searchResults = document.getElementById('searchResults');
+
+  if (searchToggle && searchOverlay) {
+    const pages = [
+      { title: 'Главная', url: '/', keywords: 'ореховый сад премиум орехи главная' },
+      { title: 'Каталог', url: '/catalog.html', keywords: 'каталог товары орехи сухофрукты мармелад десерты грецкий миндаль фундук кешью фисташка' },
+      { title: 'Оптовые продажи', url: '/wholesale.html', keywords: 'опт оптовые продажи бизнес' },
+      { title: 'Подарочные наборы', url: '/gifts.html', keywords: 'подарки наборы корпоративные подарочные' },
+      { title: 'О компании', url: '/about.html', keywords: 'о нас компания история команда' },
+      { title: 'Доставка и оплата', url: '/delivery.html', keywords: 'доставка оплата скидки москва' },
+      { title: 'Гарантия качества', url: '/warranty.html', keywords: 'гарантия возврат качество сертификат' },
+      { title: 'FAQ', url: '/faq.html', keywords: 'вопросы ответы faq помощь' },
+      { title: 'Контакты', url: '/contacts.html', keywords: 'контакты телефон адрес whatsapp telegram' },
+      { title: 'Личный кабинет', url: '/account.html', keywords: 'кабинет профиль заказы вход регистрация' },
+    ];
+
+    searchToggle.addEventListener('click', () => {
+      searchOverlay.classList.add('active');
+      setTimeout(() => searchInput.focus(), 100);
+    });
+
+    searchClose.addEventListener('click', () => {
+      searchOverlay.classList.remove('active');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    });
+
+    searchOverlay.addEventListener('click', (e) => {
+      if (e.target === searchOverlay) {
+        searchOverlay.classList.remove('active');
+      }
+    });
+
+    const escapeHtml = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      if (!q) { searchResults.innerHTML = ''; return; }
+      const matches = pages.filter(p =>
+        p.title.toLowerCase().includes(q) || p.keywords.includes(q)
+      );
+      searchResults.innerHTML = matches.length
+        ? matches.map(p =>
+            `<a href="${p.url}" class="search-result"><div class="search-result__title">${escapeHtml(p.title)}</div><div class="search-result__type">Страница</div></a>`
+          ).join('')
+        : '<div class="search-result"><div class="search-result__title">Ничего не найдено</div></div>';
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') searchOverlay.classList.remove('active');
     });
   }
 
