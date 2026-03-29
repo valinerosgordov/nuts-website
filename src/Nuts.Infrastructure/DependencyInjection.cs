@@ -32,6 +32,12 @@ public static class DependencyInjection
         services.AddScoped<IBannerRepository, BannerRepository>();
         services.AddScoped<IProductExcelService, ProductExcelService>();
 
+        services.AddHttpClient<IMoySkladService, MoySkladService>((sp, http) =>
+        {
+            var token = configuration["MoySklad:Token"] ?? "";
+            MoySkladService.Configure(http, token);
+        });
+
         return services;
     }
 }

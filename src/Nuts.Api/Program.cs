@@ -144,6 +144,7 @@ app.MapAccountEndpoints();
 app.MapPromoCodeEndpoints();
 app.MapSettingsEndpoints();
 app.MapBannerEndpoints();
+app.MapMoySkladEndpoints();
 
 // Fallback to index.html for SPA-like routing
 app.MapFallbackToFile("index.html");
