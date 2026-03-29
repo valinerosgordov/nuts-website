@@ -11,6 +11,13 @@
   box-sizing: border-box;
 }
 
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
 :root {
   --black: #0a0a0a;
   --black-light: #111111;

@@ -224,6 +224,10 @@
           <span>Заявки</span>
           <span class="nav-badge" id="navBadgeContacts" style="display:none;">0</span>
         </a>
+        <a href="#" data-section="banners">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Баннеры</span>
+        </a>
         <a href="#" data-section="promo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           <span>Промокоды</span>
@@ -338,6 +342,20 @@
         <div class="table-wrapper">
           <table id="contactsTable">
             <thead><tr><th>Имя</th><th>Телефон</th><th>Email</th><th>Сообщение</th><th>Дата</th><th>Статус</th><th>Действия</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Banners -->
+      <div class="section" id="sec-banners">
+        <div class="main__header">
+          <h1 class="main__title">Баннеры<span class="main__title-count" id="bannersCount"></span></h1>
+          <div class="main__actions"><button class="btn-gold" id="addBannerBtn">+ Добавить</button></div>
+        </div>
+        <div class="table-wrapper">
+          <table id="bannersTable">
+            <thead><tr><th>Заголовок</th><th>Описание</th><th>Кнопка</th><th>Задержка (сек)</th><th>Статус</th><th>Действия</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -474,6 +492,27 @@
     </div>
   </div>
 
+  <!-- Banner Modal -->
+  <div class="modal-overlay" id="bannerModal">
+    <div class="modal">
+      <div class="modal__title" id="bannerModalTitle">Добавить баннер</div>
+      <input type="hidden" id="bannerId">
+      <div class="modal__field"><label>Заголовок</label><input type="text" id="bannerTitle"></div>
+      <div class="modal__field"><label>Описание</label><textarea id="bannerDesc"></textarea></div>
+      <div class="modal__field"><label>Текст кнопки (необязательно)</label><input type="text" id="bannerBtnText" placeholder="Подробнее"></div>
+      <div class="modal__field"><label>URL кнопки (необязательно)</label><input type="text" id="bannerBtnUrl" placeholder="https://..."></div>
+      <div class="modal__field"><label>Задержка показа (сек)</label><input type="number" id="bannerDelay" min="1" max="30" value="3"></div>
+      <div class="modal__field" id="bannerActiveField" style="display:none;">
+        <label>Активен</label>
+        <select id="bannerActive"><option value="true">Да</option><option value="false">Нет</option></select>
+      </div>
+      <div class="modal__actions">
+        <button class="modal__save" id="bannerSave">Сохранить</button>
+        <button class="modal__cancel" id="bannerCancel">Отмена</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const API = '';
     let token = localStorage.getItem('nuts_token') || '';
@@ -570,6 +609,7 @@
         if (link.dataset.section === 'overview') loadOverview();
         if (link.dataset.section === 'products') loadProducts();
         if (link.dataset.section === 'contacts') loadContacts();
+        if (link.dataset.section === 'banners') loadBanners();
         if (link.dataset.section === 'promo') loadPromo();
         if (link.dataset.section === 'media') loadMedia();
         if (link.dataset.section === 'settings') loadSettings();
@@ -1054,6 +1094,122 @@
       try {
         const res = await fetch(`${API}/api/admin/promo/${id}`, { method: 'DELETE', headers: headers() });
         if (res.ok) { toast('Промокод удалён'); loadPromo(); }
+        else { toast('Ошибка удаления', 'error'); }
+      } catch { toast('Ошибка сети', 'error'); }
+    };
+
+    // --- Banners CRUD ---
+    let allBanners = [];
+
+    async function loadBanners() {
+      showSpinner();
+      try {
+        allBanners = await apiFetch('/api/admin/banners');
+        document.getElementById('bannersCount').textContent = `(${allBanners.length})`;
+        const tbody = document.querySelector('#bannersTable tbody');
+        if (allBanners.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><p>Баннеров пока нет</p></td></tr>';
+        } else {
+          tbody.innerHTML = allBanners.map(b => {
+            const btnInfo = b.buttonText ? esc(b.buttonText) : '\u2014';
+            return `<tr>
+              <td><strong>${esc(b.title)}</strong></td>
+              <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(b.description)}</td>
+              <td>${btnInfo}</td>
+              <td>${b.delaySeconds}</td>
+              <td>${b.isActive ? '<span class="badge badge--green">Активен</span>' : '<span class="badge badge--red">Неактивен</span>'}</td>
+              <td>
+                <div class="td-actions">
+                  <button class="btn-sm" onclick="editBanner('${b.id}')">Ред.</button>
+                  ${b.isActive
+                    ? `<button class="btn-sm btn-sm--danger" onclick="toggleBanner('${b.id}', false)">Скрыть</button>`
+                    : `<button class="btn-sm btn-sm--green" onclick="toggleBanner('${b.id}', true)">Показать</button>`}
+                  <button class="btn-sm btn-sm--danger" onclick="deleteBanner('${b.id}')">Удалить</button>
+                </div>
+              </td>
+            </tr>`;
+          }).join('');
+        }
+      } catch (err) { toast('Ошибка загрузки баннеров', 'error'); }
+      hideSpinner();
+    }
+
+    document.getElementById('addBannerBtn').addEventListener('click', () => {
+      document.getElementById('bannerModalTitle').textContent = 'Добавить баннер';
+      document.getElementById('bannerId').value = '';
+      document.getElementById('bannerTitle').value = '';
+      document.getElementById('bannerDesc').value = '';
+      document.getElementById('bannerBtnText').value = '';
+      document.getElementById('bannerBtnUrl').value = '';
+      document.getElementById('bannerDelay').value = '3';
+      document.getElementById('bannerActiveField').style.display = 'none';
+      document.getElementById('bannerModal').classList.add('active');
+    });
+
+    window.editBanner = (id) => {
+      const b = allBanners.find(x => x.id === id);
+      if (!b) return;
+      document.getElementById('bannerModalTitle').textContent = 'Редактировать баннер';
+      document.getElementById('bannerId').value = b.id;
+      document.getElementById('bannerTitle').value = b.title;
+      document.getElementById('bannerDesc').value = b.description;
+      document.getElementById('bannerBtnText').value = b.buttonText || '';
+      document.getElementById('bannerBtnUrl').value = b.buttonUrl || '';
+      document.getElementById('bannerDelay').value = b.delaySeconds;
+      document.getElementById('bannerActive').value = b.isActive.toString();
+      document.getElementById('bannerActiveField').style.display = 'block';
+      document.getElementById('bannerModal').classList.add('active');
+    };
+
+    window.toggleBanner = async (id, active) => {
+      const b = allBanners.find(x => x.id === id);
+      if (!b) return;
+      const body = {
+        title: b.title, description: b.description,
+        buttonText: b.buttonText, buttonUrl: b.buttonUrl,
+        delaySeconds: b.delaySeconds, isActive: active
+      };
+      try {
+        const res = await fetch(`${API}/api/admin/banners/${id}`, { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
+        if (res.ok) { toast(active ? 'Баннер активирован' : 'Баннер деактивирован'); loadBanners(); }
+        else { toast('Ошибка обновления', 'error'); }
+      } catch { toast('Ошибка сети', 'error'); }
+    };
+
+    document.getElementById('bannerSave').addEventListener('click', async () => {
+      const id = document.getElementById('bannerId').value;
+      const body = {
+        title: document.getElementById('bannerTitle').value,
+        description: document.getElementById('bannerDesc').value,
+        buttonText: document.getElementById('bannerBtnText').value || null,
+        buttonUrl: document.getElementById('bannerBtnUrl').value || null,
+        delaySeconds: parseInt(document.getElementById('bannerDelay').value) || 3,
+        isActive: document.getElementById('bannerActive').value === 'true'
+      };
+      try {
+        const res = id
+          ? await fetch(`${API}/api/admin/banners/${id}`, { method: 'PUT', headers: headers(), body: JSON.stringify(body) })
+          : await fetch(`${API}/api/admin/banners`, { method: 'POST', headers: headers(), body: JSON.stringify(body) });
+        if (res.ok) {
+          toast(id ? 'Баннер обновлён' : 'Баннер создан');
+          document.getElementById('bannerModal').classList.remove('active');
+          loadBanners();
+        } else {
+          const err = await res.json().catch(() => null);
+          toast('Ошибка сохранения' + (err?.detail ? ': ' + err.detail : ''), 'error');
+        }
+      } catch { toast('Ошибка сети', 'error'); }
+    });
+
+    document.getElementById('bannerCancel').addEventListener('click', () => {
+      document.getElementById('bannerModal').classList.remove('active');
+    });
+
+    window.deleteBanner = async (id) => {
+      if (!confirm('Удалить баннер?')) return;
+      try {
+        const res = await fetch(`${API}/api/admin/banners/${id}`, { method: 'DELETE', headers: headers() });
+        if (res.ok) { toast('Баннер удалён'); loadBanners(); }
         else { toast('Ошибка удаления', 'error'); }
       } catch { toast('Ошибка сети', 'error'); }
     };

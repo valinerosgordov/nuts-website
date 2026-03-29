@@ -176,9 +176,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const escapeHtml = (str) => str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
   const CART_KEY = 'nuts_cart';
+  const CART_TS_KEY = 'nuts_cart_ts';
+  const CART_TTL = 10 * 24 * 60 * 60 * 1000; // 10 days
 
   const getCart = () => {
     try {
+      const ts = parseInt(localStorage.getItem(CART_TS_KEY) || '0');
+      if (Date.now() - ts > CART_TTL) {
+        localStorage.removeItem(CART_KEY);
+        localStorage.removeItem(CART_TS_KEY);
+        return [];
+      }
       return JSON.parse(localStorage.getItem(CART_KEY)) || [];
     } catch {
       return [];
@@ -187,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const saveCart = (cart) => {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    localStorage.setItem(CART_TS_KEY, Date.now().toString());
   };
 
   const addToCart = (product) => {
@@ -357,6 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1200);
   });
 
+  // Expose addToCart globally for product.html
+  window.addToCart = addToCart;
+
   // Init badge on load
   updateCartBadge();
 
@@ -442,6 +454,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     ticker.style.cursor = 'grab';
+  }
+
+  // =========================================
+  // Promo popup
+  // =========================================
+  const promoPopup = document.getElementById('promoPopup');
+  if (promoPopup) {
+    fetch('/api/banners/active').then(r => {
+      if (r.status === 204 || !r.ok) return null;
+      return r.json();
+    }).then(banner => {
+      if (!banner) return;
+      const shown = sessionStorage.getItem('promo_shown_' + banner.id);
+      if (shown) return;
+
+      setTimeout(() => {
+        document.getElementById('promoTitle').textContent = banner.title;
+        document.getElementById('promoDesc').textContent = banner.description;
+        if (banner.buttonText && banner.buttonUrl) {
+          const btn = document.getElementById('promoBtn');
+          btn.textContent = banner.buttonText;
+          btn.href = banner.buttonUrl;
+          btn.style.display = 'inline-block';
+        }
+        promoPopup.style.display = 'flex';
+        sessionStorage.setItem('promo_shown_' + banner.id, '1');
+      }, (banner.delaySeconds || 3) * 1000);
+    }).catch(() => {});
+
+    document.getElementById('promoClose')?.addEventListener('click', () => { promoPopup.style.display = 'none'; });
+    promoPopup.querySelector('.promo-popup__overlay')?.addEventListener('click', () => { promoPopup.style.display = 'none'; });
   }
 
   // =========================================
