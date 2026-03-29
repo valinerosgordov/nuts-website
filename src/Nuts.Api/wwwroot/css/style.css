@@ -51,32 +51,6 @@ body {
   letter-spacing: 0.02em;
 }
 
-/* --- Golden ambient glow removed per client request --- */
-body::before {
-  display: none;
-}
-
-/* --- Film Grain Overlay --- */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
-/* --- Floating Particles Canvas --- */
-#particles {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
 /* --- Global Sections z-index --- */
 .header, .hero, .philosophy, .catalog, .media, .contact, .footer, .mobile-menu {
   position: relative;
@@ -322,6 +296,7 @@ img {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s;
+  overflow-y: auto;
 }
 
 .mobile-menu.active {
@@ -335,12 +310,12 @@ img {
 }
 
 .mobile-menu__links li {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .mobile-menu__links a {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--white);
   transition: color 0.3s;
@@ -360,7 +335,7 @@ img {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 8rem 3rem 4rem;
+  padding: 6rem 3rem 4rem;
 }
 
 .hero::before {
@@ -389,15 +364,6 @@ img {
   max-width: 600px;
 }
 
-.hero__label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 2rem;
-}
-
 .hero__title {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -418,11 +384,19 @@ img {
 }
 
 .hero__subtitle {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 300;
   color: rgba(245, 240, 232, 0.75);
   letter-spacing: 0.04em;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero__desc {
+  font-size: 1.1rem;
+  color: rgba(245, 240, 232, 0.6);
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
 }
 
 .hero__cta {
@@ -1274,11 +1248,15 @@ img {
 .footer__links a {
   font-size: 0.85rem;
   color: var(--white-dim);
-  transition: color 0.3s;
+  transition: all 0.3s;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
 }
 
 .footer__links a:hover {
   color: var(--gold);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 
 .footer__contacts {
@@ -1458,11 +1436,6 @@ img {
 @media (max-width: 480px) {
   .hero {
     padding: 5rem 1rem 2rem;
-  }
-
-  .hero__label {
-    font-size: 0.65rem;
-    margin-bottom: 1rem;
   }
 
   .philosophy__quote {
@@ -1903,6 +1876,15 @@ img {
     rgba(74, 124, 63, 0.03) 50%,
     rgba(74, 124, 63, 0.02) 70%,
     transparent 100%);
+}
+
+/* Golden wavy dividers between sections */
+.section-divider {
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin: 0;
+  opacity: 0.3;
 }
 
 /* Leaf pattern overlay on media section */
