@@ -431,6 +431,19 @@
         <div class="modal__field"><label>Базовая цена</label><input type="number" step="0.01" id="productPrice"></div>
         <div class="modal__field modal__field--full"><label>Описание</label><textarea id="productDesc"></textarea></div>
         <div class="modal__field modal__field--full"><label>URL изображения</label><input type="text" id="productImage" placeholder="https://..."></div>
+        <div class="modal__field modal__field--full" id="productImageUploadField">
+          <label>Фото товара</label>
+          <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+            <img id="productImagePreview" src="" alt="" style="width:100px; height:100px; object-fit:cover; border-radius:8px; border:1px solid var(--border); display:none;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <input type="file" id="productImageFile" accept=".jpg,.jpeg,.png,.webp" style="font-size:0.85rem; color:var(--dim);">
+              <div style="display:flex; gap:0.5rem;">
+                <button type="button" class="btn-sm btn-sm--green" id="uploadImageBtn" style="display:none;">Загрузить фото</button>
+                <button type="button" class="btn-sm btn-sm--danger" id="deleteImageBtn" style="display:none;">Удалить фото</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="modal__field modal__field--full">
           <label>Варианты (вес / цена)</label>
           <div class="variant-list" id="variantList"></div>
@@ -797,6 +810,85 @@
 
     document.getElementById('addVariantBtn').addEventListener('click', () => addVariantRow());
 
+    // --- Product Image Upload ---
+    async function uploadProductImage(productId, file) {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch(`${API}/api/admin/products/${productId}/image`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd
+      });
+      if (res.ok) {
+        const path = await res.json();
+        toast('Фото загружено', 'success');
+        return path;
+      } else {
+        const text = await res.text();
+        toast(text || 'Ошибка загрузки', 'error');
+        return null;
+      }
+    }
+
+    async function deleteProductImage(productId) {
+      const res = await fetch(`${API}/api/admin/products/${productId}/image`, {
+        method: 'DELETE',
+        headers: headers()
+      });
+      if (res.ok) {
+        toast('Фото удалено', 'success');
+        return true;
+      }
+      toast('Ошибка удаления фото', 'error');
+      return false;
+    }
+
+    function updateImagePreview(imagePath) {
+      const preview = document.getElementById('productImagePreview');
+      const deleteBtn = document.getElementById('deleteImageBtn');
+      if (imagePath) {
+        preview.src = imagePath;
+        preview.style.display = 'block';
+        deleteBtn.style.display = 'inline-block';
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        deleteBtn.style.display = 'none';
+      }
+    }
+
+    document.getElementById('productImageFile').addEventListener('change', (e) => {
+      const uploadBtn = document.getElementById('uploadImageBtn');
+      uploadBtn.style.display = e.target.files.length > 0 ? 'inline-block' : 'none';
+    });
+
+    document.getElementById('uploadImageBtn').addEventListener('click', async () => {
+      const id = document.getElementById('productId').value;
+      if (!id) { toast('Сначала сохраните товар', 'error'); return; }
+      const file = document.getElementById('productImageFile').files[0];
+      if (!file) return;
+      const path = await uploadProductImage(id, file);
+      if (path) {
+        document.getElementById('productImage').value = path;
+        updateImagePreview(path);
+        document.getElementById('productImageFile').value = '';
+        document.getElementById('uploadImageBtn').style.display = 'none';
+        loadProducts();
+      }
+    });
+
+    document.getElementById('deleteImageBtn').addEventListener('click', async () => {
+      const id = document.getElementById('productId').value;
+      if (!id) return;
+      if (!confirm('Удалить фото товара?')) return;
+      const ok = await deleteProductImage(id);
+      if (ok) {
+        document.getElementById('productImage').value = '';
+        updateImagePreview(null);
+        loadProducts();
+      }
+    });
+
     // --- Products CRUD ---
     document.getElementById('addProductBtn').addEventListener('click', () => {
       document.getElementById('productModalTitle').textContent = 'Добавить товар';
@@ -809,6 +901,9 @@
       document.getElementById('productImage').value = '';
       document.getElementById('productSort').value = '0';
       document.getElementById('productAvailField').style.display = 'none';
+      updateImagePreview(null);
+      document.getElementById('productImageFile').value = '';
+      document.getElementById('uploadImageBtn').style.display = 'none';
       clearVariantList();
       document.getElementById('productModal').classList.add('active');
     });
@@ -831,6 +926,9 @@
       document.getElementById('productSort').value = p.sortOrder;
       document.getElementById('productAvail').value = p.isAvailable.toString();
       document.getElementById('productAvailField').style.display = 'block';
+      updateImagePreview(p.imagePath || null);
+      document.getElementById('productImageFile').value = '';
+      document.getElementById('uploadImageBtn').style.display = 'none';
       clearVariantList();
       if (p.variants && p.variants.length > 0) {
         p.variants.sort((a, b) => a.sortOrder - b.sortOrder).forEach(v => addVariantRow(v.weight, v.price, v.sortOrder));
@@ -873,6 +971,11 @@
           ? await fetch(`${API}/api/admin/products/${id}`, { method: 'PUT', headers: headers(), body: JSON.stringify(body) })
           : await fetch(`${API}/api/admin/products`, { method: 'POST', headers: headers(), body: JSON.stringify(body) });
         if (res.ok) {
+          const saved = await res.json();
+          const imageFile = document.getElementById('productImageFile').files[0];
+          if (imageFile && saved.id) {
+            await uploadProductImage(saved.id, imageFile);
+          }
           toast(id ? 'Товар обновлён' : 'Товар добавлен');
           document.getElementById('productModal').classList.remove('active');
           loadProducts();

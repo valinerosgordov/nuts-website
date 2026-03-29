@@ -11,6 +11,8 @@ public sealed class User : AggregateRoot<Guid>
     public string PasswordHash { get; private set; } = string.Empty;
     public string FullName { get; private set; } = string.Empty;
     public string? Phone { get; private set; }
+    public string? Address { get; private set; }
+    public string? AddressNote { get; private set; }
     public DateTime CreatedAt { get; private init; }
     public DateTime? LastLoginAt { get; private set; }
 
@@ -44,6 +46,12 @@ public sealed class User : AggregateRoot<Guid>
         FullName = WebUtility.HtmlEncode(fullName.Trim());
         Phone = phone is not null ? WebUtility.HtmlEncode(phone.Trim()) : null;
         return Result.Success();
+    }
+
+    public void UpdateAddress(string? address, string? note)
+    {
+        Address = address?.Trim();
+        AddressNote = note?.Trim();
     }
 
     public void UpdateLastLogin() => LastLoginAt = DateTime.UtcNow;

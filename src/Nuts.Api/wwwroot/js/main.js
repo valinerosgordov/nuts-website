@@ -502,6 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { title: 'Каталог', url: '/catalog.html', keywords: 'каталог товары орехи сухофрукты мармелад десерты грецкий миндаль фундук кешью фисташка' },
       { title: 'Оптовые продажи', url: '/wholesale.html', keywords: 'опт оптовые продажи бизнес' },
       { title: 'Подарочные наборы', url: '/gifts.html', keywords: 'подарки наборы корпоративные подарочные' },
+      { title: 'Акции и спецпредложения', url: '/promotions.html', keywords: 'акции скидки спецпредложения промо распродажа' },
       { title: 'О компании', url: '/about.html', keywords: 'о нас компания история команда' },
       { title: 'Доставка и оплата', url: '/delivery.html', keywords: 'доставка оплата скидки москва' },
       { title: 'Гарантия качества', url: '/warranty.html', keywords: 'гарантия возврат качество сертификат' },
