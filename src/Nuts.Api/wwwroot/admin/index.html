@@ -98,6 +98,17 @@
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 1000; display: none; align-items: center; justify-content: center; }
     .modal-overlay.active { display: flex; }
     .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; width: 520px; max-width: 92vw; max-height: 85vh; overflow-y: auto; }
+    .modal--wide { width: 720px; }
+    .modal__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+    .modal__grid .modal__field--full { grid-column: 1 / -1; }
+    .variant-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .variant-row { display: flex; gap: 0.5rem; align-items: center; }
+    .variant-row input { flex: 1; padding: 0.55rem 0.7rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--white); font-family: inherit; font-size: 0.85rem; outline: none; transition: border-color 0.3s; }
+    .variant-row input:focus { border-color: var(--gold-dark); }
+    .variant-row .variant-remove { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--dim); cursor: pointer; padding: 0.4rem 0.6rem; font-size: 0.8rem; transition: all 0.2s; flex-shrink: 0; }
+    .variant-row .variant-remove:hover { border-color: var(--red); color: var(--red); }
+    .variant-add { background: none; border: 1px dashed var(--border); border-radius: var(--radius-sm); color: var(--dim); cursor: pointer; padding: 0.5rem; font-family: inherit; font-size: 0.8rem; width: 100%; transition: all 0.2s; }
+    .variant-add:hover { border-color: var(--gold-dark); color: var(--gold); }
     .modal__title { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
     .modal__field { margin-bottom: 1.25rem; }
     .modal__field label { display: block; font-size: 0.72rem; color: var(--dim); margin-bottom: 0.4rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; }
@@ -361,27 +372,35 @@
 
   <!-- Product Modal -->
   <div class="modal-overlay" id="productModal">
-    <div class="modal">
+    <div class="modal modal--wide">
       <div class="modal__title" id="productModalTitle">Добавить товар</div>
       <input type="hidden" id="productId">
-      <div class="modal__field"><label>Название</label><input type="text" id="productName"></div>
-      <div class="modal__field"><label>Описание</label><textarea id="productDesc"></textarea></div>
-      <div class="modal__field"><label>Цена</label><input type="number" step="0.01" id="productPrice"></div>
-      <div class="modal__field"><label>Происхождение</label><input type="text" id="productOrigin"></div>
-      <div class="modal__field">
-        <label>Категория</label>
-        <select id="productCategory">
-          <option value="">Выберите категорию</option>
-          <option value="Орехи">Орехи</option>
-          <option value="Сухофрукты">Сухофрукты</option>
-          <option value="Десерты">Десерты</option>
-          <option value="Мармелад">Мармелад</option>
-        </select>
-      </div>
-      <div class="modal__field"><label>Порядок</label><input type="number" id="productSort" value="0"></div>
-      <div class="modal__field" id="productAvailField" style="display:none;">
-        <label>Доступен</label>
-        <select id="productAvail"><option value="true">Да</option><option value="false">Нет</option></select>
+      <div class="modal__grid">
+        <div class="modal__field"><label>Название</label><input type="text" id="productName"></div>
+        <div class="modal__field">
+          <label>Категория</label>
+          <select id="productCategory">
+            <option value="">Выберите категорию</option>
+            <option value="Орехи">Орехи</option>
+            <option value="Сухофрукты">Сухофрукты</option>
+            <option value="Десерты">Десерты</option>
+            <option value="Мармелад">Мармелад</option>
+          </select>
+        </div>
+        <div class="modal__field"><label>Происхождение</label><input type="text" id="productOrigin"></div>
+        <div class="modal__field"><label>Базовая цена</label><input type="number" step="0.01" id="productPrice"></div>
+        <div class="modal__field modal__field--full"><label>Описание</label><textarea id="productDesc"></textarea></div>
+        <div class="modal__field modal__field--full"><label>URL изображения</label><input type="text" id="productImage" placeholder="https://..."></div>
+        <div class="modal__field modal__field--full">
+          <label>Варианты (вес / цена)</label>
+          <div class="variant-list" id="variantList"></div>
+          <button type="button" class="variant-add" id="addVariantBtn">+ Добавить вариант</button>
+        </div>
+        <div class="modal__field" id="productAvailField" style="display:none;">
+          <label>Доступен</label>
+          <select id="productAvail"><option value="true">Да</option><option value="false">Нет</option></select>
+        </div>
+        <div class="modal__field"><label>Порядок</label><input type="number" id="productSort" value="0"></div>
       </div>
       <div class="modal__actions">
         <button class="modal__save" id="productSave">Сохранить</button>
@@ -613,7 +632,9 @@
           <td>${thumb}</td>
           <td><strong>${esc(p.name)}</strong></td>
           <td><span class="badge badge--gold">${esc(p.category)}</span></td>
-          <td>${p.price} &#8381;</td>
+          <td>${p.variants && p.variants.length > 0
+            ? p.variants.map(v => v.weight + ': ' + v.price + ' \u20BD').join('<br>')
+            : p.price + ' \u20BD'}</td>
           <td>${p.isAvailable ? '<span class="badge badge--green">Активен</span>' : '<span class="badge badge--red">Скрыт</span>'}</td>
           <td>
             <div class="td-actions">
@@ -682,6 +703,37 @@
       hideSpinner();
     }
 
+    // --- Variant helpers ---
+    function addVariantRow(weight = '', price = '', sortOrder = 0) {
+      const list = document.getElementById('variantList');
+      const row = document.createElement('div');
+      row.className = 'variant-row';
+      row.innerHTML = `<input type="text" placeholder="Вес (500 г, 1 кг...)" class="variant-weight" value="${esc(weight)}">
+        <input type="number" step="0.01" placeholder="Цена" class="variant-price" value="${price}">
+        <input type="number" placeholder="#" class="variant-sort" value="${sortOrder}" style="width:60px;flex:none;">
+        <button type="button" class="variant-remove" title="Удалить">&times;</button>`;
+      row.querySelector('.variant-remove').addEventListener('click', () => row.remove());
+      list.appendChild(row);
+    }
+
+    function getVariantsFromModal() {
+      const rows = document.querySelectorAll('#variantList .variant-row');
+      const variants = [];
+      rows.forEach(row => {
+        const weight = row.querySelector('.variant-weight').value.trim();
+        const price = parseFloat(row.querySelector('.variant-price').value) || 0;
+        const sortOrder = parseInt(row.querySelector('.variant-sort').value) || 0;
+        if (weight && price > 0) variants.push({ weight, price, sortOrder });
+      });
+      return variants;
+    }
+
+    function clearVariantList() {
+      document.getElementById('variantList').innerHTML = '';
+    }
+
+    document.getElementById('addVariantBtn').addEventListener('click', () => addVariantRow());
+
     // --- Products CRUD ---
     document.getElementById('addProductBtn').addEventListener('click', () => {
       document.getElementById('productModalTitle').textContent = 'Добавить товар';
@@ -691,20 +743,20 @@
       document.getElementById('productPrice').value = '';
       document.getElementById('productOrigin').value = '';
       document.getElementById('productCategory').value = '';
+      document.getElementById('productImage').value = '';
       document.getElementById('productSort').value = '0';
       document.getElementById('productAvailField').style.display = 'none';
+      clearVariantList();
       document.getElementById('productModal').classList.add('active');
     });
 
     window.editProduct = async (id) => {
-      const p = allProducts.find(x => x.id === id);
+      let p = allProducts.find(x => x.id === id);
       if (!p) {
         const products = await apiFetch('/api/admin/products');
-        const found = products.find(x => x.id === id);
-        if (!found) return;
-        Object.assign(p || {}, found);
+        p = products.find(x => x.id === id);
+        if (!p) return;
       }
-      if (!p) return;
       document.getElementById('productModalTitle').textContent = 'Редактировать товар';
       document.getElementById('productId').value = p.id;
       document.getElementById('productName').value = p.name;
@@ -712,9 +764,14 @@
       document.getElementById('productPrice').value = p.price;
       document.getElementById('productOrigin').value = p.origin;
       document.getElementById('productCategory').value = p.category;
+      document.getElementById('productImage').value = p.imagePath || p.imageUrl || '';
       document.getElementById('productSort').value = p.sortOrder;
       document.getElementById('productAvail').value = p.isAvailable.toString();
       document.getElementById('productAvailField').style.display = 'block';
+      clearVariantList();
+      if (p.variants && p.variants.length > 0) {
+        p.variants.sort((a, b) => a.sortOrder - b.sortOrder).forEach(v => addVariantRow(v.weight, v.price, v.sortOrder));
+      }
       document.getElementById('productModal').classList.add('active');
     };
 
@@ -737,6 +794,7 @@
 
     document.getElementById('productSave').addEventListener('click', async () => {
       const id = document.getElementById('productId').value;
+      const variants = getVariantsFromModal();
       const body = {
         name: document.getElementById('productName').value,
         description: document.getElementById('productDesc').value,
@@ -744,7 +802,8 @@
         origin: document.getElementById('productOrigin').value,
         category: document.getElementById('productCategory').value,
         isAvailable: document.getElementById('productAvail').value === 'true',
-        sortOrder: parseInt(document.getElementById('productSort').value) || 0
+        sortOrder: parseInt(document.getElementById('productSort').value) || 0,
+        variants: variants.length > 0 ? variants : null
       };
       try {
         const res = id

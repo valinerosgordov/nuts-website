@@ -5,6 +5,8 @@ namespace Nuts.Domain.Entities;
 
 public sealed class Product : AggregateRoot<Guid>
 {
+    private readonly List<ProductVariant> _variants = [];
+
     private Product() { }
 
     public string Name { get; private set; } = string.Empty;
@@ -17,6 +19,7 @@ public sealed class Product : AggregateRoot<Guid>
     public int SortOrder { get; private set; }
     public DateTime CreatedAt { get; private init; }
     public DateTime? UpdatedAt { get; private set; }
+    public IReadOnlyList<ProductVariant> Variants => _variants.AsReadOnly();
 
     public static Result<Product> Create(
         string name,
@@ -66,4 +69,14 @@ public sealed class Product : AggregateRoot<Guid>
     }
 
     public void SetImage(string? imagePath) => ImagePath = imagePath;
+
+    public Result AddVariant(string weight, decimal price, int sortOrder = 0)
+    {
+        var result = ProductVariant.Create(Id, weight, price, sortOrder);
+        if (result.IsFailure) return Result.Failure(result.Error);
+        _variants.Add(result.Value);
+        return Result.Success();
+    }
+
+    public void ClearVariants() => _variants.Clear();
 }

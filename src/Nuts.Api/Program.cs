@@ -102,6 +102,21 @@ using (var scope = app.Services.CreateScope())
                         {
                             var product = result.Value;
                             product.SetImage(imageUrl);
+
+                            if (p.TryGetProperty("variants", out var seedVariants))
+                            {
+                                var variantOrder = 0;
+                                foreach (var v in seedVariants.EnumerateArray())
+                                {
+                                    var option = v.TryGetProperty("option", out var opt) ? opt.GetString() ?? "" : "";
+                                    var variantPrice = 0m;
+                                    if (v.TryGetProperty("price", out var vp))
+                                        decimal.TryParse(vp.GetString(), out variantPrice);
+                                    if (!string.IsNullOrEmpty(option) && variantPrice > 0)
+                                        product.AddVariant(option, variantPrice, variantOrder++);
+                                }
+                            }
+
                             db.Products.Add(product);
                         }
                     }

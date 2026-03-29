@@ -7,6 +7,7 @@ namespace Nuts.Infrastructure.Persistence;
 public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IUnitOfWork
 {
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
     public DbSet<MediaMention> MediaMentions => Set<MediaMention>();
     public DbSet<ContactRequest> ContactRequests => Set<ContactRequest>();
     public DbSet<Page> Pages => Set<Page>();

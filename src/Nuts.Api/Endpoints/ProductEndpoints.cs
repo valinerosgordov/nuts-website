@@ -16,7 +16,8 @@ public static class ProductEndpoints
         {
             var products = await repo.GetAvailableAsync(ct);
             return TypedResults.Ok(products.Select(p => new ProductDto(
-                p.Id, p.Name, p.Description, p.ImagePath, p.Price, p.Origin, p.Category, p.SortOrder)));
+                p.Id, p.Name, p.Description, p.ImagePath, p.Price, p.Origin, p.Category, p.SortOrder,
+                p.Variants.Select(v => new VariantDto(v.Id, v.Weight, v.Price, v.SortOrder)).ToList())));
         });
 
         publicGroup.MapGet("/by-name", async Task<Results<Ok<ProductDto>, NotFound>> (
@@ -26,7 +27,8 @@ public static class ProductEndpoints
             if (product is null || !product.IsAvailable) return TypedResults.NotFound();
             return TypedResults.Ok(new ProductDto(
                 product.Id, product.Name, product.Description, product.ImagePath,
-                product.Price, product.Origin, product.Category, product.SortOrder));
+                product.Price, product.Origin, product.Category, product.SortOrder,
+                product.Variants.Select(v => new VariantDto(v.Id, v.Weight, v.Price, v.SortOrder)).ToList()));
         });
 
         publicGroup.MapGet("/{id:guid}", async Task<Results<Ok<ProductDto>, NotFound>> (
@@ -36,7 +38,8 @@ public static class ProductEndpoints
             if (product is null || !product.IsAvailable) return TypedResults.NotFound();
             return TypedResults.Ok(new ProductDto(
                 product.Id, product.Name, product.Description, product.ImagePath,
-                product.Price, product.Origin, product.Category, product.SortOrder));
+                product.Price, product.Origin, product.Category, product.SortOrder,
+                product.Variants.Select(v => new VariantDto(v.Id, v.Weight, v.Price, v.SortOrder)).ToList()));
         });
 
         // Admin
@@ -81,7 +84,8 @@ public static class ProductEndpoints
             var products = await repo.GetAllAsync(ct);
             return TypedResults.Ok(products.Select(p => new AdminProductDto(
                 p.Id, p.Name, p.Description, p.ImagePath, p.Price,
-                p.Origin, p.Category, p.IsAvailable, p.SortOrder, p.CreatedAt, p.UpdatedAt)));
+                p.Origin, p.Category, p.IsAvailable, p.SortOrder, p.CreatedAt, p.UpdatedAt,
+                p.Variants.Select(v => new VariantDto(v.Id, v.Weight, v.Price, v.SortOrder)).ToList())));
         });
 
         adminGroup.MapPost("/", async Task<Results<Created<AdminProductDto>, BadRequest<ProblemHttpResult>>> (
@@ -91,11 +95,17 @@ public static class ProductEndpoints
             return await result.Match<Task<Results<Created<AdminProductDto>, BadRequest<ProblemHttpResult>>>>(
                 async product =>
                 {
+                    if (req.Variants is { Count: > 0 })
+                    {
+                        foreach (var v in req.Variants)
+                            product.AddVariant(v.Weight, v.Price, v.SortOrder);
+                    }
                     repo.Add(product);
                     await uow.SaveChangesAsync(ct);
                     var dto = new AdminProductDto(product.Id, product.Name, product.Description,
                         product.ImagePath, product.Price, product.Origin, product.Category,
-                        product.IsAvailable, product.SortOrder, product.CreatedAt, product.UpdatedAt);
+                        product.IsAvailable, product.SortOrder, product.CreatedAt, product.UpdatedAt,
+                        product.Variants.Select(v => new VariantDto(v.Id, v.Weight, v.Price, v.SortOrder)).ToList());
                     return TypedResults.Created($"/api/admin/products/{product.Id}", dto);
                 },
                 error => Task.FromResult<Results<Created<AdminProductDto>, BadRequest<ProblemHttpResult>>>(
@@ -112,10 +122,19 @@ public static class ProductEndpoints
             if (updateResult.IsFailure)
                 return TypedResults.BadRequest(TypedResults.Problem(updateResult.Error.Message, statusCode: 400));
 
+            if (req.Variants is not null)
+            {
+                repo.RemoveVariants(product);
+                product.ClearVariants();
+                foreach (var v in req.Variants)
+                    product.AddVariant(v.Weight, v.Price, v.SortOrder);
+            }
+
             await uow.SaveChangesAsync(ct);
             var dto = new AdminProductDto(product.Id, product.Name, product.Description,
                 product.ImagePath, product.Price, product.Origin, product.Category,
-                product.IsAvailable, product.SortOrder, product.CreatedAt, product.UpdatedAt);
+                product.IsAvailable, product.SortOrder, product.CreatedAt, product.UpdatedAt,
+                product.Variants.Select(v => new VariantDto(v.Id, v.Weight, v.Price, v.SortOrder)).ToList());
             return TypedResults.Ok(dto);
         });
 
@@ -131,14 +150,25 @@ public static class ProductEndpoints
     }
 }
 
+public sealed record VariantDto(Guid Id, string Weight, decimal Price, int SortOrder);
+
 public sealed record ProductDto(
     Guid Id, string Name, string Description, string? ImagePath,
-    decimal Price, string Origin, string Category, int SortOrder);
+    decimal Price, string Origin, string Category, int SortOrder,
+    List<VariantDto> Variants);
 
 public sealed record AdminProductDto(
     Guid Id, string Name, string Description, string? ImagePath,
     decimal Price, string Origin, string Category, bool IsAvailable,
-    int SortOrder, DateTime CreatedAt, DateTime? UpdatedAt);
+    int SortOrder, DateTime CreatedAt, DateTime? UpdatedAt,
+    List<VariantDto> Variants);
+
+public sealed record CreateVariantRequest
+{
+    public required string Weight { get; init; }
+    public required decimal Price { get; init; }
+    public int SortOrder { get; init; }
+}
 
 public sealed record CreateProductRequest
 {
@@ -147,6 +177,7 @@ public sealed record CreateProductRequest
     public required decimal Price { get; init; }
     public required string Origin { get; init; }
     public required string Category { get; init; }
+    public List<CreateVariantRequest>? Variants { get; init; }
 }
 
 public sealed record UpdateProductRequest
@@ -158,4 +189,5 @@ public sealed record UpdateProductRequest
     public required string Category { get; init; }
     public required bool IsAvailable { get; init; }
     public required int SortOrder { get; init; }
+    public List<CreateVariantRequest>? Variants { get; init; }
 }

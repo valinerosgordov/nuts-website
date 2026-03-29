@@ -16,5 +16,12 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Origin).HasMaxLength(200);
         builder.Property(p => p.Category).HasMaxLength(100);
         builder.Ignore(p => p.DomainEvents);
+
+        builder.HasMany(p => p.Variants)
+            .WithOne()
+            .HasForeignKey(v => v.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Navigation(p => p.Variants).UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

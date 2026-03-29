@@ -10,4 +10,5 @@ public interface IProductRepository
     void Add(Product product);
     Task<Product?> GetByNameAsync(string name, CancellationToken ct = default);
     void Remove(Product product);
+    void RemoveVariants(Product product);
 }
