@@ -217,10 +217,15 @@
       justify-content: center;
     }
 
-    .product-detail__add-to-cart:hover {
+    .product-detail__add-to-cart:hover:not(:disabled) {
       background: linear-gradient(135deg, #c9a84c, #d4b86a);
       transform: translateY(-2px);
       box-shadow: 0 8px 30px rgba(139, 105, 20, 0.3);
+    }
+
+    .product-detail__add-to-cart:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
 
     .product-detail__add-to-cart svg {
@@ -555,28 +560,49 @@
     }
 
     function renderProduct(p) {
-      document.title = p.name + ' — Ореховый Сад';
-      document.getElementById('breadcrumbName').textContent = p.name;
+      var decodedName = decodeHtml(p.name);
+      var decodedOrigin = decodeHtml(p.origin);
+      var decodedDescription = decodeHtml(p.description);
+      var decodedCategory = decodeHtml(p.category);
 
-      const imgSrc = p.imagePath || 'https://via.placeholder.com/600x600/151515/c9a84c?text=' + encodeURIComponent(p.name);
+      document.title = decodedName + ' — Ореховый Сад';
+      document.getElementById('breadcrumbName').textContent = decodedName;
+
+      var imgSrc = p.imagePath || 'https://via.placeholder.com/600x600/151515/c9a84c?text=' + encodeURIComponent(decodedName);
+
+      var hasVariants = p.variants && p.variants.length > 0;
+      var variantsHtml = '';
+      if (hasVariants) {
+        variantsHtml = '<div class="product-detail__variants">'
+          + '<div class="product-detail__variants-label">Выберите фасовку:</div>'
+          + p.variants.map(function(v) {
+              return '<button type="button" class="product-variant-btn" data-weight="' + escapeHtml(v.weight) + '" data-price="' + v.price + '">'
+                + escapeHtml(v.weight) + ' — ' + formatPrice(v.price) + ' &#8381;</button>';
+            }).join('')
+          + '</div>';
+      }
+
+      var cartBtnDisabled = hasVariants ? ' disabled' : '';
+      var displayPrice = hasVariants ? '' : formatPrice(p.price) + ' &#8381;';
 
       document.getElementById('productContent').innerHTML = `
         <div class="product-detail">
           <div class="product-detail__image-wrap">
-            <img class="product-detail__image" src="${escapeHtml(imgSrc)}" alt="${escapeHtml(p.name)}" loading="lazy">
+            <img class="product-detail__image" src="${escapeHtml(imgSrc)}" alt="${escapeHtml(decodedName)}" loading="lazy">
           </div>
           <div class="product-detail__info">
-            <span class="product-detail__category">${escapeHtml(p.category)}</span>
-            <h1 class="product-detail__name">${escapeHtml(p.name)}</h1>
+            <span class="product-detail__category">${escapeHtml(decodedCategory)}</span>
+            <h1 class="product-detail__name">${escapeHtml(decodedName)}</h1>
             <div class="product-detail__origin">
               <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              ${escapeHtml(p.origin)}
+              ${escapeHtml(decodedOrigin)}
             </div>
             <div class="product-detail__divider"></div>
-            <p class="product-detail__price" id="productPrice">${formatPrice(p.price)} &#8381;</p>
+            ${variantsHtml}
+            <p class="product-detail__price" id="productPrice">${displayPrice}</p>
             <div class="product-detail__divider"></div>
-            <p class="product-detail__description">${escapeHtml(p.description)}</p>
-            <button class="product-detail__add-to-cart" id="addToCartBtn" data-name="${escapeHtml(p.name)}" data-price="${p.price}" data-image="${escapeHtml(imgSrc)}">
+            <p class="product-detail__description">${escapeHtml(decodedDescription)}</p>
+            <button class="product-detail__add-to-cart" id="addToCartBtn"${cartBtnDisabled} data-name="${escapeHtml(decodedName)}" data-price="${p.price}" data-variant="" data-image="${escapeHtml(imgSrc)}">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
               В корзину
             </button>
@@ -588,7 +614,7 @@
                 </button>
                 <div class="product-collapse__content">
                   <div class="product-collapse__inner">
-                    ${escapeHtml(p.name)} натуральный, без добавок. Точный состав уточняйте у менеджера.
+                    ${escapeHtml(decodedName)} натуральный, без добавок. Точный состав уточняйте у менеджера.
                   </div>
                 </div>
               </div>
@@ -644,12 +670,31 @@
         });
       });
 
+      // Variant selection
+      document.querySelectorAll('.product-variant-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.product-variant-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var price = parseInt(btn.dataset.price, 10);
+          var weight = btn.dataset.weight;
+          document.getElementById('productPrice').innerHTML = formatPrice(price) + ' &#8381;';
+          var addBtn = document.getElementById('addToCartBtn');
+          if (addBtn) {
+            addBtn.dataset.price = price;
+            addBtn.dataset.variant = weight;
+            addBtn.disabled = false;
+          }
+        });
+      });
+
       // Add to cart
       var addBtn = document.getElementById('addToCartBtn');
       if (addBtn) {
         addBtn.addEventListener('click', function() {
+          if (addBtn.disabled) return;
+          var variant = addBtn.dataset.variant || '1 шт';
           if (typeof window.addToCart === 'function') {
-            window.addToCart(addBtn.dataset.name, parseFloat(addBtn.dataset.price), addBtn.dataset.image);
+            window.addToCart({ name: addBtn.dataset.name, variant: variant, price: parseFloat(addBtn.dataset.price) });
           }
           addBtn.textContent = 'Добавлено!';
           addBtn.style.background = 'linear-gradient(135deg, #2d5a27, #4a7c3f)';
@@ -673,6 +718,13 @@
           <a href="/catalog.html" class="product-error__link">Вернуться в каталог</a>
         </div>
       `;
+    }
+
+    function decodeHtml(html) {
+      if (!html) return '';
+      var txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
     }
 
     function escapeHtml(str) {

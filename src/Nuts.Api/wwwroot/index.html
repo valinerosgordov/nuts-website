@@ -13,6 +13,18 @@
     /* Decorative leaves removed */
     .leaf-decor { display: none; }
 
+    /* ===== Promo Popup ===== */
+    .promo-popup { position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; }
+    .promo-popup__overlay { position:absolute; inset:0; background:rgba(0,0,0,0.7); }
+    .promo-popup__content { position:relative; background:#151515; border:1px solid rgba(212,175,55,0.3); border-radius:16px; padding:3rem; max-width:480px; width:90%; text-align:center; animation:popupSlide 0.4s ease; }
+    .promo-popup__close { position:absolute; top:1rem; right:1rem; background:none; border:none; color:#a09888; font-size:1.5rem; cursor:pointer; transition:color 0.2s; }
+    .promo-popup__close:hover { color:#f5f0e8; }
+    .promo-popup__title { font-family:var(--font-serif); font-size:1.8rem; color:#D4AF37; margin-bottom:1rem; }
+    .promo-popup__desc { color:#f5f0e8; font-size:1rem; line-height:1.6; margin-bottom:1.5rem; }
+    .promo-popup__btn { display:inline-block; padding:0.8rem 2rem; border:1px solid rgba(212,175,55,0.4); border-radius:8px; color:#D4AF37; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em; text-decoration:none; transition:all 0.3s; }
+    .promo-popup__btn:hover { background:rgba(212,175,55,0.1); border-color:rgba(212,175,55,0.7); }
+    @keyframes popupSlide { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
     /* ===== Why Us Section ===== */
     .why {
       padding: 6rem 0;
@@ -800,6 +812,17 @@
       </div>
     </div>
   </footer>
+
+  <!-- Promo Popup -->
+  <div class="promo-popup" id="promoPopup" style="display:none">
+    <div class="promo-popup__overlay"></div>
+    <div class="promo-popup__content">
+      <button class="promo-popup__close" id="promoClose">&times;</button>
+      <h3 class="promo-popup__title" id="promoTitle"></h3>
+      <p class="promo-popup__desc" id="promoDesc"></p>
+      <a class="promo-popup__btn" id="promoBtn" href="#" style="display:none"></a>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>

@@ -252,66 +252,32 @@
       min-height: 80px;
     }
 
-    /* Payment methods */
-    .checkout__payment-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .checkout__payment-option {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.85rem 1rem;
+    .checkout__select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: #f5f0e8;
       background: #0a0a0a;
       border: 1px solid #1f1f1f;
       border-radius: 2px;
-      cursor: pointer;
+      outline: none;
       transition: border-color 0.3s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a09888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      cursor: pointer;
     }
 
-    .checkout__payment-option:hover {
+    .checkout__select:focus {
       border-color: #8b6914;
     }
 
-    .checkout__payment-option input[type="radio"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1px solid #1f1f1f;
-      border-radius: 50%;
-      background: transparent;
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .checkout__payment-option input[type="radio"]:checked {
-      border-color: #c9a84c;
-    }
-
-    .checkout__payment-option input[type="radio"]:checked::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #c9a84c;
-    }
-
-    .checkout__payment-option input[type="radio"]:checked ~ .checkout__payment-label {
+    .checkout__select option {
+      background: #0a0a0a;
       color: #f5f0e8;
-    }
-
-    .checkout__payment-label {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      color: #a09888;
-      transition: color 0.3s;
     }
 
     /* Promo code */
@@ -673,26 +639,18 @@
                 <input class="checkout__input" type="text" id="checkout-address" name="address" required placeholder="Город, улица, дом, квартира">
               </div>
               <div class="checkout__field">
+                <label class="checkout__label" for="checkout-delivery-time">Интервал доставки *</label>
+                <select class="checkout__select" id="checkout-delivery-time" name="deliveryTime" required>
+                  <option value="">Выберите время</option>
+                  <option value="10-14">с 10:00 до 14:00</option>
+                  <option value="14-18">с 14:00 до 18:00</option>
+                  <option value="18-22">с 18:00 до 22:00</option>
+                  <option value="10-22">с 10:00 до 22:00</option>
+                </select>
+              </div>
+              <div class="checkout__field">
                 <label class="checkout__label" for="checkout-comment">Комментарий к заказу</label>
                 <textarea class="checkout__input checkout__textarea" id="checkout-comment" name="comment" placeholder="Пожелания по доставке, подъезд, этаж..."></textarea>
-              </div>
-            </fieldset>
-
-            <fieldset class="checkout__fieldset">
-              <h3 class="checkout__section-title">Способ оплаты</h3>
-              <div class="checkout__payment-options">
-                <label class="checkout__payment-option">
-                  <input type="radio" name="payment" value="card" checked>
-                  <span class="checkout__payment-label">Банковская карта онлайн</span>
-                </label>
-                <label class="checkout__payment-option">
-                  <input type="radio" name="payment" value="cash">
-                  <span class="checkout__payment-label">Наличные при получении</span>
-                </label>
-                <label class="checkout__payment-option">
-                  <input type="radio" name="payment" value="transfer">
-                  <span class="checkout__payment-label">Перевод на карту / СБП</span>
-                </label>
               </div>
             </fieldset>
 
@@ -794,8 +752,8 @@
           phone: form.querySelector('[name="phone"]').value,
           email: form.querySelector('[name="email"]').value || null,
           address: form.querySelector('[name="address"]').value,
+          deliveryTime: form.querySelector('[name="deliveryTime"]').value,
           comment: form.querySelector('[name="comment"]').value || null,
-          payment: form.querySelector('[name="payment"]:checked').value,
           items: cart.map(item => ({
             name: item.name,
             variant: item.variant,
@@ -814,6 +772,7 @@
           // Build API payload matching CreateOrderRequest
           const apiPayload = {
             shippingAddress: orderData.address + (orderData.comment ? ' (' + orderData.comment + ')' : ''),
+            deliveryTime: orderData.deliveryTime,
             items: cart.map(item => ({
               productName: item.name,
               quantity: item.qty,
@@ -830,6 +789,7 @@
 
           if (res.ok) {
             localStorage.removeItem(CART_KEY);
+            localStorage.removeItem('nuts_cart_ts');
             showSuccess();
           } else if (res.status === 401 || res.status === 403) {
             // User not logged in — submit as contact request instead
@@ -837,7 +797,7 @@
               name: orderData.name,
               phone: orderData.phone,
               email: orderData.email,
-              message: 'Заказ: ' + cart.map(i => i.name + ' (' + i.variant + ') x' + i.qty).join(', ') + '. Адрес: ' + orderData.address + (orderData.comment ? '. ' + orderData.comment : '')
+              message: 'Заказ: ' + cart.map(i => i.name + ' (' + i.variant + ') x' + i.qty).join(', ') + '. Адрес: ' + orderData.address + '. Доставка: ' + orderData.deliveryTime + (orderData.comment ? '. ' + orderData.comment : '')
             };
             const contactRes = await fetch('/api/contacts', {
               method: 'POST',
@@ -846,6 +806,7 @@
             });
             if (contactRes.ok || contactRes.status === 201) {
               localStorage.removeItem(CART_KEY);
+            localStorage.removeItem('nuts_cart_ts');
               showSuccess();
             } else {
               throw new Error('Contact submit failed');
