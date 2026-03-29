@@ -305,6 +305,9 @@
         <div class="main__header">
           <h1 class="main__title">Товары<span class="main__title-count" id="productsCount"></span></h1>
           <div class="main__actions">
+            <button class="btn-gold" id="syncMoySkladBtn" style="background:#8b6914;margin-right:0.4rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>МойСклад
+            </button>
             <button class="btn-green" id="exportProductsBtn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Экспорт
             </button>
@@ -1351,6 +1354,23 @@
 
     // --- Helpers ---
     function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    // --- MoySklad Sync ---
+    document.getElementById('syncMoySkladBtn').addEventListener('click', async () => {
+      if (!confirm('Синхронизировать цены из МойСклад?')) return;
+      showSpinner();
+      try {
+        const res = await fetch('/api/admin/sync/moysklad', { method: 'POST', headers: headers() });
+        if (res.ok) {
+          const r = await res.json();
+          toast(`МойСклад: ${r.synced} синхронизировано, ${r.notFound} не найдено (всего в МС: ${r.moySkladTotal})`, 'success');
+          loadProducts();
+        } else {
+          toast('Ошибка синхронизации', 'error');
+        }
+      } catch(e) { toast('Ошибка: ' + e.message, 'error'); }
+      hideSpinner();
+    });
 
     // --- Excel Import/Export ---
     document.getElementById('exportProductsBtn').addEventListener('click', async () => {

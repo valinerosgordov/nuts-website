@@ -150,6 +150,7 @@ public static class AccountEndpoints
             ClaimsPrincipal claims,
             IOrderRepository orderRepo,
             IUnitOfWork uow,
+            Nuts.Infrastructure.Services.IMoySkladService moySklad,
             CancellationToken ct) =>
         {
             var userId = GetUserId(claims);
@@ -171,6 +172,17 @@ public static class AccountEndpoints
 
             orderRepo.Add(order);
             await uow.SaveChangesAsync(ct);
+
+            // Push order to MoySklad (best effort, don't block checkout)
+            try
+            {
+                var msOrder = new Nuts.Infrastructure.Services.MoySkladOrder(
+                    "Заказ с сайта", "", null, req.ShippingAddress, null, null, null,
+                    req.Items.Select(i => new Nuts.Infrastructure.Services.MoySkladOrderItem(
+                        i.ProductName, i.Weight, i.Quantity, i.UnitPrice)).ToList());
+                await moySklad.CreateCustomerOrderAsync(msOrder, ct);
+            }
+            catch { /* MoySklad unavailable — order saved locally */ }
 
             return TypedResults.Ok(new CreateOrderResponse(order.Id));
         });
