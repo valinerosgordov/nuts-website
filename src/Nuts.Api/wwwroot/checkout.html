@@ -314,6 +314,96 @@
       transition: color 0.3s;
     }
 
+    /* Promo code */
+    .checkout__promo {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1f1f1f;
+    }
+
+    .checkout__promo-input {
+      flex: 1;
+      padding: 0.65rem 0.85rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      color: #f5f0e8;
+      background: #0a0a0a;
+      border: 1px solid #1f1f1f;
+      border-radius: 2px;
+      outline: none;
+      text-transform: uppercase;
+      transition: border-color 0.3s;
+    }
+
+    .checkout__promo-input:focus {
+      border-color: #8b6914;
+    }
+
+    .checkout__promo-input::placeholder {
+      text-transform: none;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    .checkout__promo-btn {
+      padding: 0.65rem 1.2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      background: transparent;
+      border: 1px solid #8b6914;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .checkout__promo-btn:hover {
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    .checkout__promo-btn:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .checkout__promo-msg {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      min-height: 1.2em;
+    }
+
+    .checkout__promo-msg--success {
+      color: #27ae60;
+    }
+
+    .checkout__promo-msg--error {
+      color: #e74c3c;
+    }
+
+    .checkout__discount-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .checkout__discount-label {
+      font-family: 'Raleway', sans-serif;
+      color: #27ae60;
+    }
+
+    .checkout__discount-value {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: #27ae60;
+    }
+
     /* Submit */
     .checkout__submit {
       width: 100%;
@@ -543,6 +633,9 @@
           </div>`;
       }).join('');
 
+      let appliedPromo = null;
+      let discountPercent = 0;
+
       container.innerHTML = `
         <div class="checkout__form">
           <form id="checkoutForm">
@@ -599,11 +692,78 @@
         <div class="checkout__summary">
           <h3 class="checkout__section-title">Ваш заказ</h3>
           ${summaryItems}
+          <div id="promoDiscountRow" class="checkout__discount-row" style="display:none;">
+            <span class="checkout__discount-label" id="promoDiscountLabel"></span>
+            <span class="checkout__discount-value" id="promoDiscountValue"></span>
+          </div>
           <div class="checkout__summary-total">
             <span class="checkout__summary-total-label">Итого</span>
-            <span class="checkout__summary-total-value">${total.toLocaleString('ru-RU')} \u20BD</span>
+            <span class="checkout__summary-total-value" id="checkoutTotal">${total.toLocaleString('ru-RU')} \u20BD</span>
           </div>
+          <div class="checkout__promo">
+            <input type="text" class="checkout__promo-input" id="promoInput" placeholder="Промокод" maxlength="50">
+            <button type="button" class="checkout__promo-btn" id="promoApplyBtn">Применить</button>
+          </div>
+          <div class="checkout__promo-msg" id="promoMsg"></div>
         </div>`;
+
+      // Promo code logic
+      const promoInput = document.getElementById('promoInput');
+      const promoBtn = document.getElementById('promoApplyBtn');
+      const promoMsg = document.getElementById('promoMsg');
+
+      promoBtn.addEventListener('click', async () => {
+        const code = promoInput.value.trim();
+        if (!code) { showPromoMsg('Введите промокод', false); return; }
+        promoBtn.disabled = true;
+        promoBtn.textContent = '...';
+        try {
+          const res = await fetch('/api/promo/validate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, orderAmount: total })
+          });
+          const data = await res.json();
+          if (res.ok && data.valid) {
+            appliedPromo = code;
+            discountPercent = data.discountPercent;
+            showPromoMsg(data.message, true);
+            promoInput.disabled = true;
+            promoBtn.textContent = 'Применён';
+            updateTotalWithDiscount();
+          } else {
+            showPromoMsg(data.message || 'Промокод недействителен', false);
+            promoBtn.disabled = false;
+            promoBtn.textContent = 'Применить';
+          }
+        } catch {
+          showPromoMsg('Ошибка проверки промокода', false);
+          promoBtn.disabled = false;
+          promoBtn.textContent = 'Применить';
+        }
+      });
+
+      promoInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); promoBtn.click(); }
+      });
+
+      function showPromoMsg(msg, success) {
+        promoMsg.textContent = msg;
+        promoMsg.className = 'checkout__promo-msg ' + (success ? 'checkout__promo-msg--success' : 'checkout__promo-msg--error');
+      }
+
+      function updateTotalWithDiscount() {
+        const discountRow = document.getElementById('promoDiscountRow');
+        const totalEl = document.getElementById('checkoutTotal');
+        if (discountPercent > 0) {
+          const discountAmount = Math.round(total * discountPercent / 100);
+          const newTotal = total - discountAmount;
+          discountRow.style.display = 'flex';
+          document.getElementById('promoDiscountLabel').textContent = 'Скидка ' + discountPercent + '%';
+          document.getElementById('promoDiscountValue').textContent = '-' + discountAmount.toLocaleString('ru-RU') + ' \u20BD';
+          totalEl.textContent = newTotal.toLocaleString('ru-RU') + ' \u20BD';
+        }
+      }
 
       // Form submit
       document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
@@ -626,7 +786,8 @@
             price: item.price,
             quantity: item.qty
           })),
-          total: total
+          total: discountPercent > 0 ? total - Math.round(total * discountPercent / 100) : total,
+          promoCode: appliedPromo
         };
 
         try {
