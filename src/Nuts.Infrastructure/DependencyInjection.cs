@@ -28,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<IPageRepository, PageRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
         services.AddScoped<IProductExcelService, ProductExcelService>();
 
         return services;
