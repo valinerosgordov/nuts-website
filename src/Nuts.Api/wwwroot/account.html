@@ -440,6 +440,7 @@
         <li><a href="/catalog.html">Каталог</a></li>
         <li><a href="/wholesale.html">Опт</a></li>
         <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/promotions.html">Акции</a></li>
         <li><a href="/about.html">О нас</a></li>
         <li><a href="/delivery.html">Доставка и оплата</a></li>
         <li><a href="/contacts.html">Контакты</a></li>
@@ -453,6 +454,7 @@
       <li><a href="/catalog.html">Каталог</a></li>
       <li><a href="/wholesale.html">Оптовые продажи</a></li>
       <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/promotions.html">Акции</a></li>
       <li><a href="/about.html">О компании</a></li>
       <li><a href="/delivery.html">Доставка и оплата</a></li>
       <li><a href="/contacts.html">Контакты</a></li>
@@ -479,6 +481,10 @@
           <a href="#profile" class="sidebar__link" id="profileLink">
             <span class="sidebar__link-icon">👤</span>
             <span>Профиль</span>
+          </a>
+          <a href="#address" class="sidebar__link" id="addressLink">
+            <span class="sidebar__link-icon">📍</span>
+            <span>Адрес доставки</span>
           </a>
           <button class="sidebar__link sidebar__link--logout" id="logoutBtn">
             <span class="sidebar__link-icon">🚪</span>
@@ -537,6 +543,27 @@
             </table>
           </div>
         </div>
+
+        <!-- Address Section (hidden by default) -->
+        <div class="address-section reveal" id="addressSection" style="display:none;">
+          <div class="recent-orders">
+            <div class="recent-orders__header">
+              <h3 class="recent-orders__title">Адрес доставки</h3>
+            </div>
+            <div style="padding: 2rem;">
+              <div class="checkout__field" style="margin-bottom: 1rem;">
+                <label style="display:block;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--white-dim);margin-bottom:0.4rem;">Адрес</label>
+                <input type="text" id="addressInput" placeholder="Город, улица, дом, квартира" style="width:100%;padding:0.75rem 1rem;font-family:var(--font-sans);font-size:0.9rem;color:var(--white);background:var(--black);border:1px solid var(--black-border);border-radius:2px;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='var(--gold-dark)'" onblur="this.style.borderColor='var(--black-border)'">
+              </div>
+              <div class="checkout__field" style="margin-bottom: 1.5rem;">
+                <label style="display:block;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--white-dim);margin-bottom:0.4rem;">Примечание</label>
+                <input type="text" id="addressNoteInput" placeholder="Подъезд, этаж, код домофона..." style="width:100%;padding:0.75rem 1rem;font-family:var(--font-sans);font-size:0.9rem;color:var(--white);background:var(--black);border:1px solid var(--black-border);border-radius:2px;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='var(--gold-dark)'" onblur="this.style.borderColor='var(--black-border)'">
+              </div>
+              <button id="saveAddressBtn" style="padding:0.75rem 2rem;font-family:var(--font-sans);font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);border:none;border-radius:2px;cursor:pointer;transition:all 0.3s;">Сохранить</button>
+              <span id="addressMsg" style="margin-left:1rem;font-size:0.85rem;color:var(--gold);opacity:0;transition:opacity 0.3s;"></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -547,7 +574,7 @@
       <div class="footer__top">
         <div class="footer__brand"><span class="footer__logo">✦ Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
         <div class="footer__links">
-          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a><a href="/promotions.html">Акции</a>
           <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
           <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
         </div>
@@ -607,6 +634,9 @@
           document.getElementById('heroName').textContent = user.fullName || 'Гость';
           document.getElementById('welcomeName').textContent = user.fullName || 'Гость';
           document.getElementById('welcomeEmail').textContent = user.email || '';
+          // Populate address fields
+          document.getElementById('addressInput').value = user.address || '';
+          document.getElementById('addressNoteInput').value = user.addressNote || '';
         } catch {
           // Use cached data
           const cached = localStorage.getItem('auth_user');
@@ -659,6 +689,63 @@
           tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--white-dim);padding:2rem;">Не удалось загрузить заказы</td></tr>';
         }
       }
+
+      // Sidebar navigation — address section toggle
+      document.getElementById('addressLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar__link').forEach(l => l.classList.remove('active'));
+        document.getElementById('addressLink').classList.add('active');
+        // Hide main dashboard content, show address
+        document.querySelector('.welcome-card').style.display = 'none';
+        document.querySelector('.stats-grid').style.display = 'none';
+        document.querySelector('.recent-orders').style.display = 'none';
+        document.getElementById('addressSection').style.display = 'block';
+      });
+
+      document.querySelector('.sidebar__link.active').addEventListener('click', () => {
+        document.querySelector('.welcome-card').style.display = '';
+        document.querySelector('.stats-grid').style.display = '';
+        document.querySelector('.recent-orders').style.display = '';
+        document.getElementById('addressSection').style.display = 'none';
+      });
+
+      // Save address
+      document.getElementById('saveAddressBtn').addEventListener('click', async () => {
+        const btn = document.getElementById('saveAddressBtn');
+        const msg = document.getElementById('addressMsg');
+        btn.disabled = true;
+        btn.textContent = 'Сохранение...';
+        try {
+          const res = await fetch('/api/account/address', {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              address: document.getElementById('addressInput').value,
+              note: document.getElementById('addressNoteInput').value
+            })
+          });
+          if (res.ok) {
+            msg.textContent = 'Сохранено';
+            msg.style.opacity = '1';
+            setTimeout(() => { msg.style.opacity = '0'; }, 2500);
+          } else {
+            msg.textContent = 'Ошибка сохранения';
+            msg.style.color = '#c06060';
+            msg.style.opacity = '1';
+            setTimeout(() => { msg.style.opacity = '0'; msg.style.color = 'var(--gold)'; }, 2500);
+          }
+        } catch {
+          msg.textContent = 'Ошибка соединения';
+          msg.style.color = '#c06060';
+          msg.style.opacity = '1';
+          setTimeout(() => { msg.style.opacity = '0'; msg.style.color = 'var(--gold)'; }, 2500);
+        }
+        btn.disabled = false;
+        btn.textContent = 'Сохранить';
+      });
 
       // Logout
       document.getElementById('logoutBtn').addEventListener('click', () => {

@@ -483,6 +483,7 @@
         <li><a href="/catalog.html">Каталог</a></li>
         <li><a href="/wholesale.html">Опт</a></li>
         <li><a href="/gifts.html">Подарки</a></li>
+        <li><a href="/promotions.html">Акции</a></li>
         <li><a href="/about.html">О нас</a></li>
         <li><a href="/delivery.html">Доставка и оплата</a></li>
         <li><a href="/contacts.html">Контакты</a></li>
@@ -500,6 +501,7 @@
       <li><a href="/catalog.html">Каталог</a></li>
       <li><a href="/wholesale.html">Оптовые продажи</a></li>
       <li><a href="/gifts.html">Подарочные наборы</a></li>
+      <li><a href="/promotions.html">Акции</a></li>
       <li><a href="/about.html">О компании</a></li>
       <li><a href="/delivery.html">Доставка и оплата</a></li>
       <li><a href="/warranty.html">Гарантия качества</a></li>
@@ -527,7 +529,7 @@
       <div class="footer__top">
         <div class="footer__brand"><span class="footer__logo">&#10022; Ореховый Сад</span><p class="footer__tagline">Мы делаем Премиум Доступным</p></div>
         <div class="footer__links">
-          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a>
+          <a href="/catalog.html">Каталог</a><a href="/wholesale.html">Опт</a><a href="/gifts.html">Подарки</a><a href="/promotions.html">Акции</a>
           <a href="/about.html">О нас</a><a href="/delivery.html">Доставка</a><a href="/warranty.html">Гарантия</a>
           <a href="/faq.html">FAQ</a><a href="/contacts.html">Контакты</a><a href="/privacy.html">Конфиденциальность</a>
         </div>
@@ -680,6 +682,27 @@
           </div>
           <div class="checkout__promo-msg" id="promoMsg"></div>
         </div>`;
+
+      // Auto-fill from saved profile address
+      (async function autoFillAddress() {
+        const authToken = localStorage.getItem('auth_token');
+        if (!authToken) return;
+        try {
+          const res = await fetch('/api/account/profile', {
+            headers: { 'Authorization': 'Bearer ' + authToken }
+          });
+          if (!res.ok) return;
+          const user = await res.json();
+          const addrField = document.getElementById('checkout-address');
+          const commentField = document.getElementById('checkout-comment');
+          const nameField = document.getElementById('checkout-name');
+          const emailField = document.getElementById('checkout-email');
+          if (addrField && !addrField.value && user.address) addrField.value = user.address;
+          if (commentField && !commentField.value && user.addressNote) commentField.value = user.addressNote;
+          if (nameField && !nameField.value && user.fullName) nameField.value = user.fullName;
+          if (emailField && !emailField.value && user.email) emailField.value = user.email;
+        } catch { /* ignore */ }
+      })();
 
       // Promo code logic
       const promoInput = document.getElementById('promoInput');

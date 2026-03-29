@@ -138,6 +138,53 @@ public static class ProductEndpoints
             return TypedResults.Ok(dto);
         });
 
+        adminGroup.MapPost("/{id:guid}/image", async Task<Results<Ok<string>, NotFound, BadRequest<string>>> (
+            Guid id, IFormFile file, IProductRepository repo, IUnitOfWork uow, CancellationToken ct) =>
+        {
+            var product = await repo.GetByIdAsync(id, ct);
+            if (product is null) return TypedResults.NotFound();
+
+            if (file.Length > 5 * 1024 * 1024)
+                return TypedResults.BadRequest("File must be less than 5 MB.");
+
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (ext is not (".jpg" or ".jpeg" or ".png" or ".webp"))
+                return TypedResults.BadRequest("Only JPG, PNG, WEBP files are supported.");
+
+            var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            Directory.CreateDirectory(uploadsDir);
+
+            var fileName = $"{id}{ext}";
+            var filePath = Path.Combine(uploadsDir, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream, ct);
+            }
+
+            product.SetImage($"/uploads/{fileName}");
+            await uow.SaveChangesAsync(ct);
+
+            return TypedResults.Ok($"/uploads/{fileName}");
+        }).DisableAntiforgery();
+
+        adminGroup.MapDelete("/{id:guid}/image", async Task<Results<Ok, NotFound>> (
+            Guid id, IProductRepository repo, IUnitOfWork uow, CancellationToken ct) =>
+        {
+            var product = await repo.GetByIdAsync(id, ct);
+            if (product is null) return TypedResults.NotFound();
+
+            if (product.ImagePath?.StartsWith("/uploads/") == true)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", product.ImagePath.TrimStart('/'));
+                if (File.Exists(filePath)) File.Delete(filePath);
+            }
+
+            product.SetImage(null);
+            await uow.SaveChangesAsync(ct);
+            return TypedResults.Ok();
+        });
+
         adminGroup.MapDelete("/{id:guid}", async Task<Results<NoContent, NotFound>> (
             Guid id, IProductRepository repo, IUnitOfWork uow, CancellationToken ct) =>
         {

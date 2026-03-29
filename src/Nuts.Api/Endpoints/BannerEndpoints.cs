@@ -21,6 +21,17 @@ public static class BannerEndpoints
                 banner.DelaySeconds, banner.IsActive, banner.CreatedAt));
         }).WithTags("Banners");
 
+        // Public — all active promotions
+        app.MapGet("/api/promotions", async (IBannerRepository repo, CancellationToken ct) =>
+        {
+            var all = await repo.GetAllAsync(ct);
+            return TypedResults.Ok(all.Where(b => b.IsActive).Select(b => new
+            {
+                b.Id, b.Title, b.Description,
+                b.ButtonText, b.ButtonUrl, b.ImageUrl
+            }));
+        }).WithTags("Promotions");
+
         // Admin CRUD
         var adminGroup = app.MapGroup("/api/admin/banners")
             .WithTags("Admin — Banners")

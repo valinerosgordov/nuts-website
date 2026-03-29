@@ -78,7 +78,8 @@ public static class AccountEndpoints
             if (user is null) return TypedResults.NotFound();
 
             return TypedResults.Ok(new ProfileResponse(
-                user.Id, user.FullName, user.Email, user.Phone, user.CreatedAt));
+                user.Id, user.FullName, user.Email, user.Phone,
+                user.Address, user.AddressNote, user.CreatedAt));
         });
 
         accountGroup.MapPut("/profile", async Task<Results<Ok<ProfileResponse>, NotFound, BadRequest<string>>> (
@@ -100,7 +101,27 @@ public static class AccountEndpoints
 
             await uow.SaveChangesAsync(ct);
             return TypedResults.Ok(new ProfileResponse(
-                user.Id, user.FullName, user.Email, user.Phone, user.CreatedAt));
+                user.Id, user.FullName, user.Email, user.Phone,
+                user.Address, user.AddressNote, user.CreatedAt));
+        });
+
+        // ── Address ──
+        accountGroup.MapPut("/address", async Task<Results<Ok, NotFound>> (
+            UpdateAddressRequest req,
+            ClaimsPrincipal claims,
+            IUserRepository userRepo,
+            IUnitOfWork uow,
+            CancellationToken ct) =>
+        {
+            var userId = GetUserId(claims);
+            if (userId is null) return TypedResults.NotFound();
+
+            var user = await userRepo.GetByIdAsync(userId.Value, ct);
+            if (user is null) return TypedResults.NotFound();
+
+            user.UpdateAddress(req.Address, req.Note);
+            await uow.SaveChangesAsync(ct);
+            return TypedResults.Ok();
         });
 
         // ── Orders ──
@@ -249,7 +270,9 @@ public sealed record UserLoginRequest
 
 public sealed record AuthResponse(string Token, string FullName, string Email);
 
-public sealed record ProfileResponse(Guid Id, string FullName, string Email, string? Phone, DateTime CreatedAt);
+public sealed record ProfileResponse(
+    Guid Id, string FullName, string Email, string? Phone,
+    string? Address, string? AddressNote, DateTime CreatedAt);
 
 public sealed record UpdateProfileRequest
 {
@@ -279,6 +302,12 @@ public sealed record CreateOrderItemRequest
     public required int Quantity { get; init; }
     public required decimal UnitPrice { get; init; }
     public required string Weight { get; init; }
+}
+
+public sealed record UpdateAddressRequest
+{
+    public string? Address { get; init; }
+    public string? Note { get; init; }
 }
 
 public sealed record CreateOrderResponse(Guid OrderId);
