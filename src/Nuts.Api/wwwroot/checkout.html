@@ -635,6 +635,17 @@
 
       let appliedPromo = null;
       let discountPercent = 0;
+      let deliverySettings = { minOrderAmount: 3500, deliveryCost: 500, freeDeliveryFrom: 5000 };
+
+      // Fetch delivery settings
+      try {
+        const dsRes = await fetch('/api/settings/delivery');
+        if (dsRes.ok) deliverySettings = await dsRes.json();
+      } catch {}
+
+      const isFreeDelivery = total >= deliverySettings.freeDeliveryFrom;
+      const deliveryCost = isFreeDelivery ? 0 : deliverySettings.deliveryCost;
+      const belowMinimum = total < deliverySettings.minOrderAmount;
 
       container.innerHTML = `
         <div class="checkout__form">
@@ -685,20 +696,25 @@
               </div>
             </fieldset>
 
-            <button type="submit" class="checkout__submit">Подтвердить заказ</button>
+            <button type="submit" class="checkout__submit" ${belowMinimum ? 'disabled' : ''}>Подтвердить заказ</button>
           </form>
         </div>
 
         <div class="checkout__summary">
           <h3 class="checkout__section-title">Ваш заказ</h3>
           ${summaryItems}
+          ${belowMinimum ? `<div style="padding:0.75rem 0;color:#e74c3c;font-size:0.85rem;border-bottom:1px solid rgba(31,31,31,0.5);">Минимальная сумма заказа: ${deliverySettings.minOrderAmount.toLocaleString('ru-RU')} \u20BD</div>` : ''}
+          <div class="checkout__discount-row" style="display:flex;">
+            <span style="font-family:'Raleway',sans-serif;font-size:0.85rem;color:#a09888;">Доставка</span>
+            <span style="font-family:'Playfair Display',serif;font-weight:600;color:${isFreeDelivery ? '#27ae60' : '#c9a84c'};">${isFreeDelivery ? 'Бесплатно' : deliveryCost.toLocaleString('ru-RU') + ' \u20BD'}</span>
+          </div>
           <div id="promoDiscountRow" class="checkout__discount-row" style="display:none;">
             <span class="checkout__discount-label" id="promoDiscountLabel"></span>
             <span class="checkout__discount-value" id="promoDiscountValue"></span>
           </div>
           <div class="checkout__summary-total">
             <span class="checkout__summary-total-label">Итого</span>
-            <span class="checkout__summary-total-value" id="checkoutTotal">${total.toLocaleString('ru-RU')} \u20BD</span>
+            <span class="checkout__summary-total-value" id="checkoutTotal">${(total + deliveryCost).toLocaleString('ru-RU')} \u20BD</span>
           </div>
           <div class="checkout__promo">
             <input type="text" class="checkout__promo-input" id="promoInput" placeholder="Промокод" maxlength="50">
@@ -757,7 +773,7 @@
         const totalEl = document.getElementById('checkoutTotal');
         if (discountPercent > 0) {
           const discountAmount = Math.round(total * discountPercent / 100);
-          const newTotal = total - discountAmount;
+          const newTotal = total - discountAmount + deliveryCost;
           discountRow.style.display = 'flex';
           document.getElementById('promoDiscountLabel').textContent = 'Скидка ' + discountPercent + '%';
           document.getElementById('promoDiscountValue').textContent = '-' + discountAmount.toLocaleString('ru-RU') + ' \u20BD';
@@ -786,7 +802,7 @@
             price: item.price,
             quantity: item.qty
           })),
-          total: discountPercent > 0 ? total - Math.round(total * discountPercent / 100) : total,
+          total: (discountPercent > 0 ? total - Math.round(total * discountPercent / 100) : total) + deliveryCost,
           promoCode: appliedPromo
         };
 

@@ -397,6 +397,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================
+  // Drag scroll on media ticker
+  // =========================================
+  const ticker = document.querySelector('.media__ticker-wrapper');
+  if (ticker) {
+    let isDown = false, startX, scrollLeft;
+
+    ticker.addEventListener('mousedown', (e) => {
+      isDown = true;
+      ticker.style.cursor = 'grabbing';
+      startX = e.pageX - ticker.offsetLeft;
+      scrollLeft = ticker.scrollLeft;
+      // Pause CSS animation while dragging
+      const track = ticker.querySelector('.media__ticker-track');
+      if (track) track.style.animationPlayState = 'paused';
+    });
+
+    ticker.addEventListener('mouseleave', () => { isDown = false; ticker.style.cursor = 'grab'; });
+    ticker.addEventListener('mouseup', () => { isDown = false; ticker.style.cursor = 'grab'; });
+
+    ticker.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - ticker.offsetLeft;
+      ticker.scrollLeft = scrollLeft - (x - startX) * 2;
+    });
+
+    // Touch support
+    ticker.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].pageX;
+      scrollLeft = ticker.scrollLeft;
+      const track = ticker.querySelector('.media__ticker-track');
+      if (track) track.style.animationPlayState = 'paused';
+    }, { passive: true });
+
+    ticker.addEventListener('touchmove', (e) => {
+      const x = e.touches[0].pageX;
+      ticker.scrollLeft = scrollLeft - (x - startX);
+    }, { passive: true });
+
+    ticker.addEventListener('touchend', () => {
+      const track = ticker.querySelector('.media__ticker-track');
+      if (track) track.style.animationPlayState = 'running';
+    });
+
+    ticker.style.cursor = 'grab';
+  }
+
+  // =========================================
   // Search overlay
   // =========================================
   const searchToggle = document.getElementById('searchToggle');
