@@ -119,26 +119,7 @@ img {
   margin: 0;
 }
 
-/* --- Gradient border glow on cards --- */
-.glow-card {
-  position: relative;
-}
-
-.glow-card::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: conic-gradient(from 180deg at 50% 50%, transparent 0deg, var(--gold-dark) 60deg, transparent 120deg, var(--gold-dark) 240deg, transparent 300deg);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.5s;
-  filter: blur(6px);
-}
-
-.glow-card:hover::after {
-  opacity: 0.35;
-}
+/* --- Glow removed per client request --- */
 
 /* --- Magnetic button wrapper --- */
 .magnetic-wrap {
@@ -955,6 +936,8 @@ img {
 .catalog__item-info {
   padding: 2rem;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .catalog__item-info h3 {
@@ -1578,7 +1561,8 @@ img {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  margin-top: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
   padding: 0.6rem 1rem;
   font-family: var(--font-sans);
   font-size: 0.8rem;
