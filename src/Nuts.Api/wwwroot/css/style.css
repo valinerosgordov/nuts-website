@@ -938,6 +938,7 @@ img {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .catalog__item-info h3 {
@@ -1561,6 +1562,7 @@ img {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
+  align-self: stretch;
   margin-top: auto;
   padding-top: 0.75rem;
   padding: 0.6rem 1rem;
