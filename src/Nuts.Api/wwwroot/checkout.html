@@ -565,7 +565,7 @@
 
   <script src="js/main.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const CART_KEY = 'nuts_cart';
       const container = document.getElementById('checkoutContainer');
 
@@ -585,6 +585,7 @@
         return;
       }
 
+      const esc = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
       let total = 0;
       const summaryItems = cart.map(item => {
         const lineTotal = item.price * item.qty;
@@ -592,8 +593,8 @@
         return `
           <div class="checkout__summary-item">
             <div>
-              <div class="checkout__summary-name">${item.name}</div>
-              <div class="checkout__summary-variant">${item.variant}</div>
+              <div class="checkout__summary-name">${esc(item.name)}</div>
+              <div class="checkout__summary-variant">${esc(item.variant)}</div>
               <div class="checkout__summary-qty">${item.qty} шт.</div>
             </div>
             <div class="checkout__summary-price">${lineTotal.toLocaleString('ru-RU')} \u20BD</div>
