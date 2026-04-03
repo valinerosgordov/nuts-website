@@ -215,9 +215,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           <span>Товары</span>
         </a>
-        <a href="#" data-section="orders" style="opacity:0.4;cursor:default;">
+        <a href="#" data-section="orders">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           <span>Заказы</span>
+          <span class="nav-badge" id="navBadgeOrders" style="display:none;">0</span>
         </a>
         <a href="#" data-section="contacts">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
@@ -334,6 +335,33 @@
         <div class="table-wrapper">
           <table id="productsTable">
             <thead><tr><th style="width:56px;">Фото</th><th>Название</th><th>Категория</th><th>Цена</th><th>Статус</th><th>Действия</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Orders -->
+      <div class="section" id="sec-orders">
+        <div class="main__header">
+          <h1 class="main__title">Заказы<span class="main__title-count" id="ordersCount"></span></h1>
+        </div>
+        <div class="filters">
+          <div class="filters__search-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="filters__search" id="ordersSearch" placeholder="Поиск по имени, телефону, номеру...">
+          </div>
+          <select class="filters__select" id="ordersStatusFilter">
+            <option value="">Все статусы</option>
+            <option value="Created">Новый</option>
+            <option value="Processing">В работе</option>
+            <option value="Shipped">Отправлен</option>
+            <option value="Delivered">Доставлен</option>
+            <option value="Cancelled">Отменён</option>
+          </select>
+        </div>
+        <div class="table-wrapper">
+          <table id="ordersTable">
+            <thead><tr><th>№</th><th>Клиент</th><th>Телефон</th><th>Сумма</th><th>Статус</th><th>Дата</th><th>Действия</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -529,6 +557,51 @@
     </div>
   </div>
 
+  <!-- Order Detail Modal -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal modal--wide" style="max-width:700px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+        <div class="modal__title" style="margin:0;padding:0;border:none;">Заказ <span id="omOrderNumber" style="color:var(--gold);"></span></div>
+        <button style="background:none;border:none;color:var(--dim);font-size:1.3rem;cursor:pointer;" onclick="document.getElementById('orderModal').classList.remove('active')">&times;</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Клиент</label><div id="omName" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Телефон</label><div id="omPhone" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Email</label><div id="omEmail" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Дата</label><div id="omDate" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div style="grid-column:1/-1"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Адрес</label><div id="omAddress" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Время доставки</label><div id="omDeliveryTime" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Промокод</label><div id="omPromo" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+        <div style="grid-column:1/-1"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Комментарий</label><div id="omComment" style="font-size:0.95rem;color:#f5f0e8"></div></div>
+      </div>
+      <div style="margin-bottom:1.5rem;">
+        <label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem">Товары</label>
+        <div class="table-wrapper" style="border-radius:8px;">
+          <table id="omItemsTable">
+            <thead><tr><th>Товар</th><th>Вес</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div style="text-align:right;padding-top:0.75rem;font-size:1.1rem;">
+          <span style="color:#a09888;margin-right:0.5rem;">Итого:</span>
+          <strong id="omTotal" style="color:var(--gold);font-size:1.2rem;"></strong>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+        <label style="font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;">Статус</label>
+        <select class="filters__select" id="omStatusSelect" style="flex:1;">
+          <option value="Created">Новый</option>
+          <option value="Processing">В работе</option>
+          <option value="Shipped">Отправлен</option>
+          <option value="Delivered">Доставлен</option>
+          <option value="Cancelled">Отменён</option>
+        </select>
+        <button class="btn-gold" id="omStatusSaveBtn" style="white-space:nowrap;">Сохранить статус</button>
+        <button class="modal__cancel" onclick="document.getElementById('orderModal').classList.remove('active')">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Contact View Modal -->
   <div class="modal-overlay" id="contactViewModal">
     <div class="modal" style="max-width:600px">
@@ -637,7 +710,6 @@
     document.querySelectorAll('#sidebarNav a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        if (link.dataset.section === 'orders') return;
         document.querySelectorAll('#sidebarNav a').forEach(l => l.classList.remove('active'));
         link.classList.add('active');
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -646,6 +718,7 @@
         document.getElementById('sidebar').classList.remove('mobile-open');
         if (link.dataset.section === 'overview') loadOverview();
         if (link.dataset.section === 'products') loadProducts();
+        if (link.dataset.section === 'orders') loadOrders();
         if (link.dataset.section === 'contacts') loadContacts();
         if (link.dataset.section === 'banners') loadBanners();
         if (link.dataset.section === 'promo') loadPromo();
@@ -1397,6 +1470,111 @@
 
     // --- Helpers ---
     function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    // --- Orders CRUD ---
+    let allOrders = [];
+
+    const orderStatusLabels = { Created: 'Новый', Processing: 'В работе', Shipped: 'Отправлен', Delivered: 'Доставлен', Cancelled: 'Отменён' };
+    const orderStatusBadge = (status) => {
+      const map = { Created: 'red', Processing: 'gold', Shipped: 'gold', Delivered: 'green', Cancelled: 'red' };
+      return `<span class="badge badge--${map[status] || 'red'}">${esc(orderStatusLabels[status] || status)}</span>`;
+    };
+
+    async function loadOrders() {
+      showSpinner();
+      try {
+        allOrders = await apiFetch('/api/admin/orders');
+        const newCount = allOrders.filter(o => o.status === 'Created').length;
+        updateOrdersBadge(newCount);
+        renderOrders();
+      } catch (err) { toast('Ошибка загрузки заказов', 'error'); }
+      hideSpinner();
+    }
+
+    function renderOrders() {
+      const search = document.getElementById('ordersSearch').value.toLowerCase().trim();
+      const statusFilter = document.getElementById('ordersStatusFilter').value;
+      let filtered = allOrders;
+      if (search) filtered = filtered.filter(o =>
+        (o.customerName || '').toLowerCase().includes(search) ||
+        (o.customerPhone || '').includes(search) ||
+        o.orderNumber.toLowerCase().includes(search));
+      if (statusFilter) filtered = filtered.filter(o => o.status === statusFilter);
+
+      document.getElementById('ordersCount').textContent = `(${filtered.length})`;
+      const tbody = document.querySelector('#ordersTable tbody');
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><p>Заказов не найдено</p></td></tr>';
+        return;
+      }
+      tbody.innerHTML = filtered.map(o => `<tr style="cursor:pointer" onclick="viewOrder('${o.id}')">
+        <td><strong>${esc(o.orderNumber)}</strong></td>
+        <td>${esc(o.customerName || '\u2014')}</td>
+        <td>${esc(o.customerPhone || '\u2014')}</td>
+        <td style="white-space:nowrap;color:var(--gold);font-weight:500;">${o.totalAmount.toLocaleString('ru-RU')} \u20BD</td>
+        <td>${orderStatusBadge(o.status)}</td>
+        <td>${new Date(o.createdAt).toLocaleString('ru-RU')}</td>
+        <td>
+          <div class="td-actions">
+            <button class="btn-sm" onclick="event.stopPropagation();viewOrder('${o.id}')">Подробнее</button>
+          </div>
+        </td>
+      </tr>`).join('');
+    }
+
+    document.getElementById('ordersSearch').addEventListener('input', renderOrders);
+    document.getElementById('ordersStatusFilter').addEventListener('change', renderOrders);
+
+    function updateOrdersBadge(count) {
+      const badge = document.getElementById('navBadgeOrders');
+      if (count > 0) { badge.textContent = count; badge.style.display = 'flex'; }
+      else { badge.style.display = 'none'; }
+    }
+
+    window.viewOrder = (id) => {
+      const o = allOrders.find(x => x.id === id);
+      if (!o) return;
+      document.getElementById('omOrderNumber').textContent = '#' + o.orderNumber;
+      document.getElementById('omName').textContent = o.customerName || '\u2014';
+      document.getElementById('omPhone').textContent = o.customerPhone || '\u2014';
+      document.getElementById('omEmail').textContent = o.customerEmail || '\u2014';
+      document.getElementById('omDate').textContent = new Date(o.createdAt).toLocaleString('ru-RU');
+      document.getElementById('omAddress').textContent = o.shippingAddress || '\u2014';
+      document.getElementById('omDeliveryTime').textContent = o.deliveryTime || '\u2014';
+      document.getElementById('omPromo').textContent = o.promoCode || '\u2014';
+      document.getElementById('omComment').textContent = o.comment || '\u2014';
+      document.getElementById('omTotal').textContent = o.totalAmount.toLocaleString('ru-RU') + ' \u20BD';
+      document.getElementById('omStatusSelect').value = o.status;
+
+      const tbody = document.querySelector('#omItemsTable tbody');
+      tbody.innerHTML = o.items.map(i => `<tr>
+        <td>${esc(i.productName)}</td>
+        <td>${esc(i.weight)}</td>
+        <td>${i.quantity}</td>
+        <td>${i.unitPrice.toLocaleString('ru-RU')} \u20BD</td>
+        <td style="color:var(--gold);font-weight:500;">${i.subtotal.toLocaleString('ru-RU')} \u20BD</td>
+      </tr>`).join('');
+
+      document.getElementById('omStatusSaveBtn').onclick = async () => {
+        const newStatus = document.getElementById('omStatusSelect').value;
+        try {
+          const res = await fetch(`${API}/api/admin/orders/${o.id}/status`, {
+            method: 'PUT', headers: headers(),
+            body: JSON.stringify({ status: newStatus })
+          });
+          if (res.ok) {
+            toast('Статус обновлён');
+            document.getElementById('orderModal').classList.remove('active');
+            loadOrders();
+          } else {
+            const err = await res.text();
+            toast(err || 'Ошибка обновления статуса', 'error');
+          }
+        } catch { toast('Ошибка сети', 'error'); }
+      };
+
+      document.getElementById('orderModal').classList.add('active');
+    };
 
     // --- MoySklad Sync ---
     document.getElementById('syncMoySkladBtn').addEventListener('click', async () => {
