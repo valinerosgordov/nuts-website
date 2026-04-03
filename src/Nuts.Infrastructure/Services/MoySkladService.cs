@@ -81,9 +81,11 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
                 var productHref = await FindProductHrefByNameAsync(item.ProductName, ct);
                 if (productHref is null) continue;
 
-                // Convert weight string to kg for MoySklad (e.g. "500 г" → 0.5, "1 кг" → 1, "5 кг" → 5)
-                var weightKg = ParseWeightToKg(item.Weight) * item.Quantity;
-                var qty = weightKg > 0 ? weightKg : item.Quantity;
+                // Convert weight to kg for MoySklad quantity field
+                // MoySklad expects quantity in base unit (kg for weight-based products)
+                // "500 г" x 2 = 1 kg, "1 кг" x 3 = 3 kg, "5 кг" x 1 = 5 kg
+                var weightKg = ParseWeightToKg(item.Weight);
+                var qty = weightKg > 0 ? weightKg * item.Quantity : (decimal)item.Quantity;
 
                 var pos = JsonSerializer.SerializeToElement(new
                 {
@@ -190,18 +192,24 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
     private static decimal ParseWeightToKg(string weight)
     {
         if (string.IsNullOrWhiteSpace(weight)) return 0;
-        var w = weight.Trim().ToLowerInvariant();
-        // "500 г" → 0.5, "1 кг" → 1, "5 кг" → 5, "250 г" → 0.25
-        if (w.Contains("кг") || w.Contains("kg"))
-        {
-            var num = new string(w.Where(c => char.IsDigit(c) || c == '.' || c == ',').ToArray()).Replace(',', '.');
-            return decimal.TryParse(num, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var kg) ? kg : 0;
-        }
-        if (w.Contains("г") || w.Contains("g"))
-        {
-            var num = new string(w.Where(c => char.IsDigit(c) || c == '.' || c == ',').ToArray()).Replace(',', '.');
-            return decimal.TryParse(num, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var g) ? g / 1000 : 0;
-        }
+        var w = weight.Trim();
+
+        // Extract just the leading number before any unit text
+        // "500 г" → 500, "1 кг" → 1, "5 кг (-10% за кг 1063р)" → 5
+        var match = System.Text.RegularExpressions.Regex.Match(w, @"^([\d.,]+)\s*");
+        if (!match.Success) return 0;
+
+        var numStr = match.Groups[1].Value.Replace(',', '.');
+        if (!decimal.TryParse(numStr, System.Globalization.NumberStyles.Any,
+            System.Globalization.CultureInfo.InvariantCulture, out var num) || num <= 0)
+            return 0;
+
+        var lower = w.ToLowerInvariant();
+        if (lower.Contains("кг") || lower.Contains("kg"))
+            return num; // already in kg
+        if (lower.Contains("г") || lower.Contains("g"))
+            return num / 1000; // grams to kg
+
         return 0;
     }
 
