@@ -1455,16 +1455,26 @@ img {
 
 /* Touch targets */
 @media (pointer: coarse) {
-  .hero__cta, .catalog__button, .contact__submit, .catalog__tab {
-    min-height: 48px;
+  .hero__cta, .catalog__button, .contact__submit, .catalog__tab,
+  .variant-btn, .catalog__add-to-cart {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
-  .contact__field input {
+  .contact__field input, .contact__field textarea {
     min-height: 48px;
   }
   .footer__links a, .footer__contacts a {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog__tabs {
+    justify-content: flex-start;
   }
 }
 
