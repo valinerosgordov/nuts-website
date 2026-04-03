@@ -529,6 +529,28 @@
     </div>
   </div>
 
+  <!-- Contact View Modal -->
+  <div class="modal-overlay" id="contactViewModal">
+    <div class="modal" style="max-width:600px">
+      <div class="modal__header">
+        <div class="modal__title">Заявка</div>
+        <button class="modal__close" onclick="document.getElementById('contactViewModal').classList.remove('active')">&times;</button>
+      </div>
+      <div style="padding:1.5rem 0">
+        <div style="margin-bottom:1rem"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Имя</label><div id="cvName" style="font-size:1rem;color:#f5f0e8"></div></div>
+        <div style="margin-bottom:1rem"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Телефон</label><div id="cvPhone" style="font-size:1rem;color:#f5f0e8"></div></div>
+        <div style="margin-bottom:1rem"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Email</label><div id="cvEmail" style="font-size:1rem;color:#f5f0e8"></div></div>
+        <div style="margin-bottom:1rem"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Дата</label><div id="cvDate" style="font-size:1rem;color:#f5f0e8"></div></div>
+        <div style="margin-bottom:1rem"><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Статус</label><div id="cvStatus"></div></div>
+        <div><label style="display:block;font-size:0.7rem;color:#a09888;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem">Сообщение</label><div id="cvMessage" style="font-size:1rem;color:#f5f0e8;white-space:pre-wrap;line-height:1.6;background:#0a0a0a;padding:1rem;border-radius:8px;border:1px solid #1f1f1f;max-height:300px;overflow-y:auto"></div></div>
+      </div>
+      <div class="modal__actions">
+        <button class="modal__save" id="cvProcessBtn" style="display:none" onclick="">Обработать</button>
+        <button class="modal__cancel" onclick="document.getElementById('contactViewModal').classList.remove('active')">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const API = '';
     let token = localStorage.getItem('nuts_token') || '';
@@ -741,15 +763,15 @@
         if (allContacts.length === 0) {
           tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><p>Заявок пока нет</p></td></tr>';
         } else {
-          tbody.innerHTML = allContacts.map(c => `<tr>
+          tbody.innerHTML = allContacts.map(c => `<tr style="cursor:pointer" onclick="viewContact('${c.id}')">
             <td>${esc(c.name)}</td><td>${esc(c.phone)}</td><td>${esc(c.email || '\u2014')}</td>
             <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(c.message || '\u2014')}</td>
             <td>${new Date(c.createdAt).toLocaleDateString('ru-RU')}</td>
             <td>${c.isProcessed ? '<span class="badge badge--green">Обработана</span>' : '<span class="badge badge--red">Новая</span>'}</td>
             <td>
               <div class="td-actions">
-                ${!c.isProcessed ? `<button class="btn-sm btn-sm--green" onclick="processContact('${c.id}')">Обработать</button>` : ''}
-                <button class="btn-sm btn-sm--danger" onclick="deleteContact('${c.id}')">Удалить</button>
+                ${!c.isProcessed ? `<button class="btn-sm btn-sm--green" onclick="event.stopPropagation();processContact('${c.id}')">Обработать</button>` : ''}
+                <button class="btn-sm btn-sm--danger" onclick="event.stopPropagation();deleteContact('${c.id}')">Удалить</button>
               </div>
             </td>
           </tr>`).join('');
@@ -999,7 +1021,28 @@
       } catch { toast('Ошибка сети', 'error'); }
     };
 
-    // --- Contacts CRUD ---
+    // --- Contacts View & CRUD ---
+    window.viewContact = (id) => {
+      const c = allContacts.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById('cvName').textContent = c.name;
+      document.getElementById('cvPhone').textContent = c.phone;
+      document.getElementById('cvEmail').textContent = c.email || '\u2014';
+      document.getElementById('cvDate').textContent = new Date(c.createdAt).toLocaleString('ru-RU');
+      document.getElementById('cvStatus').innerHTML = c.isProcessed
+        ? '<span class="badge badge--green">Обработана</span>'
+        : '<span class="badge badge--red">Новая</span>';
+      document.getElementById('cvMessage').textContent = c.message || 'Без сообщения';
+      const processBtn = document.getElementById('cvProcessBtn');
+      if (!c.isProcessed) {
+        processBtn.style.display = '';
+        processBtn.onclick = async () => { await processContact(id); document.getElementById('contactViewModal').classList.remove('active'); };
+      } else {
+        processBtn.style.display = 'none';
+      }
+      document.getElementById('contactViewModal').classList.add('active');
+    };
+
     window.processContact = async (id) => {
       try {
         const res = await fetch(`${API}/api/admin/contacts/${id}/process`, { method: 'POST', headers: headers() });
