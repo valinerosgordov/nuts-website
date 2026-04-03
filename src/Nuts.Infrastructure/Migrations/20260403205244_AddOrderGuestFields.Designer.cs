@@ -11,7 +11,7 @@ using Nuts.Infrastructure.Persistence;
 namespace Nuts.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260403204922_AddOrderGuestFields")]
+    [Migration("20260403205244_AddOrderGuestFields")]
     partial class AddOrderGuestFields
     {
         /// <inheritdoc />
