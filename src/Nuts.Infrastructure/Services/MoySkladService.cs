@@ -137,7 +137,18 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
 
     private async Task<string?> FindProductHrefByNameAsync(string productName, CancellationToken ct)
     {
-        var data = await GetAsync($"entity/product?filter=name={Uri.EscapeDataString(productName)}&limit=1", ct);
+        // Product names may be HtmlEncoded in our DB — decode before searching MoySklad
+        var decodedName = System.Net.WebUtility.HtmlDecode(productName);
+
+        // Try exact match first
+        var data = await GetAsync($"entity/product?filter=name={Uri.EscapeDataString(decodedName)}&limit=1", ct);
+        if (data.GetProperty("rows").GetArrayLength() > 0)
+            return data.GetProperty("rows")[0].GetProperty("meta").GetProperty("href").GetString();
+
+        // Try fuzzy search — use first 2 meaningful words to match
+        var words = decodedName.Replace(",", "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var searchTerm = string.Join(" ", words.Take(Math.Min(2, words.Length)));
+        data = await GetAsync($"entity/product?filter=name~={Uri.EscapeDataString(searchTerm)}&limit=1", ct);
 
         if (data.GetProperty("rows").GetArrayLength() > 0)
             return data.GetProperty("rows")[0].GetProperty("meta").GetProperty("href").GetString();
