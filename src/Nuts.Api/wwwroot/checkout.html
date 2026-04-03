@@ -815,87 +815,53 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Оформляем...';
 
-        const orderData = {
+        const apiPayload = {
           name: form.querySelector('[name="name"]').value,
           phone: form.querySelector('[name="phone"]').value,
           email: form.querySelector('[name="email"]').value || null,
           address: form.querySelector('[name="address"]').value,
           deliveryTime: form.querySelector('[name="deliveryTime"]').value,
           comment: form.querySelector('[name="comment"]').value || null,
+          promoCode: appliedPromo || null,
           items: cart.map(item => ({
-            name: item.name,
-            variant: item.variant,
-            price: item.price,
-            quantity: item.qty
-          })),
-          total: (discountPercent > 0 ? total - Math.round(total * discountPercent / 100) : total) + deliveryCost,
-          promoCode: appliedPromo
+            productName: item.name,
+            weight: item.variant,
+            quantity: item.qty,
+            unitPrice: item.price
+          }))
         };
 
         try {
-          const authToken = localStorage.getItem('auth_token');
-          const fetchHeaders = { 'Content-Type': 'application/json' };
-          if (authToken) fetchHeaders['Authorization'] = 'Bearer ' + authToken;
-
-          // Build API payload matching CreateOrderRequest
-          const apiPayload = {
-            shippingAddress: orderData.address + (orderData.comment ? ' (' + orderData.comment + ')' : ''),
-            deliveryTime: orderData.deliveryTime,
-            items: cart.map(item => ({
-              productName: item.name,
-              quantity: item.qty,
-              unitPrice: item.price,
-              weight: item.variant
-            }))
-          };
-
-          const res = await fetch('/api/account/orders', {
+          const res = await fetch('/api/orders', {
             method: 'POST',
-            headers: fetchHeaders,
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(apiPayload)
           });
 
           if (res.ok) {
+            const data = await res.json();
             localStorage.removeItem(CART_KEY);
             localStorage.removeItem('nuts_cart_ts');
-            showSuccess();
-          } else if (res.status === 401 || res.status === 403) {
-            // User not logged in — submit as contact request instead
-            const contactPayload = {
-              name: orderData.name,
-              phone: orderData.phone,
-              email: orderData.email,
-              message: 'Заказ: ' + cart.map(i => i.name + ' (' + i.variant + ') x' + i.qty).join(', ') + '. Адрес: ' + orderData.address + '. Доставка: ' + orderData.deliveryTime + (orderData.comment ? '. ' + orderData.comment : '')
-            };
-            const contactRes = await fetch('/api/contacts', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(contactPayload)
-            });
-            if (contactRes.ok || contactRes.status === 201) {
-              localStorage.removeItem(CART_KEY);
-            localStorage.removeItem('nuts_cart_ts');
-              showSuccess();
-            } else {
-              throw new Error('Contact submit failed');
-            }
+            showSuccess(data.orderNumber);
           } else {
-            throw new Error('Server error');
+            const errText = await res.text();
+            throw new Error(errText || 'Server error');
           }
-        } catch {
+        } catch (err) {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Подтвердить заказ';
           alert('Ошибка соединения. Попробуйте позже.');
         }
       });
 
-      function showSuccess() {
+      function showSuccess(orderNumber) {
         container.innerHTML = `
           <div class="checkout__success">
             <div class="checkout__success-icon">
               <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <h2>Заказ оформлен!</h2>
+            ${orderNumber ? `<p style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#c9a84c;margin-bottom:0.5rem;">Номер заказа: ${orderNumber}</p>` : ''}
             <p>Мы свяжемся с вами в ближайшее время для подтверждения.</p>
             <a href="/catalog.html">Вернуться в каталог</a>
           </div>`;

@@ -14,6 +14,12 @@ public sealed class Order : AggregateRoot<Guid>
     public string Status { get; private set; } = "Created";
     public decimal TotalAmount { get; private set; }
     public string ShippingAddress { get; private set; } = string.Empty;
+    public string? CustomerName { get; private set; }
+    public string? CustomerPhone { get; private set; }
+    public string? CustomerEmail { get; private set; }
+    public string? DeliveryTime { get; private set; }
+    public string? Comment { get; private set; }
+    public string? PromoCode { get; private set; }
     public DateTime CreatedAt { get; private init; }
     public DateTime? UpdatedAt { get; private set; }
 
@@ -40,6 +46,34 @@ public sealed class Order : AggregateRoot<Guid>
             Id = Guid.NewGuid(),
             UserId = userId,
             ShippingAddress = shippingAddress.Trim(),
+            CreatedAt = DateTime.UtcNow
+        };
+    }
+
+    public static Result<Order> CreateGuest(
+        string name, string phone, string? email,
+        string address, string? deliveryTime, string? comment, string? promoCode)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return Result<Order>.Failure(new Error("Order.NameRequired", "Customer name is required."));
+
+        if (string.IsNullOrWhiteSpace(phone))
+            return Result<Order>.Failure(new Error("Order.PhoneRequired", "Customer phone is required."));
+
+        if (string.IsNullOrWhiteSpace(address))
+            return Result<Order>.Failure(new Error("Order.AddressRequired", "Shipping address is required."));
+
+        return new Order
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.Empty,
+            ShippingAddress = address.Trim(),
+            CustomerName = name.Trim(),
+            CustomerPhone = phone.Trim(),
+            CustomerEmail = email?.Trim(),
+            DeliveryTime = deliveryTime?.Trim(),
+            Comment = comment?.Trim(),
+            PromoCode = promoCode?.Trim(),
             CreatedAt = DateTime.UtcNow
         };
     }
