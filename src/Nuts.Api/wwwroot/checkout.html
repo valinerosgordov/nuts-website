@@ -458,19 +458,63 @@
 
     @media (max-width: 768px) {
       .page-hero {
-        padding-top: 6.5rem;
-        padding-bottom: 2rem;
+        padding-top: 5.5rem;
+        padding-bottom: 1.5rem;
+      }
+
+      .page-hero__title {
+        font-size: 1.8rem;
       }
 
       .checkout {
         grid-template-columns: 1fr;
-        padding: 1.5rem;
-        gap: 2rem;
+        padding: 1rem;
+        gap: 1.5rem;
       }
 
       .checkout__summary {
         position: static;
         order: -1;
+        padding: 1rem;
+        border-radius: 12px;
+      }
+
+      .checkout__section-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .checkout__summary-name {
+        font-size: 0.95rem;
+      }
+
+      .checkout__summary-total-value {
+        font-size: 1.5rem;
+      }
+
+      .checkout__fieldset {
+        padding: 0;
+        margin-bottom: 1rem;
+      }
+
+      .checkout__input,
+      .checkout__select {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+      }
+
+      .checkout__submit {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .checkout__promo {
+        flex-direction: column;
+      }
+
+      .checkout__promo input,
+      .checkout__promo button {
+        width: 100%;
       }
     }
   </style>
