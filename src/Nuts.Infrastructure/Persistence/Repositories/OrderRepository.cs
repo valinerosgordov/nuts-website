@@ -15,5 +15,10 @@ internal sealed class OrderRepository(AppDbContext db) : IOrderRepository
             .OrderByDescending(o => o.CreatedAt)
             .ToListAsync(ct);
 
+    public Task<List<Order>> GetAllAsync(CancellationToken ct = default) =>
+        db.Orders.Include(o => o.Items)
+            .OrderByDescending(o => o.CreatedAt)
+            .ToListAsync(ct);
+
     public void Add(Order order) => db.Orders.Add(order);
 }

@@ -81,9 +81,13 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
                 var productHref = await FindProductHrefByNameAsync(item.ProductName, ct);
                 if (productHref is null) continue;
 
+                // Convert weight string to kg for MoySklad (e.g. "500 г" → 0.5, "1 кг" → 1, "5 кг" → 5)
+                var weightKg = ParseWeightToKg(item.Weight) * item.Quantity;
+                var qty = weightKg > 0 ? weightKg : item.Quantity;
+
                 var pos = JsonSerializer.SerializeToElement(new
                 {
-                    quantity = item.Quantity,
+                    quantity = qty,
                     price = (long)(item.Price * 100),
                     assortment = new { meta = new { href = productHref, type = "product", mediaType = "application/json" } }
                 });
@@ -94,8 +98,10 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
             {
                 organization = new { meta = new { href = $"{BaseUrl}entity/organization/{OrgId}", type = "organization", mediaType = "application/json" } },
                 agent = new { meta = new { href = agentHref, type = "counterparty", mediaType = "application/json" } },
+                shipmentAddress = order.ShippingAddress ?? "",
                 description = BuildDescription(order),
-                positions
+                positions,
+                attributes = BuildAttributes(order)
             };
 
             var json = JsonSerializer.Serialize(orderBody);
@@ -168,5 +174,30 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
         foreach (var item in order.Items)
             sb.AppendLine($"• {item.ProductName} ({item.Weight}) x{item.Quantity} = {item.Price * item.Quantity} ₽");
         return sb.ToString();
+    }
+
+    private static decimal ParseWeightToKg(string weight)
+    {
+        if (string.IsNullOrWhiteSpace(weight)) return 0;
+        var w = weight.Trim().ToLowerInvariant();
+        // "500 г" → 0.5, "1 кг" → 1, "5 кг" → 5, "250 г" → 0.25
+        if (w.Contains("кг") || w.Contains("kg"))
+        {
+            var num = new string(w.Where(c => char.IsDigit(c) || c == '.' || c == ',').ToArray()).Replace(',', '.');
+            return decimal.TryParse(num, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var kg) ? kg : 0;
+        }
+        if (w.Contains("г") || w.Contains("g"))
+        {
+            var num = new string(w.Where(c => char.IsDigit(c) || c == '.' || c == ',').ToArray()).Replace(',', '.');
+            return decimal.TryParse(num, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var g) ? g / 1000 : 0;
+        }
+        return 0;
+    }
+
+    private static object[] BuildAttributes(MoySkladOrder order)
+    {
+        // Return empty — MoySklad custom attributes need to be pre-configured
+        // Description field contains all the details
+        return [];
     }
 }
