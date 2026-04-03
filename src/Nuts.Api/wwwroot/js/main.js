@@ -181,13 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getCart = () => {
     try {
+      const raw = localStorage.getItem(CART_KEY);
+      if (!raw) return [];
       const ts = parseInt(localStorage.getItem(CART_TS_KEY) || '0');
-      if (Date.now() - ts > CART_TTL) {
+      if (ts > 0 && Date.now() - ts > CART_TTL) {
         localStorage.removeItem(CART_KEY);
         localStorage.removeItem(CART_TS_KEY);
         return [];
       }
-      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      // Set timestamp if missing (migration from old carts)
+      if (!ts) localStorage.setItem(CART_TS_KEY, Date.now().toString());
+      return JSON.parse(raw) || [];
     } catch {
       return [];
     }
