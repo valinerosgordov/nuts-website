@@ -81,16 +81,30 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
                 var productHref = await FindProductHrefByNameAsync(item.ProductName, ct);
                 if (productHref is null) continue;
 
-                // Convert weight to kg for MoySklad quantity field
-                // MoySklad expects quantity in base unit (kg for weight-based products)
-                // "500 г" x 2 = 1 kg, "1 кг" x 3 = 3 kg, "5 кг" x 1 = 5 kg
+                // MoySklad: price = per unit (per kg), quantity = total kg
+                // Example: "5 кг" at 5315₽ x1 → qty=5, price=1063₽/кг → total=5315₽
+                // Example: "500 г" at 270₽ x2 → qty=1, price=270₽/0.5кг=540₽/кг → total=540₽
                 var weightKg = ParseWeightToKg(item.Weight);
-                var qty = weightKg > 0 ? weightKg * item.Quantity : (decimal)item.Quantity;
+                decimal qty;
+                long priceKopecks;
+
+                if (weightKg > 0)
+                {
+                    qty = weightKg * item.Quantity;
+                    // Price per kg = total price / weight in kg
+                    var pricePerKg = item.Price / weightKg;
+                    priceKopecks = (long)(pricePerKg * 100);
+                }
+                else
+                {
+                    qty = item.Quantity;
+                    priceKopecks = (long)(item.Price * 100);
+                }
 
                 var pos = JsonSerializer.SerializeToElement(new
                 {
                     quantity = qty,
-                    price = (long)(item.Price * 100),
+                    price = priceKopecks,
                     assortment = new { meta = new { href = productHref, type = "product", mediaType = "application/json" } }
                 });
                 positions.Add(pos);
