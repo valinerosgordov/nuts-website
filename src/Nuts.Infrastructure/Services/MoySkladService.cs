@@ -256,15 +256,17 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
             attrs.Add(new { meta = AttrMeta("ea8fb05d-f771-11ea-0a80-0002003b3f71"), value = order.Comment });
 
         // Delivery time intervals: "10-14" → От 10:00, До 14:00
+        // MoySklad "time" type requires ISO datetime format "YYYY-MM-DD HH:MM:SS"
         if (!string.IsNullOrEmpty(order.DeliveryTime))
         {
             var parts = order.DeliveryTime.Split('-');
+            var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
             if (parts.Length == 2)
             {
                 if (int.TryParse(parts[0].Trim(), out var from))
-                    attrs.Add(new { meta = AttrMeta("e41a9d8e-0487-11ea-0a80-037b00139fb4"), value = $"{from:D2}:00:00" });
+                    attrs.Add(new { meta = AttrMeta("e41a9d8e-0487-11ea-0a80-037b00139fb4"), value = $"{today} {from:D2}:00:00" });
                 if (int.TryParse(parts[1].Trim(), out var to))
-                    attrs.Add(new { meta = AttrMeta("e41aa36a-0487-11ea-0a80-037b00139fb5"), value = $"{to:D2}:00:00" });
+                    attrs.Add(new { meta = AttrMeta("e41aa36a-0487-11ea-0a80-037b00139fb5"), value = $"{today} {to:D2}:00:00" });
             }
         }
 
