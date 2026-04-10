@@ -177,7 +177,7 @@ public static class AccountEndpoints
             try
             {
                 var msOrder = new Nuts.Infrastructure.Services.MoySkladOrder(
-                    "Заказ с сайта", "", null, req.ShippingAddress, null, null, null,
+                    "Заказ с сайта", "", null, req.ShippingAddress, null, null, null, null,
                     req.Items.Select(i => new Nuts.Infrastructure.Services.MoySkladOrderItem(
                         i.ProductName, i.Weight, i.Quantity, i.UnitPrice)).ToList());
                 await moySklad.CreateCustomerOrderAsync(msOrder, ct);

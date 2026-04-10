@@ -46,7 +46,7 @@ public static class OrderEndpoints
             {
                 var msOrder = new MoySkladOrder(
                     req.Name, req.Phone, req.Email,
-                    req.Address, req.Comment, null, req.PromoCode,
+                    req.Address, req.DeliveryTime, req.Comment, null, req.PromoCode,
                     req.Items.Select(i => new MoySkladOrderItem(
                         i.ProductName, i.Weight, i.Quantity, i.UnitPrice)).ToList());
                 await moySklad.CreateCustomerOrderAsync(msOrder, ct);

@@ -18,6 +18,7 @@ public sealed record MoySkladOrder(
     string CustomerPhone,
     string? CustomerEmail,
     string? ShippingAddress,
+    string? DeliveryTime,
     string? Comment,
     decimal? Discount,
     string? PromoCode,
@@ -229,8 +230,47 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
 
     private static object[] BuildAttributes(MoySkladOrder order)
     {
-        // Return empty — MoySklad custom attributes need to be pre-configured
-        // Description field contains all the details
-        return [];
+        // MoySklad custom attribute IDs (from /entity/customerorder/metadata/attributes)
+        var attrs = new List<object>();
+
+        if (!string.IsNullOrEmpty(order.CustomerName))
+            attrs.Add(new { meta = AttrMeta("c0ec82eb-0505-11ea-0a80-04e80000a2c0"), value = order.CustomerName });
+
+        if (!string.IsNullOrEmpty(order.CustomerPhone))
+            attrs.Add(new { meta = AttrMeta("369b7452-048f-11ea-0a80-037b0014d759"), value = order.CustomerPhone });
+
+        if (!string.IsNullOrEmpty(order.ShippingAddress))
+            attrs.Add(new { meta = AttrMeta("e41aa4f5-0487-11ea-0a80-037b00139fb6"), value = order.ShippingAddress });
+
+        if (!string.IsNullOrEmpty(order.CustomerEmail))
+            attrs.Add(new { meta = AttrMeta("90848872-352f-11eb-0a80-064e000305b4"), value = order.CustomerEmail });
+
+        if (!string.IsNullOrEmpty(order.PromoCode))
+            attrs.Add(new { meta = AttrMeta("f8324f4b-10a0-11eb-0a80-04ca001705d8"), value = order.PromoCode });
+
+        if (!string.IsNullOrEmpty(order.Comment))
+            attrs.Add(new { meta = AttrMeta("ea8fb05d-f771-11ea-0a80-0002003b3f71"), value = order.Comment });
+
+        // Delivery time intervals: "10-14" → От 10:00, До 14:00
+        if (!string.IsNullOrEmpty(order.DeliveryTime))
+        {
+            var parts = order.DeliveryTime.Split('-');
+            if (parts.Length == 2)
+            {
+                if (int.TryParse(parts[0].Trim(), out var from))
+                    attrs.Add(new { meta = AttrMeta("e41a9d8e-0487-11ea-0a80-037b00139fb4"), value = $"{from:D2}:00:00" });
+                if (int.TryParse(parts[1].Trim(), out var to))
+                    attrs.Add(new { meta = AttrMeta("e41aa36a-0487-11ea-0a80-037b00139fb5"), value = $"{to:D2}:00:00" });
+            }
+        }
+
+        return attrs.ToArray();
     }
+
+    private static object AttrMeta(string attrId) => new
+    {
+        href = $"{BaseUrl}entity/customerorder/metadata/attributes/{attrId}",
+        type = "attributemetadata",
+        mediaType = "application/json"
+    };
 }
