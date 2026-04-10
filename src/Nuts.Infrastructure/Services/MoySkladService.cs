@@ -131,10 +131,14 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
                 return respData.GetProperty("id").GetString();
             }
 
+            // Log error response for debugging
+            var errorBody = await response.Content.ReadAsStringAsync(ct);
+            Console.WriteLine($"[MoySklad] Order creation failed: {response.StatusCode} — {errorBody}");
             return null;
         }
-        catch
+        catch (Exception ex)
         {
+            Console.WriteLine($"[MoySklad] Exception: {ex.Message}");
             return null;
         }
     }
