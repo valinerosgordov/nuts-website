@@ -24,11 +24,16 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
 
     public async Task RemoveVariantsAsync(Guid productId, CancellationToken ct = default)
     {
-        // Use raw SQL to delete variants
         await db.Database.ExecuteSqlRawAsync(
             "DELETE FROM ProductVariants WHERE ProductId = {0}", [productId], ct);
-
-        // Detach ALL tracked entities to get completely clean state
         db.ChangeTracker.Clear();
+    }
+
+    public async Task AddVariantRawAsync(Guid productId, string weight, decimal price, int sortOrder, CancellationToken ct = default)
+    {
+        var id = Guid.NewGuid();
+        await db.Database.ExecuteSqlRawAsync(
+            "INSERT INTO ProductVariants (Id, ProductId, Weight, Price, SortOrder) VALUES ({0}, {1}, {2}, {3}, {4})",
+            [id, productId, weight, price, sortOrder], ct);
     }
 }
