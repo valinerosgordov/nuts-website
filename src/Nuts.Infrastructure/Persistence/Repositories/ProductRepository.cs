@@ -24,7 +24,21 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
 
     public void RemoveVariants(Product product)
     {
-        var variants = db.ProductVariants.Where(v => v.ProductId == product.Id);
-        db.ProductVariants.RemoveRange(variants);
+        // Use already-tracked variants from the loaded product to avoid concurrency issues
+        var tracked = db.ChangeTracker.Entries<ProductVariant>()
+            .Where(e => e.Entity.ProductId == product.Id)
+            .Select(e => e.Entity)
+            .ToList();
+
+        if (tracked.Count > 0)
+        {
+            db.ProductVariants.RemoveRange(tracked);
+        }
+        else
+        {
+            // Fallback: query from DB
+            var fromDb = db.ProductVariants.Where(v => v.ProductId == product.Id).ToList();
+            db.ProductVariants.RemoveRange(fromDb);
+        }
     }
 }
