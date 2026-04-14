@@ -10,8 +10,13 @@ using Nuts.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Observability
+var otlpEndpoint = builder.Configuration["Observability:OtlpEndpoint"] ?? "http://72.56.9.91:4317";
+builder.AddObservability("nuts-api", otlpEndpoint);
+
 // Infrastructure (EF Core + repos)
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHealthChecks();
 
 // Auth
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
@@ -146,6 +151,8 @@ app.MapSettingsEndpoints();
 app.MapBannerEndpoints();
 app.MapMoySkladEndpoints();
 app.MapOrderEndpoints();
+
+app.MapHealthChecks("/health");
 
 // Fallback to index.html for SPA-like routing
 app.MapFallbackToFile("index.html");
