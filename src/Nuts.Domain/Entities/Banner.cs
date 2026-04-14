@@ -37,6 +37,11 @@ public sealed class Banner : AggregateRoot<Guid>
         };
     }
 
+    public void SetImage(string? imagePath)
+    {
+        ImageUrl = imagePath;
+    }
+
     public Result Update(
         string title,
         string description,

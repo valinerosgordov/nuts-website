@@ -1595,6 +1595,7 @@ img {
   stroke: currentColor;
   fill: none;
   stroke-width: 2;
+  pointer-events: none;
 }
 
 .catalog__add-to-cart--added {

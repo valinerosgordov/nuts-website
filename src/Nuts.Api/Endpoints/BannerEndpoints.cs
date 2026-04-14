@@ -90,6 +90,53 @@ public static class BannerEndpoints
             await uow.SaveChangesAsync(ct);
             return TypedResults.NoContent();
         });
+
+        adminGroup.MapPost("/{id:guid}/image", async Task<Results<Ok<string>, NotFound, BadRequest<string>>> (
+            Guid id, IFormFile file, IBannerRepository repo, IUnitOfWork uow, CancellationToken ct) =>
+        {
+            var banner = await repo.GetByIdAsync(id, ct);
+            if (banner is null) return TypedResults.NotFound();
+
+            if (file.Length > 5 * 1024 * 1024)
+                return TypedResults.BadRequest("File must be less than 5 MB.");
+
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (ext is not (".jpg" or ".jpeg" or ".png" or ".webp"))
+                return TypedResults.BadRequest("Only JPG, PNG, WEBP files are supported.");
+
+            var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            Directory.CreateDirectory(uploadsDir);
+
+            var fileName = $"banner_{id}{ext}";
+            var filePath = Path.Combine(uploadsDir, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream, ct);
+            }
+
+            banner.SetImage($"/uploads/{fileName}");
+            await uow.SaveChangesAsync(ct);
+
+            return TypedResults.Ok($"/uploads/{fileName}");
+        }).DisableAntiforgery();
+
+        adminGroup.MapDelete("/{id:guid}/image", async Task<Results<Ok, NotFound>> (
+            Guid id, IBannerRepository repo, IUnitOfWork uow, CancellationToken ct) =>
+        {
+            var banner = await repo.GetByIdAsync(id, ct);
+            if (banner is null) return TypedResults.NotFound();
+
+            if (banner.ImageUrl?.StartsWith("/uploads/") == true)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", banner.ImageUrl.TrimStart('/'));
+                if (File.Exists(filePath)) File.Delete(filePath);
+            }
+
+            banner.SetImage(null);
+            await uow.SaveChangesAsync(ct);
+            return TypedResults.Ok();
+        });
     }
 }
 
