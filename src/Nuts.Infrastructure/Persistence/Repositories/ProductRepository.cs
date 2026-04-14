@@ -26,7 +26,7 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
     {
         // Use raw SQL to avoid EF change tracker conflicts
         await db.Database.ExecuteSqlRawAsync(
-            "DELETE FROM ProductVariants WHERE ProductId = {0}", productId, ct);
+            "DELETE FROM ProductVariants WHERE ProductId = {0}", [productId], ct);
 
         // Detach any tracked variant entities to prevent stale state
         var trackedVariants = db.ChangeTracker.Entries<ProductVariant>()
