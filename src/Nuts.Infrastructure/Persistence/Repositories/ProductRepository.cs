@@ -28,12 +28,7 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
         await db.Database.ExecuteSqlRawAsync(
             "DELETE FROM ProductVariants WHERE ProductId = {0}", [productId], ct);
 
-        // Detach ALL tracked entities for this product to get a clean slate
-        var allTracked = db.ChangeTracker.Entries()
-            .Where(e => (e.Entity is ProductVariant pv && pv.ProductId == productId) ||
-                        (e.Entity is Product p && p.Id == productId))
-            .ToList();
-        foreach (var entry in allTracked)
-            entry.State = EntityState.Detached;
+        // Detach ALL tracked entities to get completely clean state
+        db.ChangeTracker.Clear();
     }
 }
