@@ -11,4 +11,5 @@ public interface IProductRepository
     Task<Product?> GetByNameAsync(string name, CancellationToken ct = default);
     void Remove(Product product);
     Task RemoveVariantsAsync(Guid productId, CancellationToken ct = default);
+    Task AddVariantRawAsync(Guid productId, string weight, decimal price, int sortOrder, CancellationToken ct = default);
 }
