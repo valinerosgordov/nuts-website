@@ -24,15 +24,16 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
 
     public async Task RemoveVariantsAsync(Guid productId, CancellationToken ct = default)
     {
-        // Use raw SQL to avoid EF change tracker conflicts
+        // Use raw SQL to delete variants
         await db.Database.ExecuteSqlRawAsync(
             "DELETE FROM ProductVariants WHERE ProductId = {0}", [productId], ct);
 
-        // Detach any tracked variant entities to prevent stale state
-        var trackedVariants = db.ChangeTracker.Entries<ProductVariant>()
-            .Where(e => e.Entity.ProductId == productId)
+        // Detach ALL tracked entities for this product to get a clean slate
+        var allTracked = db.ChangeTracker.Entries()
+            .Where(e => (e.Entity is ProductVariant pv && pv.ProductId == productId) ||
+                        (e.Entity is Product p && p.Id == productId))
             .ToList();
-        foreach (var entry in trackedVariants)
+        foreach (var entry in allTracked)
             entry.State = EntityState.Detached;
     }
 }

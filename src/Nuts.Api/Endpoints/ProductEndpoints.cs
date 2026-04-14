@@ -118,19 +118,20 @@ public static class ProductEndpoints
             var product = await repo.GetByIdAsync(id, ct);
             if (product is null) return TypedResults.NotFound();
 
+            if (req.Variants is not null)
+            {
+                // Delete old variants via raw SQL + detach everything
+                await repo.RemoveVariantsAsync(product.Id, ct);
+                // Reload product with clean tracker
+                product = (await repo.GetByIdAsync(id, ct))!;
+            }
+
             var updateResult = product.Update(req.Name, req.Description, req.Price, req.Origin, req.Category, req.IsAvailable, req.SortOrder);
             if (updateResult.IsFailure)
                 return TypedResults.BadRequest(TypedResults.Problem(updateResult.Error.Message, statusCode: 400));
 
             if (req.Variants is not null)
             {
-                // Delete old variants via raw SQL + detach from tracker
-                await repo.RemoveVariantsAsync(product.Id, ct);
-
-                // Reload product fresh (without old variants in tracker)
-                product = (await repo.GetByIdAsync(id, ct))!;
-
-                // Add new variants
                 foreach (var v in req.Variants)
                     product.AddVariant(v.Weight, v.Price, v.SortOrder);
             }
