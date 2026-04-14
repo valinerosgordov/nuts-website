@@ -124,8 +124,11 @@ public static class ProductEndpoints
 
             if (req.Variants is not null)
             {
+                // Delete old variants first, then save, then add new ones
                 repo.RemoveVariants(product);
                 product.ClearVariants();
+                await uow.SaveChangesAsync(ct);
+
                 foreach (var v in req.Variants)
                     product.AddVariant(v.Weight, v.Price, v.SortOrder);
             }
