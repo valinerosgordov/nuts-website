@@ -124,9 +124,11 @@ public static class ProductEndpoints
 
             if (req.Variants is not null)
             {
-                // Delete old variants via raw SQL to avoid EF tracking conflicts
+                // Delete old variants via raw SQL + detach from tracker
                 await repo.RemoveVariantsAsync(product.Id, ct);
-                product.ClearVariants();
+
+                // Reload product fresh (without old variants in tracker)
+                product = (await repo.GetByIdAsync(id, ct))!;
 
                 // Add new variants
                 foreach (var v in req.Variants)
