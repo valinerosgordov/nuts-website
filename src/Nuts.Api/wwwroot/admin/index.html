@@ -451,12 +451,12 @@
         <div class="modal__field"><label>Название</label><input type="text" id="productName"></div>
         <div class="modal__field">
           <label>Категория</label>
-          <select id="productCategory">
-            <option value="">Выберите категорию</option>
-            <option value="Орехи">Орехи</option>
-            <option value="Сухофрукты">Сухофрукты</option>
-            <option value="Подарочные наборы">Подарочные наборы</option>
-          </select>
+          <input type="text" id="productCategory" list="productCategoryList" placeholder="Введите или выберите категорию">
+          <datalist id="productCategoryList">
+            <option value="Орехи">
+            <option value="Сухофрукты">
+            <option value="Подарочные наборы">
+          </datalist>
         </div>
         <div class="modal__field"><label>Происхождение</label><input type="text" id="productOrigin"></div>
         <div class="modal__field"><label>Базовая цена</label><input type="number" step="0.01" id="productPrice"></div>
@@ -546,6 +546,19 @@
       <div class="modal__field"><label>Текст кнопки (необязательно)</label><input type="text" id="bannerBtnText" placeholder="Подробнее"></div>
       <div class="modal__field"><label>URL кнопки (необязательно)</label><input type="text" id="bannerBtnUrl" placeholder="https://..."></div>
       <div class="modal__field"><label>Задержка показа (сек)</label><input type="number" id="bannerDelay" min="1" max="30" value="3"></div>
+      <div class="modal__field">
+        <label>Фото баннера</label>
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+          <img id="bannerImagePreview" src="" alt="" style="width:100px; height:60px; object-fit:cover; border-radius:8px; border:1px solid var(--border); display:none;">
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <input type="file" id="bannerImageFile" accept=".jpg,.jpeg,.png,.webp" style="font-size:0.85rem; color:var(--dim);">
+            <div style="display:flex; gap:0.5rem;">
+              <button type="button" class="btn-sm btn-sm--green" id="uploadBannerImageBtn" style="display:none;">Загрузить фото</button>
+              <button type="button" class="btn-sm btn-sm--danger" id="deleteBannerImageBtn" style="display:none;">Удалить фото</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="modal__field" id="bannerActiveField" style="display:none;">
         <label>Активен</label>
         <select id="bannerActive"><option value="true">Да</option><option value="false">Нет</option></select>
@@ -780,6 +793,18 @@
       try {
         allProducts = await apiFetch('/api/admin/products');
         renderProducts();
+        // Populate category datalist with unique categories from loaded products
+        const datalist = document.getElementById('productCategoryList');
+        const existingOptions = new Set(['Орехи', 'Сухофрукты', 'Подарочные наборы']);
+        const uniqueCats = [...new Set(allProducts.map(p => p.category).filter(Boolean))];
+        uniqueCats.forEach(cat => {
+          if (!existingOptions.has(cat)) {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            datalist.appendChild(opt);
+            existingOptions.add(cat);
+          }
+        });
       } catch (err) { toast('Ошибка загрузки товаров', 'error'); }
       hideSpinner();
     }
@@ -799,8 +824,9 @@
         return;
       }
       tbody.innerHTML = filtered.map(p => {
-        const thumb = p.imageUrl
-          ? `<img src="${esc(p.imageUrl)}" class="td-thumb" alt="" loading="lazy">`
+        const imgSrc = p.imagePath || p.imageUrl;
+        const thumb = imgSrc
+          ? `<img src="${esc(imgSrc)}" class="td-thumb" alt="" loading="lazy">`
           : `<div class="td-thumb-placeholder">N/A</div>`;
         return `<tr>
           <td>${thumb}</td>
@@ -1320,6 +1346,77 @@
       } catch { toast('Ошибка сети', 'error'); }
     };
 
+    // --- Banner Image Upload ---
+    async function uploadBannerImage(bannerId, file) {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch(`${API}/api/admin/banners/${bannerId}/image`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd
+      });
+      if (res.ok) {
+        const path = await res.json();
+        toast('Фото загружено', 'success');
+        return path;
+      } else {
+        const text = await res.text();
+        toast(text || 'Ошибка загрузки', 'error');
+        return null;
+      }
+    }
+
+    async function deleteBannerImage(bannerId) {
+      const res = await fetch(`${API}/api/admin/banners/${bannerId}/image`, {
+        method: 'DELETE',
+        headers: headers()
+      });
+      if (res.ok) { toast('Фото удалено', 'success'); return true; }
+      toast('Ошибка удаления фото', 'error');
+      return false;
+    }
+
+    function updateBannerImagePreview(imagePath) {
+      const preview = document.getElementById('bannerImagePreview');
+      const deleteBtn = document.getElementById('deleteBannerImageBtn');
+      if (imagePath) {
+        preview.src = imagePath;
+        preview.style.display = 'block';
+        deleteBtn.style.display = 'inline-block';
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        deleteBtn.style.display = 'none';
+      }
+    }
+
+    document.getElementById('bannerImageFile').addEventListener('change', (e) => {
+      const uploadBtn = document.getElementById('uploadBannerImageBtn');
+      uploadBtn.style.display = e.target.files.length > 0 ? 'inline-block' : 'none';
+    });
+
+    document.getElementById('uploadBannerImageBtn').addEventListener('click', async () => {
+      const id = document.getElementById('bannerId').value;
+      if (!id) { toast('Сначала сохраните баннер', 'error'); return; }
+      const file = document.getElementById('bannerImageFile').files[0];
+      if (!file) return;
+      const path = await uploadBannerImage(id, file);
+      if (path) {
+        updateBannerImagePreview(path);
+        document.getElementById('bannerImageFile').value = '';
+        document.getElementById('uploadBannerImageBtn').style.display = 'none';
+        loadBanners();
+      }
+    });
+
+    document.getElementById('deleteBannerImageBtn').addEventListener('click', async () => {
+      const id = document.getElementById('bannerId').value;
+      if (!id) return;
+      if (!confirm('Удалить фото баннера?')) return;
+      const ok = await deleteBannerImage(id);
+      if (ok) { updateBannerImagePreview(null); loadBanners(); }
+    });
+
     // --- Banners CRUD ---
     let allBanners = [];
 
@@ -1365,6 +1462,9 @@
       document.getElementById('bannerBtnUrl').value = '';
       document.getElementById('bannerDelay').value = '3';
       document.getElementById('bannerActiveField').style.display = 'none';
+      updateBannerImagePreview(null);
+      document.getElementById('bannerImageFile').value = '';
+      document.getElementById('uploadBannerImageBtn').style.display = 'none';
       document.getElementById('bannerModal').classList.add('active');
     });
 
@@ -1380,6 +1480,9 @@
       document.getElementById('bannerDelay').value = b.delaySeconds;
       document.getElementById('bannerActive').value = b.isActive.toString();
       document.getElementById('bannerActiveField').style.display = 'block';
+      updateBannerImagePreview(b.imageUrl || null);
+      document.getElementById('bannerImageFile').value = '';
+      document.getElementById('uploadBannerImageBtn').style.display = 'none';
       document.getElementById('bannerModal').classList.add('active');
     };
 
@@ -1413,6 +1516,11 @@
           ? await fetch(`${API}/api/admin/banners/${id}`, { method: 'PUT', headers: headers(), body: JSON.stringify(body) })
           : await fetch(`${API}/api/admin/banners`, { method: 'POST', headers: headers(), body: JSON.stringify(body) });
         if (res.ok) {
+          const saved = await res.json();
+          const imageFile = document.getElementById('bannerImageFile').files[0];
+          if (imageFile && saved.id) {
+            await uploadBannerImage(saved.id, imageFile);
+          }
           toast(id ? 'Баннер обновлён' : 'Баннер создан');
           document.getElementById('bannerModal').classList.remove('active');
           loadBanners();
