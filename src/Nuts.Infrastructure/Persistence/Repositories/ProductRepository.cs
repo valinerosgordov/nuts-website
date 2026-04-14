@@ -22,23 +22,17 @@ internal sealed class ProductRepository(AppDbContext db) : IProductRepository
 
     public void Remove(Product product) => db.Products.Remove(product);
 
-    public void RemoveVariants(Product product)
+    public async Task RemoveVariantsAsync(Guid productId, CancellationToken ct = default)
     {
-        // Use already-tracked variants from the loaded product to avoid concurrency issues
-        var tracked = db.ChangeTracker.Entries<ProductVariant>()
-            .Where(e => e.Entity.ProductId == product.Id)
-            .Select(e => e.Entity)
-            .ToList();
+        // Use raw SQL to avoid EF change tracker conflicts
+        await db.Database.ExecuteSqlRawAsync(
+            "DELETE FROM ProductVariants WHERE ProductId = {0}", productId, ct);
 
-        if (tracked.Count > 0)
-        {
-            db.ProductVariants.RemoveRange(tracked);
-        }
-        else
-        {
-            // Fallback: query from DB
-            var fromDb = db.ProductVariants.Where(v => v.ProductId == product.Id).ToList();
-            db.ProductVariants.RemoveRange(fromDb);
-        }
+        // Detach any tracked variant entities to prevent stale state
+        var trackedVariants = db.ChangeTracker.Entries<ProductVariant>()
+            .Where(e => e.Entity.ProductId == productId)
+            .ToList();
+        foreach (var entry in trackedVariants)
+            entry.State = EntityState.Detached;
     }
 }
