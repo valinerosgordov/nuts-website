@@ -122,18 +122,27 @@ public static class ProductEndpoints
             if (updateResult.IsFailure)
                 return TypedResults.BadRequest(TypedResults.Problem(updateResult.Error.Message, statusCode: 400));
 
+            // Save product update first (without touching variants)
+            await uow.SaveChangesAsync(ct);
+
             if (req.Variants is not null)
             {
-                // Delete old variants first, then save, then add new ones
-                repo.RemoveVariants(product);
-                product.ClearVariants();
-                await uow.SaveChangesAsync(ct);
+                // Reload product to get clean state for variants
+                var freshProduct = await repo.GetByIdAsync(id, ct);
+                if (freshProduct is not null)
+                {
+                    // Delete existing variants directly from DB
+                    repo.RemoveVariants(freshProduct);
+                    await uow.SaveChangesAsync(ct);
 
-                foreach (var v in req.Variants)
-                    product.AddVariant(v.Weight, v.Price, v.SortOrder);
+                    // Add new variants
+                    foreach (var v in req.Variants)
+                        freshProduct.AddVariant(v.Weight, v.Price, v.SortOrder);
+                    await uow.SaveChangesAsync(ct);
+
+                    product = freshProduct;
+                }
             }
-
-            await uow.SaveChangesAsync(ct);
             var dto = new AdminProductDto(product.Id, product.Name, product.Description,
                 product.ImagePath, product.Price, product.Origin, product.Category,
                 product.IsAvailable, product.SortOrder, product.CreatedAt, product.UpdatedAt,
