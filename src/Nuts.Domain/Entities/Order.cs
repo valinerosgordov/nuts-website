@@ -67,12 +67,12 @@ public sealed class Order : AggregateRoot<Guid>
         {
             Id = Guid.NewGuid(),
             UserId = Guid.Empty,
-            ShippingAddress = address.Trim(),
-            CustomerName = name.Trim(),
-            CustomerPhone = phone.Trim(),
-            CustomerEmail = email?.Trim(),
+            ShippingAddress = System.Net.WebUtility.HtmlEncode(address.Trim()),
+            CustomerName = System.Net.WebUtility.HtmlEncode(name.Trim()),
+            CustomerPhone = System.Net.WebUtility.HtmlEncode(phone.Trim()),
+            CustomerEmail = email is not null ? System.Net.WebUtility.HtmlEncode(email.Trim()) : null,
             DeliveryTime = deliveryTime?.Trim(),
-            Comment = comment?.Trim(),
+            Comment = comment is not null ? System.Net.WebUtility.HtmlEncode(comment.Trim()) : null,
             PromoCode = promoCode?.Trim(),
             CreatedAt = DateTime.UtcNow
         };
