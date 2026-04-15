@@ -25,7 +25,6 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IMediaMentionRepository, MediaMentionRepository>();
         services.AddScoped<IContactRequestRepository, ContactRequestRepository>();
-        services.AddScoped<IPageRepository, PageRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
@@ -34,7 +33,7 @@ public static class DependencyInjection
 
         services.AddHttpClient<IMoySkladService, MoySkladService>((sp, http) =>
         {
-            var token = configuration["MoySklad:Token"] ?? "";
+            var token = Environment.GetEnvironmentVariable("MOYSKLAD_TOKEN") ?? configuration["MoySklad:Token"] ?? "";
             MoySkladService.Configure(http, token);
         });
 

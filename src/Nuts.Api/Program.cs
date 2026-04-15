@@ -41,13 +41,17 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("Admin", policy => policy.RequireRole("Admin"))
     .AddPolicy("User", policy => policy.RequireRole("User"));
 
-// CORS
+// CORS — restrict in production
+var allowedOrigins = Environment.GetEnvironmentVariable("CORS_ORIGINS")?.Split(',') ?? ["*"];
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(p => p
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+    options.AddDefaultPolicy(p =>
+    {
+        if (allowedOrigins is ["*"])
+            p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        else
+            p.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+    });
 });
 
 var app = builder.Build();
@@ -77,7 +81,7 @@ using (var scope = app.Services.CreateScope())
                     ["Подарочные наборы"] = "Подарочные наборы",
                 };
 
-                var sortOrder = 0;
+                // seed products from JSON
                 foreach (var (categoryName, data) in catalog)
                 {
                     if (!categoryMap.ContainsKey(categoryName))

@@ -8,6 +8,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - JWT_SECRET_KEY=${JWT_SECRET_KEY:-ChangeThisToASecureKeyAtLeast32Bytes!!}
+      - MOYSKLAD_TOKEN=${MOYSKLAD_TOKEN:-}
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
     volumes:
       - nuts-data:/app/data
     networks:
