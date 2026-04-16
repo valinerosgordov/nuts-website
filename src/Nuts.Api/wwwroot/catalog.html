@@ -91,6 +91,7 @@
     .catalog__item {
       border-radius: 2px;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
     }
 
     .catalog__item:hover {
@@ -199,6 +200,8 @@
     }
     .catalog__search-input:focus { border-color: rgba(212,175,55,0.5); }
 
+    .catalog__add-to-cart svg { pointer-events: none; }
+
     @media (max-width: 768px) {
       .page-hero {
         padding-top: 6.5rem;
@@ -280,1143 +283,19 @@
     </section>
 
     <section class="catalog-section">
-      <div class="catalog__tabs reveal">
+      <div class="catalog__tabs reveal" id="catalogTabs">
         <button class="catalog__tab active" data-category="all">Все</button>
-        <button class="catalog__tab" data-category="nuts">Орехи</button>
-        <button class="catalog__tab" data-category="dried-fruits">Сухофрукты</button>
-        <button class="catalog__tab" data-category="gifts">Подарочные наборы</button>
       </div>
 
       <div class="catalog__search reveal">
         <input type="text" id="catalogSearch" placeholder="Поиск товаров..." class="catalog__search-input">
       </div>
 
-      <div class="catalog__grid">
-        <!-- ===== Отборные орехи ===== -->
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6438-6133-4566-b461-356230616363/3.jpeg" alt="Арахис сырой" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Арахис сырой</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="270">500 г</button>
-              <button class="variant-btn" data-price="350">1 кг</button>
-              <button class="variant-btn" data-price="1575">5 кг</button>
-              <button class="variant-btn" data-price="12250">50 кг</button>
-            </div>
-            <p class="catalog__item-price">270 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
+      <div class="catalog__grid" id="catalogGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:3rem 0;">
+          <div style="width:40px;height:40px;border:2px solid #1f1f1f;border-top-color:#c9a84c;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto;"></div>
+          <p style="font-family:'Raleway',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.4);margin-top:1rem;">Загрузка каталога...</p>
         </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3066-6137-4537-b663-313863373962/59935595.jpg" alt="Арахис очищенный, жареный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Арахис очищенный, жареный</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="270">500 г</button>
-              <button class="variant-btn" data-price="399">1 кг</button>
-              <button class="variant-btn" data-price="1695">5 кг</button>
-              <button class="variant-btn" data-price="14000">50 кг</button>
-            </div>
-            <p class="catalog__item-price">270 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3032-3366-4332-b937-653738663165/8OGmVOfYloc.jpg" alt="Арахис очищенный, жареный, соленый" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Арахис очищенный, жареный, соленый</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="350">500 г</button>
-              <button class="variant-btn" data-price="450">1 кг</button>
-              <button class="variant-btn" data-price="1915">5 кг</button>
-              <button class="variant-btn" data-price="10110">30 кг</button>
-            </div>
-            <p class="catalog__item-price">350 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6463-3134-4338-a233-633532316566/_MG_7591.JPG" alt="Грецкий орех, очищенный, Отборный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Грецкий орех, очищенный, Отборный</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="990">1 кг</button>
-              <button class="variant-btn" data-price="4210">5 кг</button>
-              <button class="variant-btn" data-price="37150">50 кг</button>
-            </div>
-            <p class="catalog__item-price">990 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6137-6466-4031-b338-383037346666/58773939.jpg" alt="Миндаль сырой, очищенный, отборный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Миндаль сырой, очищенный, отборный</h3>
-            <p class="catalog__item-origin">Чили</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="790">500 г</button>
-              <button class="variant-btn" data-price="1250">1 кг</button>
-              <button class="variant-btn" data-price="5315">5 кг</button>
-              <button class="variant-btn" data-price="46900">50 кг</button>
-            </div>
-            <p class="catalog__item-price">790 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6563-6435-4536-a432-643037386263/75831921.jpg" alt="Миндаль жареный, очищенный, отборный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Миндаль жареный, очищенный, отборный</h3>
-            <p class="catalog__item-origin">Чили</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1250">1 кг</button>
-              <button class="variant-btn" data-price="5315">5 кг</button>
-              <button class="variant-btn" data-price="46900">50 кг</button>
-            </div>
-            <p class="catalog__item-price">1250 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6530-3632-4361-b439-383066383532/48696010.jpg" alt="Кешью очищенный, сырой Высший сорт" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кешью очищенный, сырой Высший сорт</h3>
-            <p class="catalog__item-origin">Индия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="790">500 г</button>
-              <button class="variant-btn" data-price="1250">1 кг</button>
-              <button class="variant-btn" data-price="5315">5 кг</button>
-              <button class="variant-btn" data-price="46900">50 кг</button>
-            </div>
-            <p class="catalog__item-price">790 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3666-3364-4633-a564-656462343132/30184147.jpg" alt="Кешью очищенный жареный Высший сорт" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кешью очищенный жареный Высший сорт</h3>
-            <p class="catalog__item-origin">Индия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="650">500 г</button>
-              <button class="variant-btn" data-price="1250">1 кг</button>
-              <button class="variant-btn" data-price="5315">5 кг</button>
-              <button class="variant-btn" data-price="46900">50 кг</button>
-            </div>
-            <p class="catalog__item-price">650 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3032-3362-4161-a630-373738613735/89150464.jpg" alt="Фундук очищенный, сырой" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Фундук очищенный, сырой</h3>
-            <p class="catalog__item-origin">Абхазия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="850">500 г</button>
-              <button class="variant-btn" data-price="1490">1 кг</button>
-              <button class="variant-btn" data-price="6705">5 кг</button>
-              <button class="variant-btn" data-price="38010">30 кг</button>
-            </div>
-            <p class="catalog__item-price">850 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6433-6234-4062-a637-376162626635/_MG_7579.JPG" alt="Фундук очищенный, жареный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Фундук очищенный, жареный</h3>
-            <p class="catalog__item-origin">Абхазия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="890">500 г</button>
-              <button class="variant-btn" data-price="1550">1 кг</button>
-              <button class="variant-btn" data-price="6590">5 кг</button>
-              <button class="variant-btn" data-price="58150">50 кг</button>
-            </div>
-            <p class="catalog__item-price">890 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3330-3138-4665-b739-656230343139/33833205.jpg" alt="Фисташки соленые крупные США" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Фисташки соленые крупные США</h3>
-            <p class="catalog__item-origin">Калифорния</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="890">500 г</button>
-              <button class="variant-btn" data-price="1550">1 кг</button>
-              <button class="variant-btn" data-price="6590">5 кг</button>
-              <button class="variant-btn" data-price="58150">50 кг</button>
-            </div>
-            <p class="catalog__item-price">890 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3537-3739-4334-b034-653566323239/_mg_7605_optimized.jpg" alt="Фисташки соленые, сорт Акбари" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Фисташки соленые, сорт Акбари</h3>
-            <p class="catalog__item-origin">Иран</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="650">500 г</button>
-              <button class="variant-btn" data-price="1290">1 кг</button>
-              <button class="variant-btn" data-price="5805">5 кг</button>
-              <button class="variant-btn" data-price="21920">20 кг</button>
-            </div>
-            <p class="catalog__item-price">650 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6636-3162-4437-a663-343736376632/G00024.jpg" alt="Пекан очищенный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Пекан очищенный</h3>
-            <p class="catalog__item-origin">Мексика</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1150">500 г</button>
-              <button class="variant-btn" data-price="2250">1 кг</button>
-              <button class="variant-btn" data-price="9565">5 кг</button>
-              <button class="variant-btn" data-price="53970">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1150 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3263-6463-4464-b131-316339343331/fistashki02_optimize.jpg" alt="Фисташки, очищенные Premium" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Фисташки, очищенные Premium</h3>
-            <p class="catalog__item-origin">Иран</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1550">500 г</button>
-              <button class="variant-btn" data-price="2590">1 кг</button>
-              <button class="variant-btn" data-price="11010">5 кг</button>
-              <button class="variant-btn" data-price="62160">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1550 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6462-3966-4866-b536-383033336238/_mg_7537_optimized.jpg" alt="Кедровый орех, очищенный, сырой" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кедровый орех, очищенный, сырой</h3>
-            <p class="catalog__item-origin">Россия (Сибирь)</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1690">500 г</button>
-              <button class="variant-btn" data-price="2890">1 кг</button>
-            </div>
-            <p class="catalog__item-price">1690 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6634-3162-4466-a636-393938323539/yvOsWL2RRIo.jpg" alt="Макадамия в скорлупе крупная" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Макадамия в скорлупе крупная</h3>
-            <p class="catalog__item-origin">Китай</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="450">500 г</button>
-              <button class="variant-btn" data-price="790">1 кг</button>
-              <button class="variant-btn" data-price="3550">5 кг</button>
-              <button class="variant-btn" data-price="18960">30 кг</button>
-            </div>
-            <p class="catalog__item-price">450 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3839-3037-4632-b865-363433396262/_mg_2863_optimized.jpg" alt="Миндаль со специями" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Миндаль со специями</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="650">500 г</button>
-              <button class="variant-btn" data-price="1290">1 кг</button>
-              <button class="variant-btn" data-price="3480">3 кг</button>
-              <button class="variant-btn" data-price="32880">30 кг</button>
-            </div>
-            <p class="catalog__item-price">650 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6238-3134-4338-a165-633936666364/_mg_7585_optimized.jpg" alt="Кешью со специями" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кешью со специями</h3>
-            <p class="catalog__item-origin">Индия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="760">500 г</button>
-              <button class="variant-btn" data-price="1390">1 кг</button>
-              <button class="variant-btn" data-price="3750">2,5 кг</button>
-              <button class="variant-btn" data-price="35490">25 кг</button>
-            </div>
-            <p class="catalog__item-price">760 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3839-3163-4739-b731-396138613135/_mg_2841_optimized.jpg" alt="Арахис со специями" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Арахис со специями</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="350">500 г</button>
-              <button class="variant-btn" data-price="490">1 кг</button>
-              <button class="variant-btn" data-price="1320">3 кг</button>
-              <button class="variant-btn" data-price="12480">30 кг</button>
-            </div>
-            <p class="catalog__item-price">350 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3436-6662-4837-b162-343233663132/3-4_optimized.jpg" alt="Миндаль в кунжуте" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Миндаль в кунжуте</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="999">1 кг</button>
-              <button class="variant-btn" data-price="2550">3 кг</button>
-              <button class="variant-btn" data-price="22500">30 кг</button>
-            </div>
-            <p class="catalog__item-price">999 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3530-3131-4465-a338-613134333533/1-6_optimized.jpg" alt="Кешью в кунжуте" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кешью в кунжуте</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="999">1 кг</button>
-              <button class="variant-btn" data-price="2550">3 кг</button>
-              <button class="variant-btn" data-price="22500">30 кг</button>
-            </div>
-            <p class="catalog__item-price">999 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6265-6531-4662-a432-366239386536/73604891.jpg" alt="Ореховая смесь пряная" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Ореховая смесь пряная</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="650">500 г</button>
-              <button class="variant-btn" data-price="1290">1 кг</button>
-              <button class="variant-btn" data-price="5805">5 кг</button>
-              <button class="variant-btn" data-price="21920">20 кг</button>
-            </div>
-            <p class="catalog__item-price">650 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3336-3961-4364-b063-656139343236/_mg_7616_optimized.jpg" alt="Миндаль «Фруктовое ассорти»" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Миндаль «Фруктовое ассорти»</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1290">1 кг</button>
-              <button class="variant-btn" data-price="3480">3 кг</button>
-              <button class="variant-btn" data-price="32880">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1290 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3034-3730-4130-b262-643337623465/_mg_7582_optimized.jpg" alt="Миндаль в глазури ''Праздничный''" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Миндаль в глазури ''Праздничный''</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1290">1 кг</button>
-              <button class="variant-btn" data-price="3480">3 кг</button>
-              <button class="variant-btn" data-price="32880">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1290 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6561-3934-4131-a466-316334663538/26-2_optimized.jpg" alt="Кешью в белом шоколаде" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кешью в белом шоколаде</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1190">1 кг</button>
-              <button class="variant-btn" data-price="3210">3 кг</button>
-              <button class="variant-btn" data-price="30330">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1190 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6335-6562-4136-b533-623636653365/1632434759_3-mykalei.jpg" alt="Кешью в шоколадной глазури" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кешью в шоколадной глазури</h3>
-            <p class="catalog__item-origin">Индия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1290">1 кг</button>
-              <button class="variant-btn" data-price="3480">3 кг</button>
-              <button class="variant-btn" data-price="32880">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1290 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3765-3038-4161-b534-343831353066/____optimized.jpg" alt="Арахис в йогуртовой глазури" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Арахис в йогуртовой глазури</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="350">500 г</button>
-              <button class="variant-btn" data-price="790">1 кг</button>
-            </div>
-            <p class="catalog__item-price">350 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6564-3634-4463-a433-623530346361/_mg_7553_optimized.jpg" alt="Макадамия очищенная" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Макадамия очищенная</h3>
-            <p class="catalog__item-origin">Китай</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1990">500г</button>
-              <button class="variant-btn" data-price="3950">1кг</button>
-            </div>
-            <p class="catalog__item-price">1990 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3138-3736-4636-b637-393735353562/--2020-09-17--13_opt.png" alt="Бразильский орех, очищенный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Бразильский орех, очищенный</h3>
-            <p class="catalog__item-origin">Бразилия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="2250">500 г</button>
-              <button class="variant-btn" data-price="2950">1 кг</button>
-            </div>
-            <p class="catalog__item-price">2250 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6136-6263-4264-b261-643738376434/G00002.jpg" alt="Грецкий орех, очищенный, королевский ''Чилийский''" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Грецкий орех, очищенный, королевский ''Чилийский''</h3>
-            <p class="catalog__item-origin">Чили</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="890">500 г</button>
-              <button class="variant-btn" data-price="1550">1 кг</button>
-              <button class="variant-btn" data-price="6590">5 кг</button>
-            </div>
-            <p class="catalog__item-price">890 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="nuts">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6536-3431-4939-b034-373532326634/-1_optimized.jpg" alt="Ядра абрикосовых косточек" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Ядра абрикосовых косточек</h3>
-            <p class="catalog__item-origin">Россия</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="250">500 г</button>
-              <button class="variant-btn" data-price="450">1 кг</button>
-            </div>
-            <p class="catalog__item-price">250 ₽</p>
-            <span class="catalog__item-category">Орехи</span>
-          </div>
-        </div>
-
-        <!-- ===== Сухофрукты ===== -->
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6362-3231-4139-a639-623532383931/3_optimized.jpg" alt="Манго сушеное KONG" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Манго сушеное KONG</h3>
-            <p class="catalog__item-origin">Вьетнам</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="460">500 г</button>
-              <button class="variant-btn" data-price="780">1 кг</button>
-              <button class="variant-btn" data-price="6630">10 кг</button>
-              <button class="variant-btn" data-price="27300">50 кг</button>
-            </div>
-            <p class="catalog__item-price">460 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6139-3332-4563-b437-333837636439/1.jpg" alt="Финики Королевские" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Финики Королевские</h3>
-            <p class="catalog__item-origin">Израиль</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="790">500 г</button>
-              <button class="variant-btn" data-price="1350">1 кг</button>
-              <button class="variant-btn" data-price="6085">5 кг</button>
-              <button class="variant-btn" data-price="54000">50 кг</button>
-            </div>
-            <p class="catalog__item-price">790 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3161-3236-4438-a364-623439663039/68976921.jpg" alt="Курага королевская Экстра" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Курага королевская Экстра</h3>
-            <p class="catalog__item-origin">Таджикистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="550">1 кг</button>
-              <button class="variant-btn" data-price="2475">5 кг</button>
-              <button class="variant-btn" data-price="14010">50 кг</button>
-            </div>
-            <p class="catalog__item-price">550 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6162-6231-4331-b930-393262663566/79271075.jpg" alt="Изюм королевский &quot;Гибрид&quot;" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Изюм королевский &quot;Гибрид&quot;</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="790">1 кг</button>
-              <button class="variant-btn" data-price="3360">5 кг</button>
-              <button class="variant-btn" data-price="29600">50 кг</button>
-            </div>
-            <p class="catalog__item-price">790 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6161-3834-4862-b334-326637303663/86118020.jpg" alt="Изюм сушеный &quot;Jumbo&quot;" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Изюм сушеный &quot;Jumbo&quot;</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="790">1 кг</button>
-              <button class="variant-btn" data-price="3360">5 кг</button>
-              <button class="variant-btn" data-price="29600">50 кг</button>
-            </div>
-            <p class="catalog__item-price">790 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3136-6239-4864-b963-396437373533/1-7_optimized.jpg" alt="Изюм Малаяр" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Изюм Малаяр</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="450">1 кг</button>
-              <button class="variant-btn" data-price="3830">10 кг</button>
-              <button class="variant-btn" data-price="16900">50 кг</button>
-            </div>
-            <p class="catalog__item-price">450 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3535-3736-4936-b931-393165373633/1-6_optimized.jpg" alt="Чернослив ''Баллончик''" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Чернослив ''Баллончик''</h3>
-            <p class="catalog__item-origin">Узбекистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="390">1 кг</button>
-              <button class="variant-btn" data-price="3510">10 кг</button>
-              <button class="variant-btn" data-price="33200">100 кг</button>
-            </div>
-            <p class="catalog__item-price">390 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6539-3531-4637-a566-313263363838/94098541-1700-4e25-8.jpg" alt="Чернослив королевский без косточки" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Чернослив королевский без косточки</h3>
-            <p class="catalog__item-origin">Молдова</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="650">1 кг</button>
-              <button class="variant-btn" data-price="4680">8 кг</button>
-            </div>
-            <p class="catalog__item-price">650 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3537-3736-4163-a234-663038303131/19_optimized.jpg" alt="Финики матовые Иран" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Финики матовые Иран</h3>
-            <p class="catalog__item-origin">Иран</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="550">1 кг</button>
-              <button class="variant-btn" data-price="2808">6 кг</button>
-              <button class="variant-btn" data-price="12360">30 кг</button>
-            </div>
-            <p class="catalog__item-price">550 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3264-3037-4737-b264-636235643465/83574763.jpg" alt="Клюква вяленая" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Клюква вяленая</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="450">500 г</button>
-              <button class="variant-btn" data-price="850">1 кг</button>
-              <button class="variant-btn" data-price="8675">11,34 кг</button>
-              <button class="variant-btn" data-price="33737">56,7 кг</button>
-            </div>
-            <p class="catalog__item-price">450 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6633-3638-4661-a336-353436373135/108_optimized750x0.jpg" alt="Шиповник сушеный, натуральный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Шиповник сушеный, натуральный</h3>
-            <p class="catalog__item-origin">Таджикистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="390">1 кг</button>
-              <button class="variant-btn" data-price="3510">10 кг</button>
-              <button class="variant-btn" data-price="33200">100 кг</button>
-            </div>
-            <p class="catalog__item-price">390 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor6431-3032-4564-a639-333939373961/93555187.jpg" alt="Имбирь в сахаре" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Имбирь в сахаре</h3>
-            <p class="catalog__item-origin">Вьетнам</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="350">500 г</button>
-              <button class="variant-btn" data-price="690">1 кг</button>
-              <button class="variant-btn" data-price="2935">5 кг</button>
-              <button class="variant-btn" data-price="16560">30 кг</button>
-            </div>
-            <p class="catalog__item-price">350 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3265-3734-4132-a563-646135323134/2021-11-06_09-31-04_.jpg" alt="Кумкват сушенный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Кумкват сушенный</h3>
-            <p class="catalog__item-origin">Вьетнам</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="350">500 г</button>
-              <button class="variant-btn" data-price="690">1 кг</button>
-              <button class="variant-btn" data-price="2935">5 кг</button>
-              <button class="variant-btn" data-price="16560">30 кг</button>
-            </div>
-            <p class="catalog__item-price">350 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3164-3037-4538-b632-313032626361/n5EqHXKsX0U.jpg" alt="Помело сушеный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Помело сушеный</h3>
-            <p class="catalog__item-origin">Таиланд</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="350">500 г</button>
-              <button class="variant-btn" data-price="690">1 кг</button>
-              <button class="variant-btn" data-price="2935">5 кг</button>
-              <button class="variant-btn" data-price="16560">30 кг</button>
-            </div>
-            <p class="catalog__item-price">350 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3131-6130-4362-a530-636565323435/-3_optimized.jpg" alt="Вишня вяленая без сахара" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Вишня вяленая без сахара</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1390">1 кг</button>
-              <button class="variant-btn" data-price="6255">5 кг</button>
-              <button class="variant-btn" data-price="59100">50 кг</button>
-            </div>
-            <p class="catalog__item-price">1390 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3439-6561-4436-b635-323664386161/-1_optimized.jpg" alt="Хурма Армянская сушеная" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Хурма Армянская сушеная</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1350">1 кг</button>
-              <button class="variant-btn" data-price="5625">5 кг</button>
-              <button class="variant-btn" data-price="34440">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1350 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3034-3736-4333-b137-303961356361/2022-04-27-01-47-17-.jpeg" alt="Персик сушеный без сахара" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Персик сушеный без сахара</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1350">1 кг</button>
-              <button class="variant-btn" data-price="6075">5 кг</button>
-              <button class="variant-btn" data-price="32400">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1350 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3637-3334-4266-b162-373464323636/whatsapp-image-2022-.jpeg" alt="Яблоки вяленые ''Зефирки''" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Яблоки вяленые ''Зефирки''</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="1050">1 кг</button>
-              <button class="variant-btn" data-price="4725">5 кг</button>
-              <button class="variant-btn" data-price="26760">30 кг</button>
-            </div>
-            <p class="catalog__item-price">1050 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/stor3730-3235-4835-b836-316130353134/46438491.jpg" alt="Инжир королевский" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Инжир королевский</h3>
-            <p class="catalog__item-origin">Турция</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="750">500 г</button>
-              <button class="variant-btn" data-price="1250">1 кг</button>
-            </div>
-            <p class="catalog__item-price">750 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6665-3066-4061-b539-356662313862/--Lyw8zAIGQ.jpg" alt="Курага Джамбо (Лимонная)" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Курага Джамбо (Лимонная)</h3>
-            <p class="catalog__item-origin">Турция</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="990">500 г</button>
-              <button class="variant-btn" data-price="1790">1 кг</button>
-            </div>
-            <p class="catalog__item-price">990 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3363-3333-4332-b663-363238363431/photo.jpg" alt="Урюк Сахарный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Урюк Сахарный</h3>
-            <p class="catalog__item-origin">Таджикистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="650">1 кг</button>
-            </div>
-            <p class="catalog__item-price">650 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3939-3133-4666-a663-343430636264/jqaWudKafnA.jpg" alt="Хурма нарезанная лепестками" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Хурма нарезанная лепестками</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="550">500г</button>
-              <button class="variant-btn" data-price="999">1кг</button>
-            </div>
-            <p class="catalog__item-price">550 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6561-3837-4664-b963-316631346633/uryuk_abrikos.jpg" alt="Урюк Королевский крупный" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Урюк Королевский крупный</h3>
-            <p class="catalog__item-origin">Таджикистан</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="850">1 кг</button>
-            </div>
-            <p class="catalog__item-price">850 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3763-3137-4630-b962-326466666663/9b5c461a-d2e0-4081-8.jpeg" alt="Клубника сушеная слайсы" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Клубника сушеная слайсы</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="247">70 г</button>
-              <button class="variant-btn" data-price="475">140 г</button>
-              <button class="variant-btn" data-price="712">210 г</button>
-              <button class="variant-btn" data-price="949">280 г</button>
-              <button class="variant-btn" data-price="1197">350 г</button>
-            </div>
-            <p class="catalog__item-price">247 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3530-3163-4961-b336-363733653562/G02413.jpg" alt="Груша сушеная слайсы" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Груша сушеная слайсы</h3>
-            <p class="catalog__item-origin">Иран</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="150">70 г</button>
-              <button class="variant-btn" data-price="230">140 г</button>
-              <button class="variant-btn" data-price="330">210 г</button>
-              <button class="variant-btn" data-price="420">280 г</button>
-              <button class="variant-btn" data-price="550">350 г</button>
-            </div>
-            <p class="catalog__item-price">150 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3161-3631-4261-b933-653165353830/_optimized.jpg" alt="Апельсины сушеные без сахара" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Апельсины сушеные без сахара</h3>
-            <p class="catalog__item-origin">Иран</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="99">70 г</button>
-              <button class="variant-btn" data-price="170">140 г</button>
-              <button class="variant-btn" data-price="250">210 г</button>
-              <button class="variant-btn" data-price="340">280 г</button>
-              <button class="variant-btn" data-price="420">350 г</button>
-            </div>
-            <p class="catalog__item-price">99 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3937-3262-4131-a431-303535346134/whatsapp-image-2022-.jpeg" alt="Киви сушеные слайсы" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Киви сушеные слайсы</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="190">70 г</button>
-              <button class="variant-btn" data-price="380">140 г</button>
-              <button class="variant-btn" data-price="570">210 г</button>
-              <button class="variant-btn" data-price="760">280 г</button>
-              <button class="variant-btn" data-price="950">350 г</button>
-              <button class="variant-btn" data-price="2500">1 кг</button>
-            </div>
-            <p class="catalog__item-price">190 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3533-3836-4238-b537-323931623638/250dd7a6-756f-4e47-a.jpg" alt="Слива сушеная слайсы" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Слива сушеная слайсы</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="150">70 г</button>
-              <button class="variant-btn" data-price="280">140 г</button>
-              <button class="variant-btn" data-price="399">210 г</button>
-              <button class="variant-btn" data-price="550">280 г</button>
-              <button class="variant-btn" data-price="670">350 г</button>
-              <button class="variant-btn" data-price="1900">1 кг</button>
-            </div>
-            <p class="catalog__item-price">150 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild6365-3134-4134-a634-356435396662/9ab72429-ff77-48c3-8.jpg" alt="Яблочные слайсы" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Яблочные слайсы</h3>
-            <p class="catalog__item-origin">Армения</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="150">70 г</button>
-              <button class="variant-btn" data-price="300">140 г</button>
-              <button class="variant-btn" data-price="450">210 г</button>
-              <button class="variant-btn" data-price="600">280 г</button>
-              <button class="variant-btn" data-price="750">350 г</button>
-              <button class="variant-btn" data-price="2250">1 кг</button>
-            </div>
-            <p class="catalog__item-price">150 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-            <button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>
-          </div>
-        </div>
-
-        <div class="catalog__item glow-card" data-category="dried-fruits">
-          <div class="catalog__item-image">
-            <img src="https://static.tildacdn.com/tild3431-3039-4732-b461-353633303832/60443711-a20f-4f5d-a.jpg" alt="Сушеный инжир (слайсы)" loading="lazy">
-          </div>
-          <div class="catalog__item-info">
-            <h3>Сушеный инжир (слайсы)</h3>
-            <p class="catalog__item-origin">Иран</p>
-            <div class="catalog__item-variants">
-              <button class="variant-btn active" data-price="150">70 г</button>
-              <button class="variant-btn" data-price="295">120г</button>
-              <button class="variant-btn" data-price="525">250г</button>
-              <button class="variant-btn" data-price="1317">500г</button>
-            </div>
-            <p class="catalog__item-price">150 ₽</p>
-            <span class="catalog__item-category">Сухофрукты</span>
-          </div>
-        </div>
-
-
       </div>
     </section>
   </main>
@@ -1463,81 +342,188 @@
 
   <script src="js/main.js"></script>
   <script>
-// Variant button price switching
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.variant-btn');
-  if (!btn) return;
-  const card = btn.closest('.catalog__item');
-  card.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const priceEl = card.querySelector('.catalog__item-price');
-  priceEl.textContent = btn.dataset.price + ' ₽';
-});
+  (function() {
+    var allProducts = [];
+    var activeCategory = 'all';
 
-// Category tab filtering
-const tabs = document.querySelectorAll('.catalog__tab');
-const items = document.querySelectorAll('.catalog__item[data-category]');
-
-function filterProducts() {
-  const activeTab = document.querySelector('.catalog__tab.active');
-  const cat = activeTab?.dataset.category || 'all';
-  const searchInput = document.getElementById('catalogSearch');
-  const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
-  items.forEach(item => {
-    const name = item.querySelector('h3')?.textContent.toLowerCase() || '';
-    const matchesSearch = !q || name.includes(q);
-    const matchesCat = cat === 'all' || item.dataset.category === cat;
-    if (matchesSearch && matchesCat) {
-      item.style.display = '';
-      item.classList.add('revealed');
-    } else {
-      item.style.display = 'none';
+    function decodeHtml(html) {
+      if (!html) return '';
+      var txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
     }
-  });
-}
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    filterProducts();
-  });
-});
-
-const searchInput = document.getElementById('catalogSearch');
-if (searchInput) {
-  searchInput.addEventListener('input', () => {
-    filterProducts();
-  });
-}
-
-
-// Activate category from URL parameter
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const category = params.get('category');
-  if (category) {
-    const tab = document.querySelector('.catalog__tab[data-category="' + CSS.escape(category) + '"]');
-    if (tab) {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      filterProducts();
+    function escapeHtml(str) {
+      if (!str) return '';
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
     }
-  }
-})();
 
-// Product card click-through to detail page
-document.querySelectorAll('.catalog__item').forEach(card => {
-  card.style.cursor = 'pointer';
-  card.addEventListener('click', (e) => {
-    // Don't navigate if clicking variant buttons or add-to-cart
-    if (e.target.closest('.variant-btn') || e.target.closest('.catalog__add-to-cart')) return;
-    const name = card.querySelector('h3')?.textContent;
-    if (name) {
-      window.location.href = '/product.html?name=' + encodeURIComponent(name);
+    function formatPrice(price) {
+      return new Intl.NumberFormat('ru-RU').format(price);
     }
-  });
-});
+
+    function categorySlug(category) {
+      var decoded = decodeHtml(category || '').toLowerCase().trim();
+      return decoded.replace(/\s+/g, '-');
+    }
+
+    function buildTabs(products) {
+      var categories = [];
+      var seen = {};
+      products.forEach(function(p) {
+        var cat = decodeHtml(p.category || '');
+        var slug = categorySlug(p.category);
+        if (cat && !seen[slug]) {
+          seen[slug] = true;
+          categories.push({ name: cat, slug: slug });
+        }
+      });
+      var tabsEl = document.getElementById('catalogTabs');
+      var html = '<button class="catalog__tab active" data-category="all">Все</button>';
+      categories.forEach(function(c) {
+        html += '<button class="catalog__tab" data-category="' + escapeHtml(c.slug) + '">' + escapeHtml(c.name) + '</button>';
+      });
+      tabsEl.innerHTML = html;
+
+      tabsEl.querySelectorAll('.catalog__tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          tabsEl.querySelectorAll('.catalog__tab').forEach(function(t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          activeCategory = tab.dataset.category;
+          filterProducts();
+        });
+      });
+    }
+
+    function renderCard(p) {
+      var name = decodeHtml(p.name);
+      var origin = decodeHtml(p.origin);
+      var category = decodeHtml(p.category);
+      var slug = categorySlug(p.category);
+      var imgSrc = p.imagePath || 'https://via.placeholder.com/600x600/151515/c9a84c?text=' + encodeURIComponent(name);
+
+      var hasVariants = p.variants && p.variants.length > 0;
+      var firstPrice = hasVariants ? p.variants[0].price : p.price;
+      var variantsHtml = '';
+
+      if (hasVariants) {
+        var sorted = p.variants.slice().sort(function(a, b) { return a.sortOrder - b.sortOrder; });
+        variantsHtml = '<div class="catalog__item-variants">';
+        sorted.forEach(function(v, i) {
+          variantsHtml += '<button class="variant-btn' + (i === 0 ? ' active' : '') + '" data-price="' + v.price + '">'
+            + escapeHtml(decodeHtml(v.weight)) + '</button>';
+        });
+        variantsHtml += '</div>';
+        firstPrice = sorted[0].price;
+      }
+
+      return '<div class="catalog__item glow-card" data-category="' + escapeHtml(slug) + '" data-name="' + escapeHtml(name.toLowerCase()) + '" data-id="' + p.id + '">'
+        + '<div class="catalog__item-image">'
+        + '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(name) + '" loading="lazy">'
+        + '</div>'
+        + '<div class="catalog__item-info">'
+        + '<h3>' + escapeHtml(name) + '</h3>'
+        + '<p class="catalog__item-origin">' + escapeHtml(origin) + '</p>'
+        + variantsHtml
+        + '<p class="catalog__item-price">' + formatPrice(firstPrice) + ' \u20BD</p>'
+        + '<span class="catalog__item-category">' + escapeHtml(category) + '</span>'
+        + '<button class="catalog__add-to-cart"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> В корзину</button>'
+        + '</div>'
+        + '</div>';
+    }
+
+    function renderGrid(products) {
+      var grid = document.getElementById('catalogGrid');
+      if (!products.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem 0;">'
+          + '<p style="font-family:\'Raleway\',sans-serif;font-size:1rem;color:rgba(255,255,255,0.5);">Товары не найдены</p></div>';
+        return;
+      }
+      var html = '';
+      products.forEach(function(p) { html += renderCard(p); });
+      grid.innerHTML = html;
+
+      grid.querySelectorAll('.catalog__item').forEach(function(card) {
+        card.classList.add('revealed');
+      });
+    }
+
+    function filterProducts() {
+      var searchInput = document.getElementById('catalogSearch');
+      var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      var grid = document.getElementById('catalogGrid');
+      var items = grid.querySelectorAll('.catalog__item');
+      items.forEach(function(item) {
+        var nameAttr = item.dataset.name || '';
+        var matchesSearch = !q || nameAttr.indexOf(q) !== -1;
+        var matchesCat = activeCategory === 'all' || item.dataset.category === activeCategory;
+        item.style.display = (matchesSearch && matchesCat) ? '' : 'none';
+      });
+    }
+
+    // Variant button price switching (delegated)
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.variant-btn');
+      if (!btn) return;
+      var card = btn.closest('.catalog__item');
+      if (!card) return;
+      card.querySelectorAll('.variant-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var priceEl = card.querySelector('.catalog__item-price');
+      if (priceEl) priceEl.textContent = formatPrice(parseInt(btn.dataset.price, 10)) + ' \u20BD';
+    });
+
+    // Product card click-through to detail page (delegated)
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.variant-btn') || e.target.closest('.catalog__add-to-cart')) return;
+      var card = e.target.closest('.catalog__item');
+      if (!card) return;
+      var id = card.dataset.id;
+      if (id) {
+        window.location.href = '/product.html?id=' + encodeURIComponent(id);
+      }
+    });
+
+    // Search input
+    var searchInput = document.getElementById('catalogSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        filterProducts();
+      });
+    }
+
+    // Load products from API
+    fetch('/api/products')
+      .then(function(res) {
+        if (!res.ok) throw new Error('API error');
+        return res.json();
+      })
+      .then(function(products) {
+        allProducts = products;
+        buildTabs(products);
+        renderGrid(products);
+
+        // Activate category from URL parameter
+        var params = new URLSearchParams(window.location.search);
+        var urlCategory = params.get('category');
+        if (urlCategory) {
+          var tab = document.querySelector('.catalog__tab[data-category="' + CSS.escape(urlCategory) + '"]');
+          if (tab) {
+            document.querySelectorAll('.catalog__tab').forEach(function(t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+            activeCategory = urlCategory;
+            filterProducts();
+          }
+        }
+      })
+      .catch(function() {
+        document.getElementById('catalogGrid').innerHTML =
+          '<div style="grid-column:1/-1;text-align:center;padding:3rem 0;">'
+          + '<p style="font-family:\'Raleway\',sans-serif;font-size:1rem;color:rgba(255,255,255,0.5);">Не удалось загрузить каталог. Попробуйте обновить страницу.</p></div>';
+      });
+  })();
   </script>
 </body>
 </html>

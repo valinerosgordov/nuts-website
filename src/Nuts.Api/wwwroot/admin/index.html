@@ -938,18 +938,39 @@
     async function uploadProductImage(productId, file) {
       const fd = new FormData();
       fd.append('file', file);
-      const res = await fetch(`${API}/api/admin/products/${productId}/image`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-        body: fd
-      });
+      let res;
+      try {
+        res = await fetch(`${API}/api/admin/products/${productId}/image`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: fd
+        });
+      } catch {
+        toast('Ошибка сети при загрузке фото', 'error');
+        return null;
+      }
       if (res.ok) {
-        const path = await res.json();
-        toast('Фото загружено', 'success');
-        return path;
-      } else {
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const path = await res.json();
+          toast('Фото загружено', 'success');
+          return path;
+        }
         const text = await res.text();
-        toast(text || 'Ошибка загрузки', 'error');
+        toast('Фото загружено', 'success');
+        return text || null;
+      } else {
+        if (res.status === 413) {
+          toast('Файл слишком большой (макс. 5 МБ)', 'error');
+        } else {
+          const contentType = res.headers.get('content-type') || '';
+          if (contentType.includes('text/html')) {
+            toast('Ошибка загрузки фото (код ' + res.status + ')', 'error');
+          } else {
+            const text = await res.text();
+            toast(text || 'Ошибка загрузки фото', 'error');
+          }
+        }
         return null;
       }
     }
