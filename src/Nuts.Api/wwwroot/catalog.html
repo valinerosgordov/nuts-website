@@ -372,6 +372,18 @@
     function buildTabs(products) {
       var categories = [];
       var seen = {};
+
+      // Always-visible default categories (even if no products yet)
+      var defaults = ['Орехи', 'Сухофрукты', 'Подарочные наборы'];
+      defaults.forEach(function(cat) {
+        var slug = categorySlug(cat);
+        if (!seen[slug]) {
+          seen[slug] = true;
+          categories.push({ name: cat, slug: slug });
+        }
+      });
+
+      // Add any additional categories from products
       products.forEach(function(p) {
         var cat = decodeHtml(p.category || '');
         var slug = categorySlug(p.category);
