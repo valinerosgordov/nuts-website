@@ -677,9 +677,10 @@
       });
 
       // Variant selection
-      document.querySelectorAll('.product-variant-btn').forEach(function(btn) {
+      var variantBtns = document.querySelectorAll('.product-variant-btn');
+      variantBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
-          document.querySelectorAll('.product-variant-btn').forEach(function(b) { b.classList.remove('active'); });
+          variantBtns.forEach(function(b) { b.classList.remove('active'); });
           btn.classList.add('active');
           var price = parseInt(btn.dataset.price, 10);
           var weight = btn.dataset.weight;
@@ -692,6 +693,11 @@
           }
         });
       });
+
+      // Auto-select first variant so cart button is immediately active
+      if (variantBtns.length > 0) {
+        variantBtns[0].click();
+      }
 
       // Add to cart
       var addBtn = document.getElementById('addToCartBtn');
