@@ -1,9 +1,9 @@
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using Nuts.Api.Security;
 
 namespace Nuts.Api.Endpoints;
 
@@ -15,16 +15,20 @@ public static class AuthEndpoints
             LoginRequest req, IConfiguration config) =>
         {
             var adminUser = config["Admin:Username"] ?? "admin";
-            var adminPassHash = config["Admin:PasswordHash"] ?? HashPassword("admin");
+            var adminPassHash = config["Admin:PasswordHash"] ?? string.Empty;
 
-            var inputHash = HashPassword(req.Password);
-            var expected = Encoding.UTF8.GetBytes(adminPassHash);
-            var actual = Encoding.UTF8.GetBytes(inputHash);
+            // Reject if admin hash is not configured — never allow a default password.
+            if (string.IsNullOrWhiteSpace(adminPassHash)
+                || req.Username != adminUser
+                || !PasswordHasher.Verify(req.Password, adminPassHash))
+            {
+                return Task.FromResult<Results<Ok<LoginResponse>, UnauthorizedHttpResult>>(
+                    TypedResults.Unauthorized());
+            }
 
-            if (req.Username != adminUser || !CryptographicOperations.FixedTimeEquals(actual, expected))
-                return Task.FromResult<Results<Ok<LoginResponse>, UnauthorizedHttpResult>>(TypedResults.Unauthorized());
-
-            var key = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? config["Jwt:Key"] ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+            var key = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+                ?? config["Jwt:Key"]
+                ?? throw new InvalidOperationException("JWT_SECRET_KEY env var or Jwt:Key config required");
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
@@ -47,13 +51,6 @@ public static class AuthEndpoints
             return Task.FromResult<Results<Ok<LoginResponse>, UnauthorizedHttpResult>>(
                 TypedResults.Ok(new LoginResponse(token)));
         }).WithTags("Auth").AllowAnonymous();
-    }
-
-    // TODO: Upgrade admin password hashing to PBKDF2 (currently SHA256 because the hash is stored in appsettings config)
-    private static string HashPassword(string password)
-    {
-        var hash = SHA256.HashData(Encoding.UTF8.GetBytes(password));
-        return Convert.ToHexStringLower(hash);
     }
 }
 

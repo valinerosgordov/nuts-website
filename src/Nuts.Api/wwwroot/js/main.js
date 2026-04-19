@@ -532,8 +532,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const escapeHtml = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
     searchInput.addEventListener('input', () => {
       const q = searchInput.value.toLowerCase().trim();
       if (!q) { searchResults.innerHTML = ''; return; }

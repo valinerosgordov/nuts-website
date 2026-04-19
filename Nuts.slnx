@@ -5,4 +5,7 @@
     <Project Path="src/Nuts.Domain/Nuts.Domain.csproj" />
     <Project Path="src/Nuts.Infrastructure/Nuts.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Nuts.Tests/Nuts.Tests.csproj" />
+  </Folder>
 </Solution>

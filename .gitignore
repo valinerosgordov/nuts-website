@@ -27,8 +27,11 @@ Thumbs.db
 .DS_Store
 
 ## Secrets
+appsettings.json
 appsettings.Development.json
 appsettings.Production.json
+.env
+
 
 ## Claude
 .claude/
