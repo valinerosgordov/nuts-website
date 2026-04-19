@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,6 +8,16 @@ using Nuts.Api.Endpoints;
 using Nuts.Domain.Entities;
 using Nuts.Infrastructure;
 using Nuts.Infrastructure.Persistence;
+
+// CLI: `dotnet Nuts.Api.dll hash-password "password"` — generate PBKDF2 salt:hash for Admin:PasswordHash.
+if (args.Length >= 2 && args[0] == "hash-password")
+{
+    var password = args[1];
+    var salt = RandomNumberGenerator.GetBytes(16);
+    var hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
+    Console.WriteLine($"{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}");
+    return;
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +32,7 @@ builder.Services.AddHealthChecks();
 // Auth
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
     ?? builder.Configuration["Jwt:Key"]
-    ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+    ?? throw new InvalidOperationException("JWT_SECRET_KEY env var or Jwt:Key config required");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -156,7 +167,7 @@ app.MapBannerEndpoints();
 app.MapMoySkladEndpoints();
 app.MapOrderEndpoints();
 
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/health/live");
 
 // Fallback to index.html for SPA-like routing
 app.MapFallbackToFile("index.html");

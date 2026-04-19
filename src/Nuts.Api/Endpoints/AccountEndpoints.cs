@@ -220,28 +220,15 @@ public static class AccountEndpoints
         return Guid.TryParse(idClaim, out var id) ? id : null;
     }
 
-    private static string HashPassword(string password)
-    {
-        var salt = RandomNumberGenerator.GetBytes(16);
-        var hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
-        return $"{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}";
-    }
+    private static string HashPassword(string password) => Nuts.Api.Security.PasswordHasher.Hash(password);
 
-    private static bool VerifyPassword(string password, string storedHash)
-    {
-        var parts = storedHash.Split(':');
-        if (parts.Length != 2) return false;
-        var salt = Convert.FromBase64String(parts[0]);
-        var hash = Convert.FromBase64String(parts[1]);
-        var computed = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
-        return CryptographicOperations.FixedTimeEquals(hash, computed);
-    }
+    private static bool VerifyPassword(string password, string storedHash) => Nuts.Api.Security.PasswordHasher.Verify(password, storedHash);
 
     private static string GenerateToken(User user, IConfiguration config)
     {
         var key = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
             ?? config["Jwt:Key"]
-            ?? "NutsSecretKeyForDevAtLeast32Bytes!!";
+            ?? throw new InvalidOperationException("JWT_SECRET_KEY env var or Jwt:Key config required");
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
