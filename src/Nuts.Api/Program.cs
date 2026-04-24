@@ -21,9 +21,10 @@ if (args.Length >= 2 && args[0] == "hash-password")
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Observability
-var otlpEndpoint = builder.Configuration["Observability:OtlpEndpoint"] ?? "http://72.56.9.91:4317";
-builder.AddObservability("nuts-api", otlpEndpoint);
+// Observability — optional, only if OTLP endpoint configured
+var otlpEndpoint = builder.Configuration["Observability:OtlpEndpoint"];
+if (!string.IsNullOrWhiteSpace(otlpEndpoint))
+    builder.AddObservability("nuts-api", otlpEndpoint);
 
 // Infrastructure (EF Core + repos)
 builder.Services.AddInfrastructure(builder.Configuration);
