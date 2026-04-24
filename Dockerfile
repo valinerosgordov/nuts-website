@@ -3,8 +3,11 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
 EXPOSE 5100
 
-# Non-root user for runtime
-RUN useradd -u 1001 -m appuser && mkdir -p /app/data /app/wwwroot/uploads \
+# Install curl for healthcheck + non-root user for runtime
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd -u 1001 -m appuser \
+    && mkdir -p /app/data /app/wwwroot/uploads \
     && chown -R appuser:appuser /app
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
@@ -42,6 +45,6 @@ ENV ConnectionStrings__Default="Data Source=/app/data/nuts.db"
 VOLUME ["/app/data", "/app/wwwroot/uploads"]
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:5100/health/live || exit 1
+    CMD curl -fsS http://localhost:5100/health/live || exit 1
 
 ENTRYPOINT ["dotnet", "Nuts.Api.dll"]
