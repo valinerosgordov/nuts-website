@@ -29,13 +29,14 @@ public sealed record MoySkladOrderItem(string ProductName, string Weight, int Qu
 public sealed class MoySkladService(HttpClient http) : IMoySkladService
 {
     private const string BaseUrl = "https://api.moysklad.ru/api/remap/1.2/";
-    private const string OrgId = "fcc24f5d-03b3-11ea-0a80-05c00007bf2d";
+    private static string _orgId = "";
 
-    public static void Configure(HttpClient client, string token)
+    public static void Configure(HttpClient client, string token, string orgId)
     {
         client.BaseAddress = new Uri(BaseUrl);
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+        _orgId = orgId;
     }
 
     public async Task<List<MoySkladProduct>> GetProductsAsync(CancellationToken ct)
@@ -113,7 +114,7 @@ public sealed class MoySkladService(HttpClient http) : IMoySkladService
 
             var orderBody = new
             {
-                organization = new { meta = new { href = $"{BaseUrl}entity/organization/{OrgId}", type = "organization", mediaType = "application/json" } },
+                organization = new { meta = new { href = $"{BaseUrl}entity/organization/{_orgId}", type = "organization", mediaType = "application/json" } },
                 agent = new { meta = new { href = agentHref, type = "counterparty", mediaType = "application/json" } },
                 shipmentAddress = order.ShippingAddress ?? "",
                 description = BuildDescription(order),

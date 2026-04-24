@@ -34,7 +34,8 @@ public static class DependencyInjection
         services.AddHttpClient<IMoySkladService, MoySkladService>((sp, http) =>
         {
             var token = Environment.GetEnvironmentVariable("MOYSKLAD_TOKEN") ?? configuration["MoySklad:Token"] ?? "";
-            MoySkladService.Configure(http, token);
+            var orgId = Environment.GetEnvironmentVariable("MOYSKLAD_ORG_ID") ?? configuration["MoySklad:OrganizationId"] ?? "";
+            MoySkladService.Configure(http, token, orgId);
         });
 
         return services;

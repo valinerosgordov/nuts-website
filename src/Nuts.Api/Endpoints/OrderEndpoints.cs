@@ -33,7 +33,7 @@ public static class OrderEndpoints
             foreach (var item in req.Items)
             {
                 var addResult = order.AddItem(
-                    Guid.NewGuid(), item.ProductName, item.Quantity, item.UnitPrice, item.Weight);
+                    item.ProductId ?? Guid.NewGuid(), item.ProductName, item.Quantity, item.UnitPrice, item.Weight);
                 if (addResult.IsFailure)
                     return TypedResults.BadRequest(addResult.Error.Message);
             }
@@ -133,6 +133,7 @@ public sealed record PublicCreateOrderRequest
 
 public sealed record PublicOrderItemRequest
 {
+    public Guid? ProductId { get; init; }
     public required string ProductName { get; init; }
     public required string Weight { get; init; }
     public required int Quantity { get; init; }
