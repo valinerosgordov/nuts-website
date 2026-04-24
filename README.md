@@ -61,3 +61,32 @@ http://217.199.252.33/admin/
 ```bash
 dotnet test tests/Nuts.Tests
 ```
+
+## Бэкапы
+
+На проде настроен ежедневный автобэкап БД (`nuts.db`) и директории `uploads/`.
+
+- **Расписание:** ежедневно в 03:00 по серверному времени (cron)
+- **Хранилище:** `/opt/nuts/backups/` на сервере
+- **Ретенция:** последние 14 копий (старше — удаляются автоматически)
+- **Скрипты:** `/opt/nuts/backup.sh`, `/opt/nuts/restore.sh`
+- **Логи:** `/var/log/nuts-backup.log`
+
+### Ручной бэкап
+```bash
+ssh root@217.199.252.33
+/opt/nuts/backup.sh
+```
+
+### Восстановление
+```bash
+ssh root@217.199.252.33
+ls /opt/nuts/backups/                       # посмотреть доступные timestamps
+/opt/nuts/restore.sh YYYYMMDD_HHMMSS        # например 20260424_150641
+```
+Скрипт восстановит `nuts.db` в контейнер `nuts-api`, перезапустит контейнер и распакует `uploads.tar.gz` в volume.
+
+## Мониторинг
+
+На сервере работает healthcheck каждые 5 минут (cron, `/opt/nuts/healthcheck.sh`):
+если `curl http://localhost/` не отвечает за 10 секунд — выполняется `docker compose restart`. Логи: `/var/log/nuts-health.log`.

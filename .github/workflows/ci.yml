@@ -25,6 +25,9 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
+      - name: Test
+        run: dotnet test --no-restore --configuration Release --verbosity minimal
+
       - name: Publish
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: dotnet publish src/Nuts.Api/Nuts.Api.csproj --configuration Release --output ./publish
