@@ -165,7 +165,7 @@ public static class AccountEndpoints
             foreach (var item in req.Items)
             {
                 var addResult = order.AddItem(
-                    Guid.NewGuid(), item.ProductName, item.Quantity, item.UnitPrice, item.Weight);
+                    item.ProductId ?? Guid.NewGuid(), item.ProductName, item.Quantity, item.UnitPrice, item.Weight);
                 if (addResult.IsFailure)
                     return TypedResults.BadRequest(addResult.Error.Message);
             }
@@ -297,6 +297,7 @@ public sealed record CreateOrderRequest
 
 public sealed record CreateOrderItemRequest
 {
+    public Guid? ProductId { get; init; }
     public required string ProductName { get; init; }
     public required int Quantity { get; init; }
     public required decimal UnitPrice { get; init; }

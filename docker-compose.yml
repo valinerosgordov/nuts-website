@@ -20,6 +20,7 @@ services:
       Admin__Username: ${ADMIN_USERNAME:-admin}
       Admin__PasswordHash: ${ADMIN_PASSWORD_HASH:?ADMIN_PASSWORD_HASH must be set in .env}
       MoySklad__Token: ${MOYSKLAD_TOKEN:-}
+      MoySklad__OrganizationId: ${MOYSKLAD_ORG_ID:-}
       Observability__OtlpEndpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
     volumes:
       - nuts-data:/app/data
