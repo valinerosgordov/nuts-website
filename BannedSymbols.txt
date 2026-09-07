@@ -1,0 +1,24 @@
+# FORBIDDEN из свода конвенций оператора по C#. Проверяется компилятором, а не чтением кода.
+# Формат: T:/M:/P:/F: — тип, метод, свойство, поле; после ';' — текст ошибки.
+# Ставится в режиме предупреждения; поднимается до ошибки отдельным шагом, по одному правилу.
+
+# Блокирующие вызовы: всегда await. Task.Run на тот же пул лекарством от голодания не является.
+M:System.Threading.Tasks.Task.Wait();Блокирующее ожидание. Свод: всегда await, никогда .Wait().
+M:System.Threading.Tasks.Task.Wait(System.Int32);Блокирующее ожидание. Свод: всегда await.
+M:System.Threading.Tasks.Task.Wait(System.TimeSpan);Блокирующее ожидание. Свод: всегда await.
+P:System.Threading.Tasks.Task`1.Result;Блокирующее чтение результата. Свод: всегда await, никогда .Result.
+
+# Ключи: v4 фрагментирует индекс page-split'ами. Свод требует Guid.CreateVersion7().
+M:System.Guid.NewGuid();Свод: Guid.CreateVersion7() вместо NewGuid() — v4 фрагментирует индекс.
+
+# Время: тестируемость. Свод требует TimeProvider (в тестах FakeTimeProvider).
+P:System.DateTime.Now;Свод: TimeProvider, а не DateTime.Now — иначе время не подменить в тестах.
+P:System.DateTime.UtcNow;Свод: TimeProvider, а не DateTime.UtcNow.
+P:System.DateTimeOffset.Now;Свод: TimeProvider, а не DateTimeOffset.Now.
+P:System.DateTimeOffset.UtcNow;Свод: TimeProvider, а не DateTimeOffset.UtcNow.
+
+# Культура: разбор чисел и дат без явной культуры — источник тихих расхождений
+# (запятая против точки). Этот класс уже ловили в парсере сумм казны.
+M:System.Double.Parse(System.String);Разбор без культуры. Укажи IFormatProvider явно.
+M:System.Decimal.Parse(System.String);Разбор без культуры. Укажи IFormatProvider явно.
+M:System.DateTime.Parse(System.String);Разбор без культуры. Укажи IFormatProvider явно.

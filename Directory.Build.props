@@ -1,0 +1,59 @@
+<Project>
+
+  <!--
+    Machine gate for the operator's C# conventions (canon: ~/.claude/stacks/csharp.md).
+    Ratchet, not a wall: analyzers run in WARNING mode so the build stays green while the debt
+    becomes a number; rules are promoted to error one at a time as their violations reach zero.
+    Template origin: Threshold (verified 2026-09), spread across the park 2026-09-07.
+  -->
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- The debt is measured, not detonated: analyzer findings must not fail a build.
+         Promotion happens in WarningsAsErrors below, rule by rule. -->
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+
+    <!-- Nothing is promoted yet. RS0030 (banned symbols) and VSTHRD100 (async void) stay WARNINGS
+         until this repo's violations against them reach zero — then each is promoted in its own
+         commit, one rule at a time. The debt is visible as warning count, not hidden. -->
+
+    <!-- NU1900 is "could not reach the vulnerability source", not "a vulnerability was found".
+         The real findings (NU1901-1905) stay errors; a build that cannot run offline is a hostage. -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1900</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Supply chain (core principle #5): a restore must not be able to pull a different package
+         set than the one that was reviewed. -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.12.19" PrivateAssets="all" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)BannedSymbols.txt" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!--
+      Rules deliberately switched off, with the reason. A suppressed rule without a reason is
+      how a canon quietly stops being a canon.
+
+      CA1515  — "type could be internal". This is an application, not a library; its own types
+                being public is not a defect.
+      CA1062  — null-check on public arguments. Nullable reference types are on and the compiler
+                already refuses null where it matters.
+      CA2007  — ConfigureAwait. The canon requires it in LIBRARY code; an application has no
+                SynchronizationContext to guard.
+    -->
+    <NoWarn>$(NoWarn);CA1515;CA1062;CA2007</NoWarn>
+  </PropertyGroup>
+
+</Project>
